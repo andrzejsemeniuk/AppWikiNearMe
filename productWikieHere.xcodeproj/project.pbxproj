@@ -27,6 +27,9 @@
 		57010A251CA088D7007C6CFF /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57010A241CA088D7007C6CFF /* Data.swift */; settings = {ASSET_TAGS = (); }; };
 		57010A261CA088D7007C6CFF /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57010A241CA088D7007C6CFF /* Data.swift */; settings = {ASSET_TAGS = (); }; };
 		57010A271CA088D7007C6CFF /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57010A241CA088D7007C6CFF /* Data.swift */; settings = {ASSET_TAGS = (); }; };
+		57010A291CA0D4F6007C6CFF /* Source.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57010A281CA0D4F6007C6CFF /* Source.swift */; settings = {ASSET_TAGS = (); }; };
+		57010A2A1CA0D4F6007C6CFF /* Source.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57010A281CA0D4F6007C6CFF /* Source.swift */; settings = {ASSET_TAGS = (); }; };
+		57010A2B1CA0D4F6007C6CFF /* Source.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57010A281CA0D4F6007C6CFF /* Source.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +68,7 @@
 		57010A1C1CA073DB007C6CFF /* ControllerOfMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControllerOfMap.swift; sourceTree = "<group>"; };
 		57010A201CA07850007C6CFF /* ControllerOfPages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControllerOfPages.swift; sourceTree = "<group>"; };
 		57010A241CA088D7007C6CFF /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		57010A281CA0D4F6007C6CFF /* Source.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Source.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +125,7 @@
 				57010A1C1CA073DB007C6CFF /* ControllerOfMap.swift */,
 				57010A201CA07850007C6CFF /* ControllerOfPages.swift */,
 				57010A241CA088D7007C6CFF /* Data.swift */,
+				57010A281CA0D4F6007C6CFF /* Source.swift */,
 				570109F51CA06682007C6CFF /* Info.plist */,
 				570109F21CA06682007C6CFF /* LaunchScreen.storyboard */,
 				570109EA1CA06682007C6CFF /* Main.storyboard */,
@@ -279,6 +284,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57010A291CA0D4F6007C6CFF /* Source.swift in Sources */,
 				57010A251CA088D7007C6CFF /* Data.swift in Sources */,
 				570109EF1CA06682007C6CFF /* productWikieHere.xcdatamodeld in Sources */,
 				57010A1D1CA073DB007C6CFF /* ControllerOfMap.swift in Sources */,
@@ -295,6 +301,7 @@
 			files = (
 				57010A1A1CA073CC007C6CFF /* ControllerOfList.swift in Sources */,
 				57010A261CA088D7007C6CFF /* Data.swift in Sources */,
+				57010A2A1CA0D4F6007C6CFF /* Source.swift in Sources */,
 				570109FF1CA06682007C6CFF /* productWikieHereTests.swift in Sources */,
 				57010A1E1CA073DB007C6CFF /* ControllerOfMap.swift in Sources */,
 				57010A221CA07850007C6CFF /* ControllerOfPages.swift in Sources */,
@@ -307,6 +314,7 @@
 			files = (
 				57010A1B1CA073CC007C6CFF /* ControllerOfList.swift in Sources */,
 				57010A271CA088D7007C6CFF /* Data.swift in Sources */,
+				57010A2B1CA0D4F6007C6CFF /* Source.swift in Sources */,
 				57010A0A1CA06682007C6CFF /* productWikieHereUITests.swift in Sources */,
 				57010A1F1CA073DB007C6CFF /* ControllerOfMap.swift in Sources */,
 				57010A231CA07850007C6CFF /* ControllerOfPages.swift in Sources */,
