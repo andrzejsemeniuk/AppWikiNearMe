@@ -30,6 +30,10 @@
 		57010A291CA0D4F6007C6CFF /* Source.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57010A281CA0D4F6007C6CFF /* Source.swift */; settings = {ASSET_TAGS = (); }; };
 		57010A2A1CA0D4F6007C6CFF /* Source.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57010A281CA0D4F6007C6CFF /* Source.swift */; settings = {ASSET_TAGS = (); }; };
 		57010A2B1CA0D4F6007C6CFF /* Source.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57010A281CA0D4F6007C6CFF /* Source.swift */; settings = {ASSET_TAGS = (); }; };
+		57010A2D1CA0E2E3007C6CFF /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 57010A2C1CA0E2E3007C6CFF /* Podfile */; settings = {ASSET_TAGS = (); }; };
+		57010A2E1CA0E2E3007C6CFF /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 57010A2C1CA0E2E3007C6CFF /* Podfile */; settings = {ASSET_TAGS = (); }; };
+		57010A2F1CA0E2E3007C6CFF /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 57010A2C1CA0E2E3007C6CFF /* Podfile */; settings = {ASSET_TAGS = (); }; };
+		EE2E3854BD1E54C36EE4DA2B /* Pods_productWikieHere.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D99F809DACD108306722A700 /* Pods_productWikieHere.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +73,10 @@
 		57010A201CA07850007C6CFF /* ControllerOfPages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControllerOfPages.swift; sourceTree = "<group>"; };
 		57010A241CA088D7007C6CFF /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		57010A281CA0D4F6007C6CFF /* Source.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Source.swift; sourceTree = "<group>"; };
+		57010A2C1CA0E2E3007C6CFF /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		5997A4FF0E27784DB2295F0B /* Pods-productWikieHere.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-productWikieHere.release.xcconfig"; path = "Pods/Target Support Files/Pods-productWikieHere/Pods-productWikieHere.release.xcconfig"; sourceTree = "<group>"; };
+		7B8EA76D2FF81C47B7A98283 /* Pods-productWikieHere.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-productWikieHere.debug.xcconfig"; path = "Pods/Target Support Files/Pods-productWikieHere/Pods-productWikieHere.debug.xcconfig"; sourceTree = "<group>"; };
+		D99F809DACD108306722A700 /* Pods_productWikieHere.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_productWikieHere.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE2E3854BD1E54C36EE4DA2B /* Pods_productWikieHere.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,13 +105,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1792847D680AB7A8BE170D0C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7B8EA76D2FF81C47B7A98283 /* Pods-productWikieHere.debug.xcconfig */,
+				5997A4FF0E27784DB2295F0B /* Pods-productWikieHere.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		570109DA1CA06682007C6CFF = {
 			isa = PBXGroup;
 			children = (
+				57010A2C1CA0E2E3007C6CFF /* Podfile */,
 				570109E51CA06682007C6CFF /* productWikieHere */,
 				570109FD1CA06682007C6CFF /* productWikieHereTests */,
 				57010A081CA06682007C6CFF /* productWikieHereUITests */,
 				570109E41CA06682007C6CFF /* Products */,
+				1792847D680AB7A8BE170D0C /* Pods */,
+				876937EAEE4C817BA50FADD2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -153,6 +174,14 @@
 			path = productWikieHereUITests;
 			sourceTree = "<group>";
 		};
+		876937EAEE4C817BA50FADD2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D99F809DACD108306722A700 /* Pods_productWikieHere.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -160,9 +189,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 57010A0E1CA06682007C6CFF /* Build configuration list for PBXNativeTarget "productWikieHere" */;
 			buildPhases = (
+				A340198437341CCD948B816B /* Check Pods Manifest.lock */,
 				570109DF1CA06682007C6CFF /* Sources */,
 				570109E01CA06682007C6CFF /* Frameworks */,
 				570109E11CA06682007C6CFF /* Resources */,
+				AA995A1D2836A72A828AAAC5 /* Embed Pods Frameworks */,
+				5CD75773ADEC076F31E96369 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -259,6 +291,7 @@
 			files = (
 				570109F41CA06682007C6CFF /* LaunchScreen.storyboard in Resources */,
 				570109F11CA06682007C6CFF /* Assets.xcassets in Resources */,
+				57010A2D1CA0E2E3007C6CFF /* Podfile in Resources */,
 				570109EC1CA06682007C6CFF /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -267,6 +300,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57010A2E1CA0E2E3007C6CFF /* Podfile in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,10 +308,59 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57010A2F1CA0E2E3007C6CFF /* Podfile in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5CD75773ADEC076F31E96369 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-productWikieHere/Pods-productWikieHere-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A340198437341CCD948B816B /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		AA995A1D2836A72A828AAAC5 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-productWikieHere/Pods-productWikieHere-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		570109DF1CA06682007C6CFF /* Sources */ = {
@@ -439,6 +522,7 @@
 		};
 		57010A0F1CA06682007C6CFF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7B8EA76D2FF81C47B7A98283 /* Pods-productWikieHere.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -451,6 +535,7 @@
 		};
 		57010A101CA06682007C6CFF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5997A4FF0E27784DB2295F0B /* Pods-productWikieHere.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -528,6 +613,7 @@
 				57010A101CA06682007C6CFF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		57010A111CA06682007C6CFF /* Build configuration list for PBXNativeTarget "productWikieHereTests" */ = {
 			isa = XCConfigurationList;
@@ -536,6 +622,7 @@
 				57010A131CA06682007C6CFF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		57010A141CA06682007C6CFF /* Build configuration list for PBXNativeTarget "productWikieHereUITests" */ = {
 			isa = XCConfigurationList;
@@ -544,6 +631,7 @@
 				57010A161CA06682007C6CFF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
