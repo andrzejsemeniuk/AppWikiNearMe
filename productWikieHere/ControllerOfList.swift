@@ -14,7 +14,7 @@ class ControllerOfList : UITableViewController
     static var instance:ControllerOfList! = nil
 
     
-    var items:[Item] = []
+    var items:[Data.Item] = []
     
     
     override func viewDidLoad()

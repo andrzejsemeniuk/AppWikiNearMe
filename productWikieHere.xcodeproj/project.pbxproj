@@ -33,7 +33,7 @@
 		57010A2D1CA0E2E3007C6CFF /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 57010A2C1CA0E2E3007C6CFF /* Podfile */; settings = {ASSET_TAGS = (); }; };
 		57010A2E1CA0E2E3007C6CFF /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 57010A2C1CA0E2E3007C6CFF /* Podfile */; settings = {ASSET_TAGS = (); }; };
 		57010A2F1CA0E2E3007C6CFF /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 57010A2C1CA0E2E3007C6CFF /* Podfile */; settings = {ASSET_TAGS = (); }; };
-		EE2E3854BD1E54C36EE4DA2B /* Pods_productWikieHere.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D99F809DACD108306722A700 /* Pods_productWikieHere.framework */; };
+		8FE9F31AF48D8BEF71FC6EFB /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93920AAC3FC4E9D139465942 /* Pods.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +54,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		48ABA58AC5B921C5B5760C53 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		570109E31CA06682007C6CFF /* productWikieHere.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = productWikieHere.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		570109E61CA06682007C6CFF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		570109E81CA06682007C6CFF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -62,7 +63,7 @@
 		570109F01CA06682007C6CFF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		570109F31CA06682007C6CFF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		570109F51CA06682007C6CFF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		570109FA1CA06682007C6CFF /* productWikieHereTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = productWikieHereTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		570109FA1CA06682007C6CFF /* Wiki Near Me.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Wiki Near Me.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		570109FE1CA06682007C6CFF /* productWikieHereTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = productWikieHereTests.swift; sourceTree = "<group>"; };
 		57010A001CA06682007C6CFF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		57010A051CA06682007C6CFF /* productWikieHereUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = productWikieHereUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -74,9 +75,8 @@
 		57010A241CA088D7007C6CFF /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		57010A281CA0D4F6007C6CFF /* Source.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Source.swift; sourceTree = "<group>"; };
 		57010A2C1CA0E2E3007C6CFF /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
-		5997A4FF0E27784DB2295F0B /* Pods-productWikieHere.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-productWikieHere.release.xcconfig"; path = "Pods/Target Support Files/Pods-productWikieHere/Pods-productWikieHere.release.xcconfig"; sourceTree = "<group>"; };
-		7B8EA76D2FF81C47B7A98283 /* Pods-productWikieHere.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-productWikieHere.debug.xcconfig"; path = "Pods/Target Support Files/Pods-productWikieHere/Pods-productWikieHere.debug.xcconfig"; sourceTree = "<group>"; };
-		D99F809DACD108306722A700 /* Pods_productWikieHere.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_productWikieHere.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		93920AAC3FC4E9D139465942 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B66852DB93AB40057F3879D8 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,7 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EE2E3854BD1E54C36EE4DA2B /* Pods_productWikieHere.framework in Frameworks */,
+				8FE9F31AF48D8BEF71FC6EFB /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,8 +108,8 @@
 		1792847D680AB7A8BE170D0C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				7B8EA76D2FF81C47B7A98283 /* Pods-productWikieHere.debug.xcconfig */,
-				5997A4FF0E27784DB2295F0B /* Pods-productWikieHere.release.xcconfig */,
+				B66852DB93AB40057F3879D8 /* Pods.debug.xcconfig */,
+				48ABA58AC5B921C5B5760C53 /* Pods.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -131,7 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				570109E31CA06682007C6CFF /* productWikieHere.app */,
-				570109FA1CA06682007C6CFF /* productWikieHereTests.xctest */,
+				570109FA1CA06682007C6CFF /* Wiki Near Me.xctest */,
 				57010A051CA06682007C6CFF /* productWikieHereUITests.xctest */,
 			);
 			name = Products;
@@ -146,11 +146,11 @@
 				57010A1C1CA073DB007C6CFF /* ControllerOfMap.swift */,
 				57010A201CA07850007C6CFF /* ControllerOfPages.swift */,
 				57010A241CA088D7007C6CFF /* Data.swift */,
-				57010A281CA0D4F6007C6CFF /* Source.swift */,
 				570109F51CA06682007C6CFF /* Info.plist */,
 				570109F21CA06682007C6CFF /* LaunchScreen.storyboard */,
 				570109EA1CA06682007C6CFF /* Main.storyboard */,
 				570109ED1CA06682007C6CFF /* productWikieHere.xcdatamodeld */,
+				57010A281CA0D4F6007C6CFF /* Source.swift */,
 				570109E81CA06682007C6CFF /* ViewController.swift */,
 			);
 			path = productWikieHere;
@@ -177,7 +177,7 @@
 		876937EAEE4C817BA50FADD2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D99F809DACD108306722A700 /* Pods_productWikieHere.framework */,
+				93920AAC3FC4E9D139465942 /* Pods.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -220,7 +220,7 @@
 			);
 			name = productWikieHereTests;
 			productName = productWikieHereTests;
-			productReference = 570109FA1CA06682007C6CFF /* productWikieHereTests.xctest */;
+			productReference = 570109FA1CA06682007C6CFF /* Wiki Near Me.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		57010A041CA06682007C6CFF /* productWikieHereUITests */ = {
@@ -327,7 +327,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-productWikieHere/Pods-productWikieHere-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A340198437341CCD948B816B /* Check Pods Manifest.lock */ = {
@@ -357,7 +357,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-productWikieHere/Pods-productWikieHere-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -522,7 +522,7 @@
 		};
 		57010A0F1CA06682007C6CFF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7B8EA76D2FF81C47B7A98283 /* Pods-productWikieHere.debug.xcconfig */;
+			baseConfigurationReference = B66852DB93AB40057F3879D8 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -535,7 +535,7 @@
 		};
 		57010A101CA06682007C6CFF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5997A4FF0E27784DB2295F0B /* Pods-productWikieHere.release.xcconfig */;
+			baseConfigurationReference = 48ABA58AC5B921C5B5760C53 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -553,7 +553,7 @@
 				INFOPLIST_FILE = productWikieHereTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tinygamefactory.productWikieHereTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Wiki Near Me";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/productWikieHere.app/productWikieHere";
 			};
 			name = Debug;
@@ -565,7 +565,7 @@
 				INFOPLIST_FILE = productWikieHereTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tinygamefactory.productWikieHereTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Wiki Near Me";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/productWikieHere.app/productWikieHere";
 			};
 			name = Release;

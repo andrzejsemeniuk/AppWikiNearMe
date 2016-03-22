@@ -63,7 +63,7 @@ class ControllerOfPages : UIPageViewController, UIPageViewControllerDataSource, 
     func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int
     {
         switch pageViewController {
-        case ControllerOfList.instance.navigationController:    return  0
+        case ControllerOfList.instance.navigationController!:   return  0
         case ControllerOfMap.instance:                          return  1
         default:                                                return -1
         }

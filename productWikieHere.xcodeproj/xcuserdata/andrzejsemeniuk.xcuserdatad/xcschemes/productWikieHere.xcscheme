@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "570109F91CA06682007C6CFF"
-               BuildableName = "productWikieHereTests.xctest"
+               BuildableName = "Wiki Near Me.xctest"
                BlueprintName = "productWikieHereTests"
                ReferencedContainer = "container:productWikieHere.xcodeproj">
             </BuildableReference>

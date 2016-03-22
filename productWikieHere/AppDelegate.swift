@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let controllerOfList        = ControllerOfList()
         
-        let navigatorOfControllerOfList = UINavigationController(controllerOfList)
+        let navigatorOfControllerOfList = UINavigationController(rootViewController: controllerOfList)
         
         let controllerOfMap         = ControllerOfMap()
         
