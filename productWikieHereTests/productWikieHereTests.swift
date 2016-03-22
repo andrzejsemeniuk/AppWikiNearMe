@@ -26,6 +26,39 @@ class productWikieHereTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
     
+    func testStartUp() {
+        
+    }
+    
+    func testConnectToWikipedia() {
+        
+    }
+    
+    func testWikipediaGetGeoSearchBasic() {
+        
+    }
+    
+    func testHasListController() {
+        
+    }
+    
+    func testHasHasMapController() {
+        
+    }
+    
+    func test2ViewControllers() {
+        
+    }
+    
+    func testListItemsBasedOnCurrentLocation() {
+        
+    }
+    
+    func testMapDisplayBasedOnCurrentLocation() {
+        XCTAssert(0)
+        
+    }
+    
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measureBlock {

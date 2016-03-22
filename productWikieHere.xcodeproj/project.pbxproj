@@ -15,6 +15,18 @@
 		570109F41CA06682007C6CFF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 570109F21CA06682007C6CFF /* LaunchScreen.storyboard */; };
 		570109FF1CA06682007C6CFF /* productWikieHereTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570109FE1CA06682007C6CFF /* productWikieHereTests.swift */; };
 		57010A0A1CA06682007C6CFF /* productWikieHereUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57010A091CA06682007C6CFF /* productWikieHereUITests.swift */; };
+		57010A191CA073CC007C6CFF /* ControllerOfList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57010A181CA073CC007C6CFF /* ControllerOfList.swift */; settings = {ASSET_TAGS = (); }; };
+		57010A1A1CA073CC007C6CFF /* ControllerOfList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57010A181CA073CC007C6CFF /* ControllerOfList.swift */; settings = {ASSET_TAGS = (); }; };
+		57010A1B1CA073CC007C6CFF /* ControllerOfList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57010A181CA073CC007C6CFF /* ControllerOfList.swift */; settings = {ASSET_TAGS = (); }; };
+		57010A1D1CA073DB007C6CFF /* ControllerOfMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57010A1C1CA073DB007C6CFF /* ControllerOfMap.swift */; settings = {ASSET_TAGS = (); }; };
+		57010A1E1CA073DB007C6CFF /* ControllerOfMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57010A1C1CA073DB007C6CFF /* ControllerOfMap.swift */; settings = {ASSET_TAGS = (); }; };
+		57010A1F1CA073DB007C6CFF /* ControllerOfMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57010A1C1CA073DB007C6CFF /* ControllerOfMap.swift */; settings = {ASSET_TAGS = (); }; };
+		57010A211CA07850007C6CFF /* ControllerOfPages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57010A201CA07850007C6CFF /* ControllerOfPages.swift */; settings = {ASSET_TAGS = (); }; };
+		57010A221CA07850007C6CFF /* ControllerOfPages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57010A201CA07850007C6CFF /* ControllerOfPages.swift */; settings = {ASSET_TAGS = (); }; };
+		57010A231CA07850007C6CFF /* ControllerOfPages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57010A201CA07850007C6CFF /* ControllerOfPages.swift */; settings = {ASSET_TAGS = (); }; };
+		57010A251CA088D7007C6CFF /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57010A241CA088D7007C6CFF /* Data.swift */; settings = {ASSET_TAGS = (); }; };
+		57010A261CA088D7007C6CFF /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57010A241CA088D7007C6CFF /* Data.swift */; settings = {ASSET_TAGS = (); }; };
+		57010A271CA088D7007C6CFF /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57010A241CA088D7007C6CFF /* Data.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +61,10 @@
 		57010A051CA06682007C6CFF /* productWikieHereUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = productWikieHereUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		57010A091CA06682007C6CFF /* productWikieHereUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = productWikieHereUITests.swift; sourceTree = "<group>"; };
 		57010A0B1CA06682007C6CFF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		57010A181CA073CC007C6CFF /* ControllerOfList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControllerOfList.swift; sourceTree = "<group>"; };
+		57010A1C1CA073DB007C6CFF /* ControllerOfMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControllerOfMap.swift; sourceTree = "<group>"; };
+		57010A201CA07850007C6CFF /* ControllerOfPages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControllerOfPages.swift; sourceTree = "<group>"; };
+		57010A241CA088D7007C6CFF /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,12 +116,16 @@
 			isa = PBXGroup;
 			children = (
 				570109E61CA06682007C6CFF /* AppDelegate.swift */,
-				570109E81CA06682007C6CFF /* ViewController.swift */,
-				570109EA1CA06682007C6CFF /* Main.storyboard */,
 				570109F01CA06682007C6CFF /* Assets.xcassets */,
-				570109F21CA06682007C6CFF /* LaunchScreen.storyboard */,
+				57010A181CA073CC007C6CFF /* ControllerOfList.swift */,
+				57010A1C1CA073DB007C6CFF /* ControllerOfMap.swift */,
+				57010A201CA07850007C6CFF /* ControllerOfPages.swift */,
+				57010A241CA088D7007C6CFF /* Data.swift */,
 				570109F51CA06682007C6CFF /* Info.plist */,
+				570109F21CA06682007C6CFF /* LaunchScreen.storyboard */,
+				570109EA1CA06682007C6CFF /* Main.storyboard */,
 				570109ED1CA06682007C6CFF /* productWikieHere.xcdatamodeld */,
+				570109E81CA06682007C6CFF /* ViewController.swift */,
 			);
 			path = productWikieHere;
 			sourceTree = "<group>";
@@ -195,6 +215,7 @@
 				TargetAttributes = {
 					570109E21CA06682007C6CFF = {
 						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = 8TB38A6T85;
 					};
 					570109F91CA06682007C6CFF = {
 						CreatedOnToolsVersion = 7.0;
@@ -258,9 +279,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57010A251CA088D7007C6CFF /* Data.swift in Sources */,
 				570109EF1CA06682007C6CFF /* productWikieHere.xcdatamodeld in Sources */,
+				57010A1D1CA073DB007C6CFF /* ControllerOfMap.swift in Sources */,
 				570109E91CA06682007C6CFF /* ViewController.swift in Sources */,
+				57010A191CA073CC007C6CFF /* ControllerOfList.swift in Sources */,
 				570109E71CA06682007C6CFF /* AppDelegate.swift in Sources */,
+				57010A211CA07850007C6CFF /* ControllerOfPages.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,7 +293,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57010A1A1CA073CC007C6CFF /* ControllerOfList.swift in Sources */,
+				57010A261CA088D7007C6CFF /* Data.swift in Sources */,
 				570109FF1CA06682007C6CFF /* productWikieHereTests.swift in Sources */,
+				57010A1E1CA073DB007C6CFF /* ControllerOfMap.swift in Sources */,
+				57010A221CA07850007C6CFF /* ControllerOfPages.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,7 +305,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57010A1B1CA073CC007C6CFF /* ControllerOfList.swift in Sources */,
+				57010A271CA088D7007C6CFF /* Data.swift in Sources */,
 				57010A0A1CA06682007C6CFF /* productWikieHereUITests.swift in Sources */,
+				57010A1F1CA073DB007C6CFF /* ControllerOfMap.swift in Sources */,
+				57010A231CA07850007C6CFF /* ControllerOfPages.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -400,9 +433,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = productWikieHere/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tinygamefactory.productWikieHere;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tinygamefactory.wikihere;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -411,9 +445,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = productWikieHere/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tinygamefactory.productWikieHere;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tinygamefactory.wikihere;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

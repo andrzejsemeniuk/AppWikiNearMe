@@ -17,6 +17,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        let WINDOW                  = window!
+        
+        WINDOW.screen               = UIScreen.mainScreen()
+        WINDOW.bounds               = WINDOW.screen.bounds
+        WINDOW.windowLevel          = UIWindowLevelNormal
+
+        let controllerOfList        = ControllerOfList()
+        
+        let navigatorOfControllerOfList = UINavigationController(controllerOfList)
+        
+        let controllerOfMap         = ControllerOfMap()
+        
+        let controllerOfPages       = ControllerOfPages(transitionStyle: .Scroll,
+                                        navigationOrientation: .Vertical,
+                                        options: nil)
+        
+        
+        
+        WINDOW.rootViewController   = controllerOfPages
+        
+        WINDOW.makeKeyAndVisible()
+
         return true
     }
 
