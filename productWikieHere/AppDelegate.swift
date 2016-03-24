@@ -8,9 +8,10 @@
 
 import UIKit
 import CoreData
+import CoreLocation
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
 
     var window: UIWindow?
 
@@ -18,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     static var controllerOfMap:ControllerOfMap!                 = nil
     static var controllerOfPages:ControllerOfPages!             = nil
 
+    static var managerOfLocation:CLLocationManager!             = nil
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -27,6 +29,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        pageControl.pageIndicatorTintColor = [UIColor lightGrayColor];
 //        pageControl.currentPageIndicatorTintColor = [UIColor blackColor];
 //        pageControl.backgroundColor = [UIColor blueColor];
+
+        
+        AppDelegate.managerOfLocation                   = CLLocationManager()
+        AppDelegate.managerOfLocation.delegate          = self
+        AppDelegate.managerOfLocation.desiredAccuracy   = 2.0
+//        AppDelegate.managerOfLocation.requestAlwaysAuthorization()
+        AppDelegate.managerOfLocation.requestWhenInUseAuthorization()
+        
 
         
         let WINDOW                      = window!
@@ -57,7 +67,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         AppDelegate.controllerOfPages.showViewControllerAtIndex(0,animated:true)
         
-
+        AppDelegate.updateLocation()
+        
         
         return true
     }
@@ -86,6 +97,100 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.saveContext()
     }
 
+    
+    // MARK: - Generic Error Alert
+    
+    
+    static func showAlertWithError(title title:String = "Error", message:String)
+    {
+        let alert = UIAlertController(title:title, message:message, preferredStyle:.Alert)
+        
+        let actionOK = UIAlertAction(title:"OK", style:.Cancel, handler: {
+            action in
+        })
+        
+        alert.addAction(actionOK)
+        
+        AppDelegate.rootViewController.presentViewController(alert, animated:true, completion: {
+            print("completed showing add alert")
+        })
+    }
+    
+
+    
+    // MARK: - Core Location Delegate methdds
+    
+    static var authorizationStatusUpdated:(()->())?
+    static var locationsUpdated:((ok:Bool)->())?
+    static var locations:[CLLocation]                   = []
+    
+    
+    static func updateLocation()
+    {
+        if !CLLocationManager.locationServicesEnabled() {
+            AppDelegate.locationsUpdated?(ok:false)
+            AppDelegate.showAlertWithError(title:"Unauthorized", message:"Use of location services is not authorized.")
+        }
+        else
+        {
+            AppDelegate.managerOfLocation.requestLocation()
+        }
+    }
+    
+    
+
+    func locationManager(manager: CLLocationManager,
+                         didUpdateLocations locations: [CLLocation])
+    {
+        print("locationManager: didUpdateLocations: \(locations)")
+  
+        AppDelegate.locations = locations
+        
+        AppDelegate.locationsUpdated?(ok:true)
+    }
+    
+    func locationManager(manager: CLLocationManager,
+                         didFailWithError error: NSError)
+    {
+        print("locationManager: didFailWithError: \(error)")
+        
+        AppDelegate.locationsUpdated?(ok:false)
+        
+        AppDelegate.showAlertWithError(title:"Location Manager Error", message:"Failed with error: "+error.description)
+    }
+    
+    func locationManager(manager: CLLocationManager,
+                         didFinishDeferredUpdatesWithError error: NSError?)
+    {
+        print("locationManager: didFinishDeferredUpdatesWithError: \(error)")
+        
+        AppDelegate.locationsUpdated?(ok:false)
+        
+        if let error = error {
+            AppDelegate.showAlertWithError(title:"Location Manager Error", message:"Finished deferred updates with error: "+error.description)
+        }
+    }
+
+    
+    
+    func locationManager(manager: CLLocationManager,
+                         didVisit visit: CLVisit)
+    {
+        print("locationManager: didVisit: \(visit)")
+    }
+    
+    
+    
+    func locationManager(manager: CLLocationManager,
+                         didChangeAuthorizationStatus status: CLAuthorizationStatus)
+
+    {
+        print("locationManager: didChangeAuthorizationStatus: \(status)")
+        
+        AppDelegate.authorizationStatusUpdated?()
+    }
+    
+    
     // MARK: - Core Data stack
 
     lazy var applicationDocumentsDirectory: NSURL = {

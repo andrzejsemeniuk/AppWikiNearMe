@@ -15,6 +15,10 @@ class ControllerOfWebView : UIViewController, UIWebViewDelegate
     
     override func viewDidLoad()
     {
+        print("viewDidLoad: ControllerOfWebView")
+        
+
+        
         self.webview            = UIWebView()
         
         webview.delegate        = self

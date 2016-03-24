@@ -275,3 +275,10 @@ extension NSUserDefaults
     }
 }
 
+extension AppDelegate
+{
+    static var rootViewController : UIViewController {
+        return UIApplication.sharedApplication().keyWindow!.rootViewController!
+    }
+    
+}

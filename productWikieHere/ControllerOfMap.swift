@@ -17,6 +17,9 @@ class ControllerOfMap : UINavigationController, MKMapViewDelegate
     
     override func viewDidLoad()
     {
+        print("viewDidLoad: ControllerOfMap")
+        
+
         map = MKMapView()
         
 //        map.delegate        = self

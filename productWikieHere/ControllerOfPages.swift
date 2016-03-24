@@ -18,6 +18,9 @@ class ControllerOfPages : UIPageViewController, UIPageViewControllerDataSource, 
     
     override func viewDidLoad()
     {
+        print("viewDidLoad: ControllerOfPages")
+        
+
         self.delegate   = self
         
         self.dataSource = self
