@@ -11,17 +11,20 @@ import UIKit
 
 class ControllerOfPages : UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate
 {
-    static var instance:ControllerOfPages!  = nil
+    var controllers:[UIViewController] = []
+    
+    var presentationPageIndex = 0
     
     
     override func viewDidLoad()
     {
-        ControllerOfPages.instance          = self
-        
         self.delegate   = self
         
         self.dataSource = self
         
+        presentationPageIndex = 0
+        
+        self.view.backgroundColor = UIColor(white:0.7,alpha:1) //UIColor.redColor()
         
         super.viewDidLoad()
     }
@@ -35,40 +38,50 @@ class ControllerOfPages : UIPageViewController, UIPageViewControllerDataSource, 
     
     
     
+    func showViewControllerAtIndex(index:Int, animated:Bool) {
+        presentationPageIndex = index
+        
+        setViewControllers([controllers[index]], direction:.Forward, animated:animated, completion:nil)
+    }
+    
+    
+    
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController?
     {
-        if viewController == ControllerOfMap.instance {
-            return ControllerOfList.instance.navigationController
+        if var index = controllers.indexOf(viewController) {
+            index -= 1
+            if 0 <= index {
+                return controllers[index]
+            }
         }
         return nil
     }
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController?
     {
-        if viewController == ControllerOfList.instance.navigationController {
-            return ControllerOfMap.instance
+        if var index = controllers.indexOf(viewController) {
+            index += 1
+            if index < controllers.count {
+                return controllers[index]
+            }
         }
         return nil
     }
- 
+    
     
     
     
     func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int
     {
-        return 2
+        return controllers.count
     }
     
     func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int
     {
-        switch pageViewController {
-        case ControllerOfList.instance.navigationController!:   return  0
-        case ControllerOfMap.instance:                          return  1
-        default:                                                return -1
-        }
+        return presentationPageIndex
     }
     
     
-
+    
 }

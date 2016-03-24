@@ -14,32 +14,51 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    static var controllerOfList:ControllerOfList!               = nil
+    static var controllerOfMap:ControllerOfMap!                 = nil
+    static var controllerOfPages:ControllerOfPages!             = nil
+
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        
-        let WINDOW                  = window!
-        
-        WINDOW.screen               = UIScreen.mainScreen()
-        WINDOW.bounds               = WINDOW.screen.bounds
-        WINDOW.windowLevel          = UIWindowLevelNormal
 
-        let controllerOfList        = ControllerOfList()
+        // set style of page controllers
+//        UIPageControl *pageControl = [UIPageControl appearance];
+//        pageControl.pageIndicatorTintColor = [UIColor lightGrayColor];
+//        pageControl.currentPageIndicatorTintColor = [UIColor blackColor];
+//        pageControl.backgroundColor = [UIColor blueColor];
+
         
-        let navigatorOfControllerOfList = UINavigationController(rootViewController: controllerOfList)
+        let WINDOW                      = window!
         
-        let controllerOfMap         = ControllerOfMap()
+        WINDOW.screen                   = UIScreen.mainScreen()
+        WINDOW.bounds                   = WINDOW.screen.bounds
+        WINDOW.windowLevel              = UIWindowLevelNormal
+
+        AppDelegate.controllerOfList    = ControllerOfList()
         
-        let controllerOfPages       = ControllerOfPages(transitionStyle: .Scroll,
-                                        navigationOrientation: .Vertical,
-                                        options: nil)
+        AppDelegate.controllerOfMap     = ControllerOfMap()
+        
+        AppDelegate.controllerOfPages   = ControllerOfPages(transitionStyle:        .Scroll,
+                                                            navigationOrientation:  .Horizontal,
+                                                            options:                nil)
+        
+        AppDelegate.controllerOfPages.controllers = [
+            UINavigationController(rootViewController:AppDelegate.controllerOfList),
+            AppDelegate.controllerOfMap
+            ]
         
         
         
-        WINDOW.rootViewController   = controllerOfPages
+        WINDOW.rootViewController       = AppDelegate.controllerOfPages
         
         WINDOW.makeKeyAndVisible()
 
+        
+        AppDelegate.controllerOfPages.showViewControllerAtIndex(0,animated:true)
+        
+
+        
         return true
     }
 
