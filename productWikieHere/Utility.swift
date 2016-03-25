@@ -282,3 +282,64 @@ extension AppDelegate
     }
     
 }
+
+
+
+
+extension CollectionType {
+    
+    var empty: Bool {
+        return startIndex == endIndex
+    }
+}
+
+
+
+
+func NOT(A:Bool) -> Bool
+{
+    return !A
+}
+
+func AND(A:Bool,_ B:Bool) -> Bool
+{
+    return A && B
+}
+
+func NAND(A:Bool,_ B:Bool) -> Bool
+{
+    return NOT(AND(A,B))
+}
+
+func OR(A:Bool,_ B:Bool) -> Bool
+{
+    return A || B
+}
+
+func NOR(A:Bool,_ B:Bool) -> Bool
+{
+    return NOT(OR(A,B))
+}
+
+func XOR(A:Bool,_ B:Bool) -> Bool
+{
+    return (A && !B) || (!A && B)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

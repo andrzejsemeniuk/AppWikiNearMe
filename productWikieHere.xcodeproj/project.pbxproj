@@ -33,6 +33,12 @@
 		57010A2D1CA0E2E3007C6CFF /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 57010A2C1CA0E2E3007C6CFF /* Podfile */; };
 		57010A2E1CA0E2E3007C6CFF /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 57010A2C1CA0E2E3007C6CFF /* Podfile */; };
 		57010A2F1CA0E2E3007C6CFF /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 57010A2C1CA0E2E3007C6CFF /* Podfile */; };
+		57523B1B1CA57C8C00B717BA /* ControllerOfSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57523B1A1CA57C8C00B717BA /* ControllerOfSettings.swift */; };
+		57523B1D1CA57CD000B717BA /* GenericControllerOfSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57523B1C1CA57CD000B717BA /* GenericControllerOfSettings.swift */; };
+		57523B1F1CA58ACC00B717BA /* GenericControllerOfPickerOfColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57523B1E1CA58ACC00B717BA /* GenericControllerOfPickerOfColor.swift */; };
+		57523B211CA58AFB00B717BA /* GenericControllerOfList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57523B201CA58AFB00B717BA /* GenericControllerOfList.swift */; };
+		57523B231CA58D1900B717BA /* ControllerOfBackgroundTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57523B221CA58D1900B717BA /* ControllerOfBackgroundTheme.swift */; };
+		57523B251CA595A500B717BA /* GenericControllerOfPickerOfFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57523B241CA595A500B717BA /* GenericControllerOfPickerOfFont.swift */; };
 		57CA753F1CA3237B00A51C43 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CA753E1CA3237B00A51C43 /* Utility.swift */; };
 		57CA75411CA3ABCB00A51C43 /* ControllerOfWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CA75401CA3ABCB00A51C43 /* ControllerOfWebView.swift */; };
 		8FE9F31AF48D8BEF71FC6EFB /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93920AAC3FC4E9D139465942 /* Pods.framework */; };
@@ -77,6 +83,12 @@
 		57010A241CA088D7007C6CFF /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		57010A281CA0D4F6007C6CFF /* Source.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Source.swift; sourceTree = "<group>"; };
 		57010A2C1CA0E2E3007C6CFF /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		57523B1A1CA57C8C00B717BA /* ControllerOfSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControllerOfSettings.swift; sourceTree = "<group>"; };
+		57523B1C1CA57CD000B717BA /* GenericControllerOfSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericControllerOfSettings.swift; sourceTree = "<group>"; };
+		57523B1E1CA58ACC00B717BA /* GenericControllerOfPickerOfColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericControllerOfPickerOfColor.swift; sourceTree = "<group>"; };
+		57523B201CA58AFB00B717BA /* GenericControllerOfList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericControllerOfList.swift; sourceTree = "<group>"; };
+		57523B221CA58D1900B717BA /* ControllerOfBackgroundTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControllerOfBackgroundTheme.swift; sourceTree = "<group>"; };
+		57523B241CA595A500B717BA /* GenericControllerOfPickerOfFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericControllerOfPickerOfFont.swift; sourceTree = "<group>"; };
 		57CA753E1CA3237B00A51C43 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		57CA75401CA3ABCB00A51C43 /* ControllerOfWebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControllerOfWebView.swift; sourceTree = "<group>"; };
 		93920AAC3FC4E9D139465942 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -146,11 +158,17 @@
 			children = (
 				570109E61CA06682007C6CFF /* AppDelegate.swift */,
 				570109F01CA06682007C6CFF /* Assets.xcassets */,
+				57523B221CA58D1900B717BA /* ControllerOfBackgroundTheme.swift */,
 				57010A181CA073CC007C6CFF /* ControllerOfList.swift */,
 				57010A1C1CA073DB007C6CFF /* ControllerOfMap.swift */,
 				57010A201CA07850007C6CFF /* ControllerOfPages.swift */,
+				57523B1A1CA57C8C00B717BA /* ControllerOfSettings.swift */,
 				57CA75401CA3ABCB00A51C43 /* ControllerOfWebView.swift */,
 				57010A241CA088D7007C6CFF /* Data.swift */,
+				57523B201CA58AFB00B717BA /* GenericControllerOfList.swift */,
+				57523B241CA595A500B717BA /* GenericControllerOfPickerOfFont.swift */,
+				57523B1E1CA58ACC00B717BA /* GenericControllerOfPickerOfColor.swift */,
+				57523B1C1CA57CD000B717BA /* GenericControllerOfSettings.swift */,
 				570109F51CA06682007C6CFF /* Info.plist */,
 				570109F21CA06682007C6CFF /* LaunchScreen.storyboard */,
 				570109EA1CA06682007C6CFF /* Main.storyboard */,
@@ -373,13 +391,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57523B1B1CA57C8C00B717BA /* ControllerOfSettings.swift in Sources */,
 				57CA75411CA3ABCB00A51C43 /* ControllerOfWebView.swift in Sources */,
 				57010A291CA0D4F6007C6CFF /* Source.swift in Sources */,
 				57010A251CA088D7007C6CFF /* Data.swift in Sources */,
 				57CA753F1CA3237B00A51C43 /* Utility.swift in Sources */,
+				57523B1F1CA58ACC00B717BA /* GenericControllerOfPickerOfColor.swift in Sources */,
+				57523B1D1CA57CD000B717BA /* GenericControllerOfSettings.swift in Sources */,
 				570109EF1CA06682007C6CFF /* productWikieHere.xcdatamodeld in Sources */,
 				57010A1D1CA073DB007C6CFF /* ControllerOfMap.swift in Sources */,
+				57523B251CA595A500B717BA /* GenericControllerOfPickerOfFont.swift in Sources */,
 				570109E91CA06682007C6CFF /* ViewController.swift in Sources */,
+				57523B231CA58D1900B717BA /* ControllerOfBackgroundTheme.swift in Sources */,
+				57523B211CA58AFB00B717BA /* GenericControllerOfList.swift in Sources */,
 				57010A191CA073CC007C6CFF /* ControllerOfList.swift in Sources */,
 				570109E71CA06682007C6CFF /* AppDelegate.swift in Sources */,
 				57010A211CA07850007C6CFF /* ControllerOfPages.swift in Sources */,

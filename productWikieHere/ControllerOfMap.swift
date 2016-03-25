@@ -164,7 +164,7 @@ class ControllerOfMap : UINavigationController, MKMapViewDelegate
     
     func viewForAnnotation(annotation: MKAnnotation) -> MKAnnotationView?
     {
-        var view = MKAnnotationView(annotation:annotation,reuseIdentifier:nil)
+        let view = MKAnnotationView(annotation:annotation,reuseIdentifier:nil)
         
         return view
     }

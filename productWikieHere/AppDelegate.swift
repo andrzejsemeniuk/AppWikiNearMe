@@ -39,6 +39,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         
 
         
+        Data.Manager.resetIfEmpty()
+        
+        
+        
         let WINDOW                      = window!
         
         WINDOW.screen                   = UIScreen.mainScreen()
@@ -127,13 +131,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     static func updateLocation()
     {
-        if !CLLocationManager.locationServicesEnabled() {
+        let disallowed = [
+            CLAuthorizationStatus.Restricted,
+            CLAuthorizationStatus.Denied
+        ]
+        
+        let ok = AND(NOT(disallowed.contains(CLLocationManager.authorizationStatus())),CLLocationManager.locationServicesEnabled())
+        
+        if ok {
+            AppDelegate.managerOfLocation.requestLocation()
+        }
+        else {
             AppDelegate.locationsUpdated?(ok:false)
             AppDelegate.showAlertWithError(title:"Unauthorized", message:"Use of location services is not authorized.")
-        }
-        else
-        {
-            AppDelegate.managerOfLocation.requestLocation()
         }
     }
     

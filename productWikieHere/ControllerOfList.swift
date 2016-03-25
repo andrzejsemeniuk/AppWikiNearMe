@@ -20,7 +20,6 @@ class ControllerOfList : UITableViewController
         
         var item:               Data.Item
         
-        
         var title:              String          = ""
         var subtitle:           String          = ""
     }
@@ -37,13 +36,33 @@ class ControllerOfList : UITableViewController
     {
         print("viewDidLoad: ControllerOfList")
         
-        //        test1TypicalGeosearch1("30.25|-97.75")
         
-        super.refreshControl = UIRefreshControl()
+        do
+        {
+            super.refreshControl = UIRefreshControl()
+            
+            super.refreshControl?.addTarget(self,action:#selector(ControllerOfList.refresh),forControlEvents:.ValueChanged)
+        }
         
-        super.refreshControl?.addTarget(self,action:#selector(ControllerOfList.refresh),forControlEvents:.ValueChanged)
+        
+        do
+        {
+            var items = navigationItem.rightBarButtonItems
+            
+            if items == nil {
+                items = [UIBarButtonItem]()
+            }
+            
+            items! += [
+                UIBarButtonItem(title:"Settings", style:.Plain, target:self, action: #selector(ControllerOfList.openSettings)),
+            ]
+            
+            navigationItem.rightBarButtonItems = items
+        }
+
         
         super.viewDidLoad()
+        
         
         AppDelegate.authorizationStatusUpdated = {
             // TODO
@@ -51,11 +70,11 @@ class ControllerOfList : UITableViewController
             var status:String = ""
             
             switch CLLocationManager.authorizationStatus() {
-            case .Denied:               status = "Denied"
-            case .NotDetermined:        status = "Not Determined"
-            case .Restricted:           status = "Restricted"
-            case .AuthorizedAlways:     status = "Authorized Always"
-            case .AuthorizedWhenInUse:  status = "Authorized When In Use"
+                case .Denied:               status = "Denied"
+                case .NotDetermined:        status = "Not Determined"
+                case .Restricted:           status = "Restricted"
+                case .AuthorizedAlways:     status = "Authorized Always"
+                case .AuthorizedWhenInUse:  status = "Authorized When In Use"
             }
             
             print("authorizationStatusUpdated to \(status)")
@@ -72,11 +91,47 @@ class ControllerOfList : UITableViewController
     
     
     
+    func openSettings()
+    {
+        let settings = ControllerOfSettings()
+        
+        self.navigationController?.pushViewController(settings, animated:true)
+    }
     
     
-    private var fontInLabel:UIFont  = UIFont(name:"Futura",size:UIFont.labelFontSize())!
-    private var fontInDetail:UIFont = UIFont(name:"Futura",size:UIFont.labelFontSize())!
     
+    
+    
+    struct Style
+    {
+        var entryTitleTextFont:                 UIFont                      = Data.Manager.defaultFont
+        var entryTitleTextFontColor:            UIColor                     = UIColor.blackColor()
+        var entryTitleTextUppercase:            Bool                        = false
+        var entrySubtitleTextFont:              UIFont                      = Data.Manager.defaultFont
+        var entrySubtitleTextFontColor:         UIColor                     = UIColor.blackColor()
+        var entrySubtitleTextUppercase:         Bool                        = false
+    }
+    
+    override func viewWillAppear(animated: Bool)
+    {
+        selectedIndex = nil
+        
+        style.entryTitleTextFont            = Data.Manager.settingsGetEntryTitleTextFont()
+        style.entryTitleTextFontColor       = Data.Manager.settingsGetEntryTitleTextFontColor()
+        style.entryTitleTextUppercase       = Data.Manager.settingsGetEntryTitleTextUppercase()
+
+        style.entrySubtitleTextFont         = Data.Manager.settingsGetEntrySubtitleTextFont()
+        style.entrySubtitleTextFontColor    = Data.Manager.settingsGetEntrySubtitleTextFontColor()
+        style.entrySubtitleTextUppercase    = Data.Manager.settingsGetEntrySubtitleTextUppercase()
+
+        reload()
+        
+        super.viewWillAppear(animated)
+    }
+    
+
+    
+    private var style               = Style()
     
     
     
@@ -99,12 +154,16 @@ class ControllerOfList : UITableViewController
         
         if let label = cell.textLabel {
             label.text = String(CELL.index) + ". " + (CELL.item["title"].rawString() ?? "")
-            label.font = fontInLabel.fontWithSize(label.font.pointSize-1)
+            label.font = style.entryTitleTextFont
+            label.textColor = style.entryTitleTextFontColor
             CELL.title = label.text ?? ""
+            if style.entryTitleTextUppercase {
+                label.text = label.text?.uppercaseString
+            }
         }
         if let label = cell.detailTextLabel {
-            label.font = fontInDetail.fontWithSize(label.font.pointSize)
-            label.textColor = UIColor.grayColor()
+            label.font = style.entrySubtitleTextFont
+            label.textColor = style.entrySubtitleTextFontColor
             if false {
                 if let lat = CELL.item["lat"].rawString(), let lon = CELL.item["lon"].rawString() {
                     label.text = lat.trimIfBeyondDigitCount(7).prefixWithPlusIfPositive() + "," + lon.trimIfBeyondDigitCount(7).prefixWithPlusIfPositive()
@@ -154,6 +213,10 @@ class ControllerOfList : UITableViewController
                 }
             }
 
+            if style.entrySubtitleTextUppercase {
+                label.text = label.text?.uppercaseString
+            }
+
             CELL.subtitle = label.text ?? ""
         }
         
@@ -193,17 +256,10 @@ class ControllerOfList : UITableViewController
     
     
     
-    override func viewWillAppear(animated: Bool)
-    {
-        selectedIndex = nil
-        
-        super.viewWillAppear(animated)
-    }
     
     
     
-    
-    private func fetch(gscoord:String, gsradius:UInt = 1000, gsmaxdim:UInt = 1000, gslimit:UInt = 15, update:([Cell])->())
+    private func fetch(gscoord:String, gsradius:UInt = 10000, gsmaxdim:UInt = 100000, gslimit:UInt = 15, update:([Cell])->())
     {
         let parameters:[Source.Wikipedia.GeoSearchParameter:String] = [
             .gscoord    : gscoord,
