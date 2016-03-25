@@ -15,11 +15,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
     var window: UIWindow?
 
-    static var controllerOfList:ControllerOfList!               = nil
-    static var controllerOfMap:ControllerOfMap!                 = nil
-    static var controllerOfPages:ControllerOfPages!             = nil
+    static var controllerOfList:    ControllerOfList!           = nil
+    static var controllerOfMap:     ControllerOfMap!            = nil
+    static var controllerOfPages:   ControllerOfPages!          = nil
 
-    static var managerOfLocation:CLLocationManager!             = nil
+    static var managerOfLocation:   CLLocationManager!          = nil
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -34,8 +34,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         AppDelegate.managerOfLocation                   = CLLocationManager()
         AppDelegate.managerOfLocation.delegate          = self
         AppDelegate.managerOfLocation.desiredAccuracy   = 2.0
-//        AppDelegate.managerOfLocation.requestAlwaysAuthorization()
-        AppDelegate.managerOfLocation.requestWhenInUseAuthorization()
+        //        AppDelegate.managerOfLocation.requestAlwaysAuthorization()// use this authorization method for location streaming
+        AppDelegate.managerOfLocation.requestWhenInUseAuthorization()       // use this authorization method for location polling
         
 
         

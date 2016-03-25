@@ -9,6 +9,7 @@
 import Foundation
 import MapKit
 import UIKit
+import SwiftyJSON
 
 class ControllerOfMap : UINavigationController, MKMapViewDelegate
 {
@@ -45,23 +46,23 @@ class ControllerOfMap : UINavigationController, MKMapViewDelegate
 
         
         
-        self.here = MKUserTrackingBarButtonItem(mapView:self.map)
-        
-//        self.setNavigationBarHidden(false,animated:true)
-        
-//        self.navigationBar.topItem?.setRightBarButtonItem(here,animated:true)
-//        self.navigationItem.rightBarButtonItem = here
-        
-        
-        var toolbar = UIToolbar()
-        
-        // TODO SET-UP LAYOUT CONSTRAINT
-        
-        toolbar.frame = CGRectMake(0,200,0,0)
-        
-        toolbar.setItems([here],animated:true)
-        
-        self.view.addSubview(toolbar)
+//        self.here = MKUserTrackingBarButtonItem(mapView:self.map)
+//        
+////        self.setNavigationBarHidden(false,animated:true)
+//        
+////        self.navigationBar.topItem?.setRightBarButtonItem(here,animated:true)
+////        self.navigationItem.rightBarButtonItem = here
+//        
+//        
+//        var toolbar = UIToolbar()
+//        
+//        // TODO SET-UP LAYOUT CONSTRAINT
+//        
+//        toolbar.frame = CGRectMake(0,200,0,0)
+//        
+//        toolbar.setItems([here],animated:true)
+//        
+//        self.view.addSubview(toolbar)
         
         
         super.viewDidLoad()
@@ -70,6 +71,102 @@ class ControllerOfMap : UINavigationController, MKMapViewDelegate
     override func didReceiveMemoryWarning()
     {
         super.didReceiveMemoryWarning()
+    }
+
+    
+    
+    
+    
+    class Annotation : NSObject, MKAnnotation
+    {
+        var _title:     String?
+        var _subtitle:  String?
+        var _coordinate:CLLocationCoordinate2D
+        
+        var title: String? {
+            get {
+                return _title
+            }
+        }
+        var subtitle: String? {
+            get {
+                return _subtitle
+            }
+        }
+        
+        var coordinate: CLLocationCoordinate2D {
+            get {
+                return _coordinate
+            }
+        }
+        
+        init(coordinate:CLLocationCoordinate2D, title:String? = nil, subtitle:String? = nil)
+        {
+            self._title         = title
+            self._subtitle      = subtitle
+            self._coordinate    = coordinate
+        }
+    }
+    
+    struct AnnotationEntry
+    {
+        let index:              Int
+        let location:           CLLocation
+        let item:               JSON //Data.Item
+        let annotation:         ControllerOfMap.Annotation
+    }
+    
+    var annotations:[Int:AnnotationEntry] = [:]
+    
+    
+    override func viewWillAppear(animated: Bool)
+    {
+        print("map view: view will appear")
+        
+        for annotation in annotations {
+            map.removeAnnotation(annotation.1.annotation)
+        }
+        
+        annotations = [:]
+        
+        var index = 0
+        
+        var annotationsToShow:[MKAnnotation] = []
+        
+        for cell in AppDelegate.controllerOfList.cells {
+            if let lat = cell.item["lat"].number, let lon = cell.item["lon"].number {
+                let location            = CLLocation(latitude:lat.doubleValue,longitude:lon.doubleValue)
+                var title               = String(index+1)
+                if let t = cell.item["title"].string {
+                    title += ". " + t
+                }
+                var subtitle            = ""
+                if let s = cell.item["dist"].number {
+                    subtitle = String(s) + " m"
+                }
+                let annotation          = Annotation(coordinate:location.coordinate, title:title, subtitle:subtitle)
+                annotations[index]      = AnnotationEntry(index:index,location:location,item:cell.item,annotation:annotation)
+                annotationsToShow.append(annotation)
+            }
+            index += 1
+        }
+        
+        map.addAnnotations(annotationsToShow)
+        map.showAnnotations(annotationsToShow,animated:true)
+        
+        if let selectedIndex = AppDelegate.controllerOfList.selectedIndex, let annotation = annotations[selectedIndex] {
+            map.selectAnnotation(annotation.annotation, animated:true)
+        }
+        
+        super.viewWillAppear(animated)
+    }
+    
+    
+    func viewForAnnotation(annotation: MKAnnotation) -> MKAnnotationView?
+    {
+        var view = MKAnnotationView(annotation:annotation,reuseIdentifier:nil)
+        
+        return view
     }
 
     

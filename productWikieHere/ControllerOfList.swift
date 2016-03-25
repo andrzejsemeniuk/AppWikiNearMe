@@ -15,8 +15,14 @@ class ControllerOfList : UITableViewController
 {
     struct Cell
     {
+        var index:              Int
         var indentation:        UInt            = 0
+        
         var item:               Data.Item
+        
+        
+        var title:              String          = ""
+        var subtitle:           String          = ""
     }
     
     var cells:[Cell]                = []
@@ -24,6 +30,7 @@ class ControllerOfList : UITableViewController
     var coordinates0:String         = ""
     var coordinates1:String         = ""
     
+    var selectedIndex:Int?
     
     
     override func viewDidLoad()
@@ -86,19 +93,22 @@ class ControllerOfList : UITableViewController
     
     override func tableView                     (tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        let CELL = cells[indexPath.row]
+        var CELL = cells[indexPath.row]
         
         let cell = UITableViewCell(style:.Subtitle,reuseIdentifier:nil)
         
         if let label = cell.textLabel {
-            label.text = CELL.item["title"].rawString()
+            label.text = String(CELL.index) + ". " + (CELL.item["title"].rawString() ?? "")
             label.font = fontInLabel.fontWithSize(label.font.pointSize-1)
+            CELL.title = label.text ?? ""
         }
         if let label = cell.detailTextLabel {
             label.font = fontInDetail.fontWithSize(label.font.pointSize)
             label.textColor = UIColor.grayColor()
-            if let lat = CELL.item["lat"].rawString(), let lon = CELL.item["lon"].rawString() {
-                label.text = lat.trimIfBeyondDigitCount(7).prefixWithPlusIfPositive() + "," + lon.trimIfBeyondDigitCount(7).prefixWithPlusIfPositive()
+            if false {
+                if let lat = CELL.item["lat"].rawString(), let lon = CELL.item["lon"].rawString() {
+                    label.text = lat.trimIfBeyondDigitCount(7).prefixWithPlusIfPositive() + "," + lon.trimIfBeyondDigitCount(7).prefixWithPlusIfPositive()
+                }
             }
             if false {
                 if let pageid = CELL.item["pageid"].rawString() {
@@ -112,16 +122,39 @@ class ControllerOfList : UITableViewController
                     }
                 }
             }
-            if let name = CELL.item["name"].rawString() {
+            if var distance = CELL.item["dist"].rawString() {
+//                distance = ">> " + distance + " m"
+                distance += " m "
+                if let text = label.text {
+                    label.text = text + " " + distance
+                }
+                else {
+                    label.text = distance
+                }
+            }
+            if var name = CELL.item["name"].rawString() {
                 if !name.empty {
+                    name = "\"" + name + "\""
                     if let text = label.text {
-                        label.text = name + " @ " + text
+                        label.text = text + " " + name
                     }
                     else {
                         label.text = name
                     }
                 }
             }
+            if let type = CELL.item["type"].rawString() {
+                if type != "null" {
+                    if let text = label.text {
+                        label.text = text + " [" + type.capitalizedString + "]"
+                    }
+                    else {
+                        label.text = "[" + type.capitalizedString + "]"
+                    }
+                }
+            }
+
+            CELL.subtitle = label.text ?? ""
         }
         
         cell.accessoryType = .DisclosureIndicator
@@ -136,6 +169,8 @@ class ControllerOfList : UITableViewController
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
     {
+        selectedIndex = indexPath.row
+
         let cell    = cells[indexPath.row]
         
         let pageid  = cell.item["pageid"].rawString()
@@ -158,6 +193,14 @@ class ControllerOfList : UITableViewController
     
     
     
+    override func viewWillAppear(animated: Bool)
+    {
+        selectedIndex = nil
+        
+        super.viewWillAppear(animated)
+    }
+    
+    
     
     
     private func fetch(gscoord:String, gsradius:UInt = 1000, gsmaxdim:UInt = 1000, gslimit:UInt = 15, update:([Cell])->())
@@ -175,8 +218,10 @@ class ControllerOfList : UITableViewController
             if let data=data {
                 var cells:[Cell] = []
                 
+                var index = 1
                 for entry in data["query"]["geosearch"] {
-                    cells.append(Cell(indentation:0,item:entry.1))
+                    cells.append(Cell(index:index,indentation:0,item:entry.1,title:"",subtitle:""))
+                    index += 1
                 }
                 
                 update(cells)
@@ -192,6 +237,8 @@ class ControllerOfList : UITableViewController
     
     func reload()
     {
+        selectedIndex = nil
+        
         tableView.reloadData()
     }
     
@@ -231,54 +278,6 @@ class ControllerOfList : UITableViewController
         AppDelegate.updateLocation()
     }
     
-    
-    
-    
-    
-    func test1TypicalGeosearch1(gscoord:String = "30.25|-97.75")
-    {
-        do
-        {
-            let parameters:[Source.Wikipedia.GeoSearchParameter:String] = [
-                .gscoord    : gscoord,
-                .gsradius   : "10000",
-                .gsmaxdim   : "10000",
-                .gslimit    : "15",
-                .gsprop     : "type|name|country|region",
-                .gsprimary  : "all"
-            ]
-            
-            Source.Wikipedia.get_geosearch(language:.English,parameters:parameters) { (error,data) in
-                if let d=data {
-                    print("ok")
-                    print(d)
-                    
-                    // format: query:geosearch:[item]
-                    
-                    var cells:[Cell] = []
-                    
-                    for entry in d["query"]["geosearch"] {
-                        print("entry=\(entry)") // entry= {"0",{...}}
-                        
-                        let item:Data.Item = entry.1
-                        
-                        print ("item=\(item)")
-                        
-                        cells.append(Cell(indentation:0,item:item))
-                    }
-                    
-                    self.cells = cells
-                    self.reload()
-                }
-                if let e=error {
-                    print("error:\(e)")
-                }
-            }
-            
-            
-        }
-        
-    }
     
     
     
