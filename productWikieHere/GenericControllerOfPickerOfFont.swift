@@ -36,6 +36,7 @@ class GenericControllerOfPickerOfFont : UITableViewController
             }
         }
         
+        print("font names:\(names)")
         
         reload()
         

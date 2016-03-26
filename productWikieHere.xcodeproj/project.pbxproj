@@ -63,7 +63,7 @@
 
 /* Begin PBXFileReference section */
 		48ABA58AC5B921C5B5760C53 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		570109E31CA06682007C6CFF /* productWikieHere.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = productWikieHere.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		570109E31CA06682007C6CFF /* Wiki Near Me.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Wiki Near Me.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		570109E61CA06682007C6CFF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		570109E81CA06682007C6CFF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		570109EB1CA06682007C6CFF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -146,7 +146,7 @@
 		570109E41CA06682007C6CFF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				570109E31CA06682007C6CFF /* productWikieHere.app */,
+				570109E31CA06682007C6CFF /* Wiki Near Me.app */,
 				570109FA1CA06682007C6CFF /* Wiki Near Me.xctest */,
 				57010A051CA06682007C6CFF /* productWikieHereUITests.xctest */,
 			);
@@ -226,7 +226,7 @@
 			);
 			name = productWikieHere;
 			productName = productWikieHere;
-			productReference = 570109E31CA06682007C6CFF /* productWikieHere.app */;
+			productReference = 570109E31CA06682007C6CFF /* Wiki Near Me.app */;
 			productType = "com.apple.product-type.application";
 		};
 		570109F91CA06682007C6CFF /* productWikieHereTests */ = {
@@ -562,7 +562,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tinygamefactory.wikihere;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Wiki Near Me";
 			};
 			name = Debug;
 		};
@@ -576,7 +576,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tinygamefactory.wikihere;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Wiki Near Me";
 			};
 			name = Release;
 		};

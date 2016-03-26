@@ -29,9 +29,15 @@ class GenericControllerOfPickerOfColor : UITableViewController
         {
             colors = [
                 UIColor.GRAY(1.00,1),
-                UIColor.GRAY(0.75,1),
+                UIColor.GRAY(0.90,1),
+                UIColor.GRAY(0.80,1),
+                UIColor.GRAY(0.70,1),
+                UIColor.GRAY(0.60,1),
                 UIColor.GRAY(0.50,1),
-                UIColor.GRAY(0.25,1),
+                UIColor.GRAY(0.40,1),
+                UIColor.GRAY(0.30,1),
+                UIColor.GRAY(0.20,1),
+                UIColor.GRAY(0.10,1),
                 UIColor.GRAY(0.00,1),
             ]
             

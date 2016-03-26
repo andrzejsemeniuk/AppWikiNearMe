@@ -86,5 +86,11 @@ class ControllerOfPages : UIPageViewController, UIPageViewControllerDataSource, 
     }
     
     
-    
+    override func viewWillAppear(animated: Bool)
+    {
+        view.backgroundColor = Data.Manager.settingsGetBackgroundColor()
+        
+        super.viewWillAppear(animated)
+    }
+   
 }

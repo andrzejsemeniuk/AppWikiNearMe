@@ -49,10 +49,12 @@ class Data : NSObject
             case SettingsEntryBackgroundTheme                   = "s+e+bg"
             case SettingsEntryBackgroundThemeName               = "s+e+bg-name"
             case SettingsEntryBackgroundThemeSolidColor         = "s+e+bg-solid-color"
-            case SettingsEntryBackgroundThemeRangeFromColor     = "s+e+bg-range-color-from"
-            case SettingsEntryBackgroundThemeRangeToColor       = "s+e+bg-range-color-to"
+            case SettingsEntryBackgroundThemeRangeColorFrom     = "s+e+bg-range-color-from"
+            case SettingsEntryBackgroundThemeRangeColorTo       = "s+e+bg-range-color-to"
             case SettingsEntryBackgroundThemeCustomColors       = "s+e+bg-custom-colors"
             case SettingsEntryBackgroundThemeSaturation         = "s+e+bg-saturation"
+            
+            case SettingsEntrySelectionColor                    = "s+e+selection+color"
             
             case SettingsEntryTitleTextUppercase                = "s+e+title+text+uppercase"
             case SettingsEntryTitleTextEmphasize                = "s+e+title+text+emphasize"
@@ -66,12 +68,14 @@ class Data : NSObject
             case SettingsEntrySubtitleTextFontColor             = "s+e+subtitle+text+font+color"
             case SettingsEntrySubtitleTextInsets                = "s+e+subtitle+text+insets"
 
-            case SettingsEntryIndexBackgroundColor              = "s+e+index+bg+color"
             case SettingsEntryIndexTextFontName                 = "s+e+index+text+font+name"
             case SettingsEntryIndexTextFontColor                = "s+e+index+text+font+color"
+            case SettingsEntryIndexBackgroundColor              = "s+e+index+bg+color"
 
             case SettingsEntryRowOddOpacity                     = "s+e+row-odd-alpha"
             case SettingsEntryRowEvenOpacity                    = "s+e+row-even-alpha"
+            
+            case SettingsGeoSearchMaximumResults                = "s+g+max-results"
             
             case SettingsCurrent                                = "settings:current"
             case SettingsList                                   = "s+list"
@@ -263,6 +267,17 @@ class Data : NSObject
         
         
         
+        
+        
+        class func settingsGetEntrySelectionColor(defaultValue:UIColor = UIColor.grayColor()) -> UIColor
+        {
+            return settingsGetColorForKey(.SettingsEntrySelectionColor,defaultValue:defaultValue)
+        }
+        
+
+        
+        
+        
         class func settingsGetEntryTitleTextFont(defaultValue:UIFont = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)) -> UIFont
         {
             let emphasize:Float = Data.Manager.settingsGetBoolForKey(.SettingsEntryTitleTextEmphasize) ? 2.0 : 0
@@ -325,12 +340,92 @@ class Data : NSObject
 
         
         
+        class func settingsGetEntryIndexTextFont(defaultValue:UIFont = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)) -> UIFont
+        {
+//            let emphasize:Float = Data.Manager.settingsGetBoolForKey(.SettingsEntryIndexTextEmphasize) ? 1.0 : 0
+//            
+//            if let font1 = UIFont(name:Data.Manager.settingsGetFontName(.SettingsEntryIndexTextFontName,defaultValue:defaultValue.fontName),
+//                                  size:CGFloat(emphasize)+defaultValue.pointSize) {
+//                return font1
+//            }
+            
+            if let font1 = UIFont(name:Data.Manager.settingsGetFontName(.SettingsEntryIndexTextFontName,defaultValue:defaultValue.fontName),
+                                  size:defaultValue.pointSize) {
+                return font1
+            }
+            
+            return defaultValue
+        }
+        
+        class func settingsGetEntryIndexTextFontColor(defaultValue:UIColor = UIColor.blackColor()) -> UIColor
+        {
+            return settingsGetColorForKey(.SettingsEntryIndexTextFontColor,defaultValue:defaultValue)
+        }
+        
+        class func settingsGetEntryIndexBackgroundColor(defaultValue:UIColor = UIColor.yellowColor()) -> UIColor
+        {
+            return settingsGetColorForKey(.SettingsEntryIndexBackgroundColor,defaultValue:defaultValue)
+        }
+        
+
+        
+        
+        
+        
+        class func settingsGetEntryRowEvenOpacity(defaultValue:Float = 0.9) -> Float
+        {
+            return settingsGetFloatForKey(.SettingsEntryRowEvenOpacity,defaultValue:defaultValue)
+        }
+        
+        class func settingsGetEntryRowOddOpacity(defaultValue:Float = 0.8) -> Float
+        {
+            return settingsGetFloatForKey(.SettingsEntryRowOddOpacity,defaultValue:defaultValue)
+        }
+        
+        
+
+        
+        class func settingsGetEntryBackgroundThemeSaturation(defaultValue:Float = 0.7) -> Float
+        {
+            return settingsGetFloatForKey(.SettingsEntryBackgroundThemeSaturation,defaultValue:defaultValue)
+        }
+
         
         
         
         
         
-        class func settingsGetBackgroundColor(defaultValue:UIColor = UIColor(hue:0.9)) -> UIColor
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        class func settingsGetGeoSearchMaximumResults(defaultValue defaultValue:UInt = 10) -> UInt
+        {
+            let value = settingsGetFloatForKey(.SettingsGeoSearchMaximumResults,defaultValue:Float(defaultValue))
+            
+            if 0 <= value {
+                return UInt(value)
+            }
+            
+            return defaultValue
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        class func settingsGetBackgroundColor(defaultValue:UIColor = UIColor.whiteColor()) -> UIColor
         {
             return settingsGetColorForKey(.SettingsBackgroundColor,defaultValue:defaultValue)
         }
@@ -395,9 +490,9 @@ class Data : NSObject
             return settingsGetColorForKey(.SettingsEntryBackgroundThemeSolidColor,defaultValue:defaultValue)
         }
         
-        class func settingsGetEntryBackgroundThemeRangeFromColor(defaultValue:UIColor = UIColor.yellowColor()) -> UIColor
+        class func settingsGetEntryBackgroundThemeRangeColorFrom(defaultValue:UIColor = UIColor.yellowColor()) -> UIColor
         {
-            return settingsGetColorForKey(.SettingsEntryBackgroundThemeRangeFromColor,defaultValue:defaultValue)
+            return settingsGetColorForKey(.SettingsEntryBackgroundThemeRangeColorFrom,defaultValue:defaultValue)
             //        let dictionary = settingsGetDictionaryForKey(.SettingsThemeRangeColors)
             //
             //        if let color = dictionary["from"] as? [Float] {
@@ -407,9 +502,9 @@ class Data : NSObject
             //        return defaultValue
         }
         
-        class func settingsGetEntryBackgroundThemeRangeToColor(defaultValue:UIColor = UIColor.orangeColor()) -> UIColor
+        class func settingsGetEntryBackgroundThemeRangeColorTo(defaultValue:UIColor = UIColor.orangeColor()) -> UIColor
         {
-            return settingsGetColorForKey(.SettingsEntryBackgroundThemeRangeToColor,defaultValue:defaultValue)
+            return settingsGetColorForKey(.SettingsEntryBackgroundThemeRangeColorTo,defaultValue:defaultValue)
             //        let dictionary = settingsGetDictionaryForKey(.SettingsThemeRangeColors)
             //
             //        if let color = dictionary["to"] as? [Float] {
@@ -426,17 +521,17 @@ class Data : NSObject
             settingsSetColor(color,forKey:.SettingsEntryBackgroundThemeSolidColor)
         }
         
-        class func settingsSetEntryBackgroundThemeRangeFromColor(color:UIColor)
+        class func settingsSetEntryBackgroundThemeRangeColorFrom(color:UIColor)
         {
-            settingsSetColor(color,forKey:.SettingsEntryBackgroundThemeRangeFromColor)
+            settingsSetColor(color,forKey:.SettingsEntryBackgroundThemeRangeColorFrom)
             //        var dictionary = settingsGetDictionaryForKey(.SettingsThemeRangeColors)
             //        dictionary["from"] = settingsPackColor(color)
             //        settingsSetDictionary(dictionary,forKey:.SettingsThemeRangeColors)
         }
         
-        class func settingsSetEntryBackgroundThemeRangeToColor(color:UIColor)
+        class func settingsSetEntryBackgroundThemeRangeColorTo(color:UIColor)
         {
-            settingsSetColor(color,forKey:.SettingsEntryBackgroundThemeRangeToColor)
+            settingsSetColor(color,forKey:.SettingsEntryBackgroundThemeRangeColorTo)
             //        var dictionary = settingsGetDictionaryForKey(.SettingsThemeRangeColors)
             //        dictionary["to"] = settingsPackColor(color)
             //        settingsSetDictionary(dictionary,forKey:.SettingsThemeRangeColors)

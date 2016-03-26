@@ -14,6 +14,7 @@ class GenericControllerOfSettings : UITableViewController
 {
     var rows:[[Any]] = []
     
+    static var lastOffsetY:[String:CGPoint] = [:]
     
     
     
@@ -61,6 +62,15 @@ class GenericControllerOfSettings : UITableViewController
         let cell = UITableViewCell(style:.Value1,reuseIdentifier:nil)
         
         cell.selectionStyle = .None
+        
+        if let HSBA = cell.backgroundColor?.HSBA() {
+            if 1 <= HSBA.alpha {
+                cell.backgroundColor = cell.backgroundColor!.colorWithAlphaComponent(0.50)
+            }
+        }
+        else {
+            cell.backgroundColor = UIColor(white:1,alpha:0.7)
+        }
         
         if 0 < rows.count {
             if let f = rows[indexPath.section][indexPath.row+1] as? FunctionOnCell {
@@ -138,10 +148,11 @@ class GenericControllerOfSettings : UITableViewController
     
     var registeredSliders:[UISlider:FunctionUpdateOnSlider] = [:]
     
-    func registerSlider(value:Float, minimum:Float = 0, maximum:Float = 1, animated:Bool = true, update:FunctionUpdateOnSlider) -> UISlider {
+    func registerSlider(value:Float, minimum:Float = 0, maximum:Float = 1, continuous:Bool = false, animated:Bool = true, update:FunctionUpdateOnSlider) -> UISlider {
         let view = UISlider()
         view.minimumValue = minimum
         view.maximumValue = maximum
+        view.continuous = continuous
         view.value = value
         registeredSliders[view] = update
         view.addTarget(self,action:#selector(GenericControllerOfSettings.handleSlider(_:)),forControlEvents:.ValueChanged)
@@ -173,10 +184,6 @@ class GenericControllerOfSettings : UITableViewController
                     cell.accessoryType  = .DisclosureIndicator
                     self.addAction(indexPath) {
                         
-                        if action != nil {
-                            action()
-                        }
-                        
                         let fonts       = GenericControllerOfPickerOfFont()
                         
                         fonts.title     = title+" Font"
@@ -185,6 +192,9 @@ class GenericControllerOfSettings : UITableViewController
                         
                         fonts.update    = {
                             Data.Manager.settingsSetString(fonts.selected, forKey:key)
+                            if action != nil {
+                                action()
+                            }
                         }
                         
                         self.navigationController?.pushViewController(fonts, animated:true)
@@ -219,10 +229,6 @@ class GenericControllerOfSettings : UITableViewController
                     
                     self.addAction(indexPath) {
                         
-                        if action != nil {
-                            action()
-                        }
-                        
                         let colors      = GenericControllerOfPickerOfColor()
                         
                         colors.title    = title+" Color"
@@ -231,6 +237,10 @@ class GenericControllerOfSettings : UITableViewController
                         
                         colors.update   = {
                             Data.Manager.settingsSetColor(colors.selected, forKey:key)
+
+                            if action != nil {
+                                action()
+                            }
                         }
                         
                         self.navigationController?.pushViewController(colors, animated:true)
@@ -265,6 +275,12 @@ class GenericControllerOfSettings : UITableViewController
         
         reload()
         
+        if let title = super.title {
+            if let point = GenericControllerOfSettings.lastOffsetY[title] {
+                tableView.setContentOffset(point,animated:true)
+            }
+        }
+        
         super.viewWillAppear(animated)
         
     }
@@ -272,6 +288,10 @@ class GenericControllerOfSettings : UITableViewController
     
     override func viewWillDisappear(animated: Bool)
     {
+        if let title = super.title {
+            GenericControllerOfSettings.lastOffsetY[title] = tableView.contentOffset
+        }
+        
         registeredSliders.removeAll()
         registeredSwitches.removeAll()
         

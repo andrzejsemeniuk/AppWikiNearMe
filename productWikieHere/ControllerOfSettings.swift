@@ -14,14 +14,17 @@ class ControllerOfSettings : GenericControllerOfSettings
     
     override func viewDidLoad()
     {
-        tableView               = UITableView(frame:tableView.frame,style:.Grouped)
+        tableView                   = UITableView(frame:tableView.frame,style:.Grouped)
         
-        tableView.dataSource    = self
+        tableView.dataSource        = self
         
-        tableView.delegate      = self
+        tableView.delegate          = self
         
         
-        tableView.separatorStyle = .None
+        tableView.separatorStyle    = .None
+        
+        self.title                  = "Settings"
+        
         
         super.viewDidLoad()
     }
@@ -67,10 +70,14 @@ class ControllerOfSettings : GenericControllerOfSettings
                                 if let fields = alert.textFields, text = fields[0].text {
                                     if 0 < text.length {
                                         Data.Manager.settingsSave(text)
+                                        
+                                        print(NSUserDefaults.standardUserDefaults().dictionaryRepresentation())
+
                                         self.tableView.reloadRowsAtIndexPaths([
                                             indexPath,
                                             NSIndexPath(forRow:indexPath.row+1,inSection:indexPath.section)
-                                            ], withRowAnimation: .Left)
+                                            ],
+                                            withRowAnimation: .Left)
                                     }
                                 }
                             })
@@ -133,45 +140,66 @@ class ControllerOfSettings : GenericControllerOfSettings
             ],
             
             [
-                "THEME",
+                "WIKIPEDIA SEARCH",
                 
                 { (cell:UITableViewCell, indexPath:NSIndexPath) in
-                    if let label = cell.detailTextLabel {
-                        label.text = Data.Manager.settingsGetThemeName()
-                    }
                     if let label = cell.textLabel {
-                        label.text          = "Theme"
-                        cell.accessoryType  = .DisclosureIndicator
-                        cell.selectionStyle = .Default
-                        self.registerCellSelection(indexPath) {
-                            let controller = GenericControllerOfList()
-                            self.navigationController?.pushViewController(controller, animated:true)
-                        }
+                        label.text          = "Maximum Results"
+                        cell.accessoryView  = self.registerSlider(Data.Manager.settingsGetFloatForKey(.SettingsGeoSearchMaximumResults,defaultValue:15),
+                            minimum:10,
+                            maximum:99,
+                            update: { (myslider:UISlider) in
+                            Data.Manager.settingsSetFloat(myslider.value, forKey:.SettingsGeoSearchMaximumResults)
+                        })
+                        cell.selectionStyle = .None
                     }
                 },
-                
-                "Pick a predefined theme and then tweak settings below",
+
+                ""
             ],
+            
+//            [
+//                "THEME",
+//                
+//                { (cell:UITableViewCell, indexPath:NSIndexPath) in
+//                    if let label = cell.detailTextLabel {
+//                        label.text = Data.Manager.settingsGetThemeName()
+//                    }
+//                    if let label = cell.textLabel {
+//                        label.text          = "Theme"
+//                        cell.accessoryType  = .DisclosureIndicator
+//                        cell.selectionStyle = .Default
+//                        self.registerCellSelection(indexPath) {
+//                            let controller = GenericControllerOfList()
+//                            self.navigationController?.pushViewController(controller, animated:true)
+//                        }
+//                    }
+//                },
+//                
+//                "Pick a predefined theme and then tweak settings below",
+//            ],
             
             [
                 "FILL",
                 
                 createCellForColor(Data.Manager.settingsGetBackgroundColor(),title:"Background",key:.SettingsBackgroundColor) {
                     AppDelegate.rootViewController.view.backgroundColor = Data.Manager.settingsGetBackgroundColor()
+                    AppDelegate.controllerOfPages.view.backgroundColor  = Data.Manager.settingsGetBackgroundColor()
+//                    self.tableView.backgroundColor = AppDelegate.rootViewController.view.backgroundColor
                 },
                 
                 ""
             ],
             
             [
-                "ROW BACKGROUND",
+                "ROW",
             
                 { (cell:UITableViewCell, indexPath:NSIndexPath) in
                     if let label = cell.detailTextLabel {
-                        label.text = Data.Manager.settingsGetThemeName()
+                        label.text = Data.Manager.settingsGetEntryBackgroundThemeName()
                     }
                     if let label = cell.textLabel {
-                        label.text          = "Color"
+                        label.text          = "Background Theme"
                         cell.accessoryType  = .DisclosureIndicator
                         cell.selectionStyle = .Default
                         self.registerCellSelection(indexPath) {
@@ -181,17 +209,12 @@ class ControllerOfSettings : GenericControllerOfSettings
                     }
                 },
                 
-                ""
-            ],
-            
-            
-            [
-                "ROW OPACITY",
+//                createCellForColor(Data.Manager.settingsGetEntrySelectionColor(),title:"Selection",key:.SettingsEntrySelectionColor),
                 
                 { (cell:UITableViewCell, indexPath:NSIndexPath) in
                     if let label = cell.textLabel {
-                        label.text          = "Even"
-                        cell.accessoryView  = self.registerSlider(Data.Manager.settingsGetFloatForKey(.SettingsEntryRowEvenOpacity, defaultValue:1), update: { (myslider:UISlider) in
+                        label.text          = "Opacity"
+                        cell.accessoryView  = self.registerSlider(Data.Manager.settingsGetFloatForKey(.SettingsEntryRowEvenOpacity, defaultValue:0.8), update: { (myslider:UISlider) in
                             Data.Manager.settingsSetFloat(myslider.value, forKey:.SettingsEntryRowEvenOpacity)
                         })
                         cell.accessoryType  = .DisclosureIndicator
@@ -199,21 +222,11 @@ class ControllerOfSettings : GenericControllerOfSettings
                     }
                 },
                 
-                { (cell:UITableViewCell, indexPath:NSIndexPath) in
-                    if let label = cell.textLabel {
-                        label.text          = "Odd"
-                        cell.accessoryView  = self.registerSlider(Data.Manager.settingsGetFloatForKey(.SettingsEntryRowOddOpacity, defaultValue:1), update: { (myslider:UISlider) in
-                            Data.Manager.settingsSetFloat(myslider.value, forKey:.SettingsEntryRowOddOpacity)
-                        })
-                        cell.accessoryType  = .DisclosureIndicator
-                        cell.selectionStyle = .Default
-                    }
-                },
-                
-                "Make the background color of an item row stand out or fade."
+
+                ""
             ],
             
-
+            
             [
                 "TITLE TEXT",
                 
@@ -276,6 +289,18 @@ class ControllerOfSettings : GenericControllerOfSettings
                 ""
             ],
             
+            [
+                "INDEX TEXT",
+                
+                createCellForFont(Data.Manager.settingsGetEntryIndexTextFont(),title:"Index",key:.SettingsEntryIndexTextFontName),
+                
+                createCellForColor(Data.Manager.settingsGetEntryIndexTextFontColor(),title:"Index",key:.SettingsEntryIndexTextFontColor),
+                
+                createCellForColor(Data.Manager.settingsGetEntryIndexBackgroundColor(),title:"Background",key:.SettingsEntryIndexBackgroundColor),
+                
+                ""
+            ],
+            
             
             //            [
             //                "ITEM QUANTITY SOUNDS",
@@ -328,7 +353,14 @@ class ControllerOfSettings : GenericControllerOfSettings
         super.viewWillDisappear(animated)
     }
     
-    
+    override func viewWillAppear(animated: Bool)
+    {
+//        tableView.backgroundColor = AppDelegate.rootViewController.view.backgroundColor
+        tableView.backgroundColor = Data.Manager.settingsGetBackgroundColor()
+
+        super.viewWillAppear(animated)
+    }
+
     
     
     

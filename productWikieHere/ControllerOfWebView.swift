@@ -82,4 +82,13 @@ class ControllerOfWebView : UIViewController, UIWebViewDelegate
     
 
     
+    
+    override func viewWillAppear(animated: Bool)
+    {
+        webview.backgroundColor = Data.Manager.settingsGetBackgroundColor()
+
+        super.viewWillAppear(animated)
+    }
+
+    
 }

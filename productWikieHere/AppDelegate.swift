@@ -17,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
     static var controllerOfList:    ControllerOfList!           = nil
     static var controllerOfMap:     ControllerOfMap!            = nil
+//    static var controllerOfSettings:ControllerOfSettings!       = nil
     static var controllerOfPages:   ControllerOfPages!          = nil
 
     static var managerOfLocation:   CLLocationManager!          = nil
@@ -43,28 +44,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         
         
         
-        let WINDOW                      = window!
+        let WINDOW                          = window!
         
-        WINDOW.screen                   = UIScreen.mainScreen()
-        WINDOW.bounds                   = WINDOW.screen.bounds
-        WINDOW.windowLevel              = UIWindowLevelNormal
+        WINDOW.screen                       = UIScreen.mainScreen()
+        WINDOW.bounds                       = WINDOW.screen.bounds
+        WINDOW.windowLevel                  = UIWindowLevelNormal
 
-        AppDelegate.controllerOfList    = ControllerOfList()
         
-        AppDelegate.controllerOfMap     = ControllerOfMap()
+        AppDelegate.controllerOfList        = ControllerOfList()
         
-        AppDelegate.controllerOfPages   = ControllerOfPages(transitionStyle:        .Scroll,
-                                                            navigationOrientation:  .Horizontal,
-                                                            options:                nil)
+        AppDelegate.controllerOfMap         = ControllerOfMap()
+        
+//        AppDelegate.controllerOfSettings    = ControllerOfSettings()
+        
+        AppDelegate.controllerOfPages       = ControllerOfPages(transitionStyle:        .Scroll,
+                                                                navigationOrientation:  .Horizontal,
+                                                                options:                nil)
+        
         
         AppDelegate.controllerOfPages.controllers = [
+//            UINavigationController(rootViewController:AppDelegate.controllerOfSettings),
             UINavigationController(rootViewController:AppDelegate.controllerOfList),
-            AppDelegate.controllerOfMap
+            AppDelegate.controllerOfMap,
             ]
         
         
         
-        WINDOW.rootViewController       = AppDelegate.controllerOfPages
+        WINDOW.rootViewController           = AppDelegate.controllerOfPages
         
         WINDOW.makeKeyAndVisible()
 

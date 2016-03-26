@@ -14,15 +14,15 @@ class ControllerOfBackgroundTheme : GenericControllerOfSettings
     
     override func viewDidLoad()
     {
-        tableView               = UITableView(frame:tableView.frame,style:.Grouped)
+        tableView                   = UITableView(frame:tableView.frame,style:.Grouped)
         
-        tableView.dataSource    = self
+        tableView.dataSource        = self
         
-        tableView.delegate      = self
+        tableView.delegate          = self
         
-        tableView.separatorStyle = .None
+        tableView.separatorStyle    = .None
         
-        self.title              = "Backgrounds"
+        self.title                  = "Backgrounds"
         
         super.viewDidLoad()
     }
@@ -48,8 +48,6 @@ class ControllerOfBackgroundTheme : GenericControllerOfSettings
     {
         var rows = [[Any]]()
         
-        var CATEGORIES = [Any]()
-        
         let definePredefinedBackgroundThemeWithName = { (name:String) -> Any in
             return { (cell:UITableViewCell, indexPath:NSIndexPath) in
                 if let label = cell.textLabel {
@@ -69,24 +67,12 @@ class ControllerOfBackgroundTheme : GenericControllerOfSettings
             }
         }
         
-        rows    = []
-        
-        if 0 < CATEGORIES.count {
-            rows.append(CATEGORIES)
-        }
-        
-        rows.append(
+        rows    = [
+            
             [
                 "", //"PREDEFINED THEME SATURATION",
                 
                 { (cell:UITableViewCell, indexPath:NSIndexPath) in
-                    //                    let slider = self.registerSlider(Data.Manager.settingsGetFloatForKey(.SettingsEntryBackgroundThemeSaturation, defaultValue:0.4), update: { (myslider:UISlider) in
-                    //                        Data.Manager.settingsSetFloat(myslider.value, forKey:.SettingsEntryBackgroundThemeSaturation)
-                    //                    })
-                    //                    let W:CGFloat = AppDelegate.rootViewController.view.bounds.width
-                    //                    let w:CGFloat = W/2.0
-                    //                    cell.frame  = CGRectMake(W/2.0-w,0,w,cell.bounds.height)
-                    //                    cell.addSubview(slider)
                     if let label = cell.textLabel {
                         label.text          = "Saturation"
                         cell.accessoryView  = self.registerSlider(Data.Manager.settingsGetFloatForKey(.SettingsEntryBackgroundThemeSaturation, defaultValue:0.4), update: { (myslider:UISlider) in
@@ -99,9 +85,8 @@ class ControllerOfBackgroundTheme : GenericControllerOfSettings
                 
                 
                 ""
-            ])
-        
-        rows.append(
+            ],
+            
             [
                 "PREDEFINED THEMES",
                 
@@ -115,9 +100,8 @@ class ControllerOfBackgroundTheme : GenericControllerOfSettings
                 definePredefinedBackgroundThemeWithName("Strawberry"),
                 
                 ""
-            ])
-        
-        rows.append(
+            ],
+            
             [
                 "DYNAMIC THEMES",
                 
@@ -129,15 +113,16 @@ class ControllerOfBackgroundTheme : GenericControllerOfSettings
                 
                 definePredefinedBackgroundThemeWithName("Range"),
                 
-                createCellForColor(Data.Manager.settingsGetEntryBackgroundThemeRangeFromColor(),name:"  Color From",title:"Range From",key:.SettingsEntryBackgroundThemeRangeFromColor) {
+                createCellForColor(Data.Manager.settingsGetEntryBackgroundThemeRangeColorFrom(),name:"  Color From",title:"Range From",key:.SettingsEntryBackgroundThemeRangeColorFrom) {
                     //                        self.reload()
                 },
-                createCellForColor(Data.Manager.settingsGetEntryBackgroundThemeRangeToColor(),name:"  Color To",title:"Range To",key:.SettingsEntryBackgroundThemeRangeToColor) {
+                createCellForColor(Data.Manager.settingsGetEntryBackgroundThemeRangeColorTo(),name:"  Color To",title:"Range To",key:.SettingsEntryBackgroundThemeRangeColorTo) {
                     //                        self.reload()
                 },
                 
                 ""
-            ])
+            ],
+        ]
         
         return rows
     }

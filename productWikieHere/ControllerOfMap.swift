@@ -23,7 +23,7 @@ class ControllerOfMap : UINavigationController, MKMapViewDelegate
 
         map = MKMapView()
         
-//        map.delegate        = self
+        map.delegate                = self
         
         map.mapType                 = .Standard
         map.zoomEnabled             = true
@@ -117,6 +117,7 @@ class ControllerOfMap : UINavigationController, MKMapViewDelegate
     }
     
     var annotations:[Int:AnnotationEntry] = [:]
+    var indexOfAnnotation:[String:UInt] = [:]
     
     
     override func viewWillAppear(animated: Bool)
@@ -128,7 +129,8 @@ class ControllerOfMap : UINavigationController, MKMapViewDelegate
         }
         
         annotations = [:]
-        
+        indexOfAnnotation = [:]
+            
         var index = 0
         
         var annotationsToShow:[MKAnnotation] = []
@@ -138,7 +140,8 @@ class ControllerOfMap : UINavigationController, MKMapViewDelegate
                 let location            = CLLocation(latitude:lat.doubleValue,longitude:lon.doubleValue)
                 var title               = String(index+1)
                 if let t = cell.item["title"].string {
-                    title += ". " + t
+//                    title += ". " + t
+                    title = t
                 }
                 var subtitle            = ""
                 if let s = cell.item["dist"].number {
@@ -146,25 +149,40 @@ class ControllerOfMap : UINavigationController, MKMapViewDelegate
                 }
                 let annotation          = Annotation(coordinate:location.coordinate, title:title, subtitle:subtitle)
                 annotations[index]      = AnnotationEntry(index:index,location:location,item:cell.item,annotation:annotation)
+                indexOfAnnotation[title] = UInt(index)
                 annotationsToShow.append(annotation)
             }
             index += 1
         }
         
-        map.addAnnotations(annotationsToShow)
-        map.showAnnotations(annotationsToShow,animated:true)
+//        dispatch_async(dispatch_get_main_queue(), {
+            self.map.addAnnotations(annotationsToShow)
+            self.map.showAnnotations(annotationsToShow,animated:true)
         
-        if let selectedIndex = AppDelegate.controllerOfList.selectedIndex, let annotation = annotations[selectedIndex] {
-            map.selectAnnotation(annotation.annotation, animated:true)
-        }
+            if let selectedIndex = AppDelegate.controllerOfList.selectedIndex, let annotation = self.annotations[selectedIndex] {
+                self.map.selectAnnotation(annotation.annotation, animated:true)
+            }
+//        })
         
         super.viewWillAppear(animated)
     }
     
     
-    func viewForAnnotation(annotation: MKAnnotation) -> MKAnnotationView?
+//    func viewForAnnotation(annotation: MKAnnotation) -> MKAnnotationView?
+    func mapViewLater(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView?
     {
         let view = MKAnnotationView(annotation:annotation,reuseIdentifier:nil)
+        
+        view.image=nil
+//        view.bounds.size = CGSizeMake(120,120)
+//        view.frame.size = CGSizeMake(120,120)
+        
+        if let title = annotation.title, let utitle = title, let index = indexOfAnnotation[utitle] {
+            AppDelegate.controllerOfList.styleIndex(view,number:index)
+        }
+        else {
+            AppDelegate.controllerOfList.styleIndex(view,number:0)
+        }
         
         return view
     }
