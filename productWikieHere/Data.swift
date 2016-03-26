@@ -72,8 +72,7 @@ class Data : NSObject
             case SettingsEntryIndexTextFontColor                = "s+e+index+text+font+color"
             case SettingsEntryIndexBackgroundColor              = "s+e+index+bg+color"
 
-            case SettingsEntryRowOddOpacity                     = "s+e+row-odd-alpha"
-            case SettingsEntryRowEvenOpacity                    = "s+e+row-even-alpha"
+            case SettingsEntryRowOpacity                        = "s+e+row-even-alpha"
             
             case SettingsGeoSearchMaximumResults                = "s+g+max-results"
             
@@ -372,15 +371,11 @@ class Data : NSObject
         
         
         
-        class func settingsGetEntryRowEvenOpacity(defaultValue:Float = 0.9) -> Float
+        class func settingsGetEntryRowOpacity(defaultValue:Float = 0.9) -> Float
         {
-            return settingsGetFloatForKey(.SettingsEntryRowEvenOpacity,defaultValue:defaultValue)
+            return settingsGetFloatForKey(.SettingsEntryRowOpacity,defaultValue:defaultValue)
         }
         
-        class func settingsGetEntryRowOddOpacity(defaultValue:Float = 0.8) -> Float
-        {
-            return settingsGetFloatForKey(.SettingsEntryRowOddOpacity,defaultValue:defaultValue)
-        }
         
         
 
@@ -589,13 +584,254 @@ class Data : NSObject
         {
             if settingsList().empty {
                 reset()
-                settingsSave("Default")
-                settingsUse("Default")
+                settingsUse("Sky")
             }
         }
         
         class func reset()
         {
+            NSUserDefaults.clear()
+            
+            // DEFAULT
+            
+            settingsUse                                 ("Default")
+            
+            settingsSetFloat                            (10                             ,forKey:.SettingsGeoSearchMaximumResults)
+            
+            settingsSetColor                            (UIColor(hue:0.53,saturation:0.80,brightness:1),forKey:.SettingsBackgroundColor)
+            
+            settingsSetEntryBackgroundThemeWithName     ("Orange")
+            settingsSetFloat                            (0.30                           ,forKey:.SettingsEntryRowOpacity)
+            
+            settingsSetString                           ("Helvetica-Bold"               ,forKey:.SettingsEntryTitleTextFontName)
+            settingsSetColor                            (UIColor.whiteColor()           ,forKey:.SettingsEntryTitleTextFontColor)
+            settingsSetBool                             (false                          ,forKey:.SettingsEntryTitleTextUppercase)
+            settingsSetBool                             (false                          ,forKey:.SettingsEntryTitleTextEmphasize)
+            
+            settingsSetString                           ("Helvetica"                    ,forKey:.SettingsEntrySubtitleTextFontName)
+            settingsSetColor                            (UIColor.whiteColor()           ,forKey:.SettingsEntrySubtitleTextFontColor)
+            settingsSetBool                             (false                          ,forKey:.SettingsEntrySubtitleTextUppercase)
+            settingsSetBool                             (true                           ,forKey:.SettingsEntrySubtitleTextEmphasize)
+
+            settingsSetString                           ("Helvetica-Bold"               ,forKey:.SettingsEntryIndexTextFontName)
+            settingsSetColor                            (UIColor.whiteColor()           ,forKey:.SettingsEntryIndexTextFontColor)
+            settingsSetColor                            (UIColor.redColor()             ,forKey:.SettingsEntryIndexBackgroundColor)
+
+            settingsSave                                ("Default")
+            
+            // PLAIN
+
+            settingsUse                                 ("Plain")
+            
+            settingsSetFloat                            (20                             ,forKey:.SettingsGeoSearchMaximumResults)
+            
+            settingsSetColor                            (UIColor(white:0.9,alpha:1)     ,forKey:.SettingsBackgroundColor)
+            
+            settingsSetEntryBackgroundThemeWithName     ("Plain")
+            settingsSetFloat                            (0.40                           ,forKey:.SettingsEntryRowOpacity)
+            
+            settingsSetString                           ("Helvetica-Bold"               ,forKey:.SettingsEntryTitleTextFontName)
+            settingsSetColor                            (UIColor.blackColor()           ,forKey:.SettingsEntryTitleTextFontColor)
+            settingsSetBool                             (false                          ,forKey:.SettingsEntryTitleTextUppercase)
+            settingsSetBool                             (false                          ,forKey:.SettingsEntryTitleTextEmphasize)
+            
+            settingsSetString                           ("Helvetica"                    ,forKey:.SettingsEntrySubtitleTextFontName)
+            settingsSetColor                            (UIColor(white:0.5,alpha:1)     ,forKey:.SettingsEntrySubtitleTextFontColor)
+            settingsSetBool                             (false                          ,forKey:.SettingsEntrySubtitleTextUppercase)
+            settingsSetBool                             (true                           ,forKey:.SettingsEntrySubtitleTextEmphasize)
+            
+            settingsSetString                           ("Helvetica-Bold"               ,forKey:.SettingsEntryIndexTextFontName)
+            settingsSetColor                            (UIColor.whiteColor()           ,forKey:.SettingsEntryIndexTextFontColor)
+            settingsSetColor                            (UIColor.grayColor()            ,forKey:.SettingsEntryIndexBackgroundColor)
+            
+            settingsSave                                ("Plain")
+
+            
+            
+            settingsSetColor                            (UIColor.blackColor()           ,forKey:.SettingsEntryIndexTextFontColor)
+            settingsSetColor                            (UIColor(hsb:[0.127,1,1])       ,forKey:.SettingsEntryIndexBackgroundColor)
+            settingsSave                                ("Plain+Yellow")
+
+            settingsSetColor                            (UIColor.whiteColor()           ,forKey:.SettingsEntryIndexTextFontColor)
+            settingsSetColor                            (UIColor(hsb:[0.090,1,1])       ,forKey:.SettingsEntryIndexBackgroundColor)
+            settingsSave                                ("Plain+Orange")
+
+            settingsSetColor                            (UIColor.whiteColor()           ,forKey:.SettingsEntryIndexTextFontColor)
+            settingsSetColor                            (UIColor(hsb:[0,1,1])           ,forKey:.SettingsEntryIndexBackgroundColor)
+            settingsSave                                ("Plain+Red")
+
+            // CHARCOAL+Y|O|R|G
+            
+            settingsSetFloat                            (30                             ,forKey:.SettingsGeoSearchMaximumResults)
+            
+            settingsSetColor                            (UIColor(white:0.85,alpha:1)    ,forKey:.SettingsBackgroundColor)
+            
+            settingsSetEntryBackgroundThemeWithName     ("Charcoal")
+            settingsSetFloat                            (0.30                           ,forKey:.SettingsEntryRowOpacity)
+            
+            settingsSetString                           ("Futura-CondensedMedium"       ,forKey:.SettingsEntryTitleTextFontName)
+            settingsSetColor                            (UIColor(white:0.4,alpha:1)     ,forKey:.SettingsEntryTitleTextFontColor)
+            settingsSetBool                             (false                          ,forKey:.SettingsEntryTitleTextUppercase)
+            settingsSetBool                             (true                           ,forKey:.SettingsEntryTitleTextEmphasize)
+            
+            settingsSetString                           ("Futura-CondensedMedium"       ,forKey:.SettingsEntrySubtitleTextFontName)
+            settingsSetColor                            (UIColor(white:0.3,alpha:1)     ,forKey:.SettingsEntrySubtitleTextFontColor)
+            settingsSetBool                             (false                          ,forKey:.SettingsEntrySubtitleTextUppercase)
+            settingsSetBool                             (true                           ,forKey:.SettingsEntrySubtitleTextEmphasize)
+            
+            settingsSetString                           ("Futura"                       ,forKey:.SettingsEntryIndexTextFontName)
+            settingsSetColor                            (UIColor(white:0.7,alpha:1)     ,forKey:.SettingsEntryIndexTextFontColor)
+            settingsSetColor                            (UIColor(white:0.2,alpha:1)     ,forKey:.SettingsEntryIndexBackgroundColor)
+            
+            settingsSave                                ("Charcoal")
+            
+            settingsSetColor                            (UIColor(white:0.2,alpha:1)     ,forKey:.SettingsEntryIndexTextFontColor)
+            settingsSetColor                            (UIColor(hsb:[0.120,1,1])       ,forKey:.SettingsEntryIndexBackgroundColor)
+            settingsSave                                ("Charcoal+Yellow")
+            
+            settingsSetColor                            (UIColor(white:0.1,alpha:1)     ,forKey:.SettingsEntryIndexTextFontColor)
+            settingsSetColor                            (UIColor(hsb:[0.090,1,0.85])    ,forKey:.SettingsEntryIndexBackgroundColor)
+            settingsSave                                ("Charcoal+Orange")
+            
+            settingsSetColor                            (UIColor(hsb:[0,1,0.80])        ,forKey:.SettingsEntryIndexBackgroundColor)
+            settingsSave                                ("Charcoal+Red")
+            
+            settingsSetColor                            (UIColor(hsb:[0.30,0.95,0.70])  ,forKey:.SettingsEntryIndexBackgroundColor)
+            settingsSave                                ("Charcoal+Green")
+            
+
+            // STRAWBERRY
+
+            settingsSetFloat                            (25                             ,forKey:.SettingsGeoSearchMaximumResults)
+            
+            settingsSetColor                            (UIColor(hsb:[0.4,0.6,0.9])     ,forKey:.SettingsBackgroundColor)
+            
+            settingsSetEntryBackgroundThemeWithName     ("Strawberry")
+            settingsSetFloat                            (0.30                           ,forKey:.SettingsEntryRowOpacity)
+            
+            settingsSetString                           ("Futura-CondensedMedium"       ,forKey:.SettingsEntryTitleTextFontName)
+            settingsSetColor                            (UIColor(hsb:[0.1,0.4,1])       ,forKey:.SettingsEntryTitleTextFontColor)
+            settingsSetBool                             (false                          ,forKey:.SettingsEntryTitleTextUppercase)
+            settingsSetBool                             (true                           ,forKey:.SettingsEntryTitleTextEmphasize)
+            
+            settingsSetString                           ("Futura-CondensedMedium"       ,forKey:.SettingsEntrySubtitleTextFontName)
+            settingsSetColor                            (UIColor(hsb:[0,0.4,1])         ,forKey:.SettingsEntrySubtitleTextFontColor)
+            settingsSetBool                             (false                          ,forKey:.SettingsEntrySubtitleTextUppercase)
+            settingsSetBool                             (true                           ,forKey:.SettingsEntrySubtitleTextEmphasize)
+            
+            settingsSetString                           ("Futura"                       ,forKey:.SettingsEntryIndexTextFontName)
+            settingsSetColor                            (UIColor(hsb:[0.1,0.2,1])         ,forKey:.SettingsEntryIndexTextFontColor)
+            settingsSetColor                            (UIColor(hsb:[0,1,1])           ,forKey:.SettingsEntryIndexBackgroundColor)
+            
+            settingsSave                                ("Strawberry")
+            
+            settingsSetColor                            (UIColor(hsb:[0,0,0])           ,forKey:.SettingsEntryIndexTextFontColor)
+            settingsSetColor                            (UIColor(hsb:[0.15,0.6,0.9])        ,forKey:.SettingsEntryIndexBackgroundColor)
+            settingsSave                                ("Strawberry+Yellow")
+            
+            settingsSetColor                            (UIColor(hsb:[0.40,0.61,0.82])      ,forKey:.SettingsEntryIndexBackgroundColor)
+            settingsSave                                ("Strawberry+Green")
+            
+            
+            // RAINBOW
+            
+            
+            settingsSetFloat                            (10                             ,forKey:.SettingsGeoSearchMaximumResults)
+            
+            settingsSetColor                            (UIColor(hsb:[0.53,0.4,1])        ,forKey:.SettingsBackgroundColor)
+            
+            settingsSetEntryBackgroundThemeWithName     ("Rainbow")
+            settingsSetFloat                            (0.30                           ,forKey:.SettingsEntryRowOpacity)
+            
+            settingsSetString                           ("AvenirNextCondensed-DemiBold" ,forKey:.SettingsEntryTitleTextFontName)
+            settingsSetColor                            (UIColor(gray:1.0)              ,forKey:.SettingsEntryTitleTextFontColor)
+            settingsSetBool                             (true                           ,forKey:.SettingsEntryTitleTextUppercase)
+            settingsSetBool                             (false                          ,forKey:.SettingsEntryTitleTextEmphasize)
+            
+            settingsSetString                           ("AvenirNextCondensed-Italic"   ,forKey:.SettingsEntrySubtitleTextFontName)
+            settingsSetColor                            (UIColor(gray:1.0)              ,forKey:.SettingsEntrySubtitleTextFontColor)
+            settingsSetBool                             (false                          ,forKey:.SettingsEntrySubtitleTextUppercase)
+            settingsSetBool                             (true                           ,forKey:.SettingsEntrySubtitleTextEmphasize)
+            
+            settingsSetString                           ("AvenirNextCondensed-Heavy"    ,forKey:.SettingsEntryIndexTextFontName)
+            settingsSetColor                            (UIColor(hsb:[0.1,0.2,1])       ,forKey:.SettingsEntryIndexTextFontColor)
+            settingsSetColor                            (UIColor(hsb:[0,1,1])           ,forKey:.SettingsEntryIndexBackgroundColor)
+            
+            settingsSave                                ("Rainbow+White")
+            
+            settingsSetColor                            (UIColor(hsb:[0.53,0.6,1])     ,forKey:.SettingsBackgroundColor)
+            settingsSetColor                            (UIColor(gray:0.1)              ,forKey:.SettingsEntryTitleTextFontColor)
+            settingsSetColor                            (UIColor(gray:0.1)              ,forKey:.SettingsEntrySubtitleTextFontColor)
+            settingsSave                                ("Rainbow+Black")
+
+            // ORANGE
+
+            settingsSetFloat                            (20                             ,forKey:.SettingsGeoSearchMaximumResults)
+            
+            settingsSetColor                            (UIColor(hsb:[0.55,0.4,1])        ,forKey:.SettingsBackgroundColor)
+            
+            settingsSetEntryBackgroundThemeWithName     ("Orange")
+            settingsSetFloat                            (0.20                           ,forKey:.SettingsEntryRowOpacity)
+            
+            settingsSetString                           ("AvenirNextCondensed-DemiBold" ,forKey:.SettingsEntryTitleTextFontName)
+            settingsSetColor                            (UIColor(hsb:[0.12,0.4,1.0])    ,forKey:.SettingsEntryTitleTextFontColor)
+            settingsSetBool                             (true                           ,forKey:.SettingsEntryTitleTextUppercase)
+            settingsSetBool                             (false                          ,forKey:.SettingsEntryTitleTextEmphasize)
+            
+            settingsSetString                           ("AvenirNextCondensed-Italic"   ,forKey:.SettingsEntrySubtitleTextFontName)
+            settingsSetColor                            (UIColor(hsb:[0.12,0.5,1.0])    ,forKey:.SettingsEntrySubtitleTextFontColor)
+            settingsSetBool                             (true                           ,forKey:.SettingsEntrySubtitleTextUppercase)
+            settingsSetBool                             (false                          ,forKey:.SettingsEntrySubtitleTextEmphasize)
+            
+            settingsSetString                           ("AvenirNextCondensed-Heavy"    ,forKey:.SettingsEntryIndexTextFontName)
+            settingsSetColor                            (UIColor(hsb:[0.11,1,1])       ,forKey:.SettingsEntryIndexTextFontColor)
+            settingsSetColor                            (UIColor(hsb:[0.55,0.4,1])      ,forKey:.SettingsEntryIndexBackgroundColor)
+            
+            settingsSave                                ("Orange+Blue")
+            
+            settingsSetColor                            (UIColor(gray:0.15)              ,forKey:.SettingsEntryTitleTextFontColor)
+            settingsSetColor                            (UIColor(gray:0.15)              ,forKey:.SettingsEntrySubtitleTextFontColor)
+            settingsSetColor                            (UIColor(gray:0.15)              ,forKey:.SettingsEntryIndexTextFontColor)
+            settingsSave                                ("Orange+Blue+Black")
+            
+            // SKY
+            
+            settingsSetFloat                            (20                             ,forKey:.SettingsGeoSearchMaximumResults)
+            
+            settingsSetColor                            (UIColor(hsb:[0.60,0.2,1])        ,forKey:.SettingsBackgroundColor)
+            
+            settingsSetEntryBackgroundThemeWithName     ("Sky")
+            settingsSetFloat                            (0.20                           ,forKey:.SettingsEntryRowOpacity)
+            
+            settingsSetString                           ("Cochin-Bold"                  ,forKey:.SettingsEntryTitleTextFontName)
+            settingsSetColor                            (UIColor(hsb:[0.55,0.1,1])      ,forKey:.SettingsEntryTitleTextFontColor)
+            settingsSetBool                             (false                          ,forKey:.SettingsEntryTitleTextUppercase)
+            settingsSetBool                             (false                          ,forKey:.SettingsEntryTitleTextEmphasize)
+            
+            settingsSetString                           ("AvenirNextCondensed-Italic"   ,forKey:.SettingsEntrySubtitleTextFontName)
+            settingsSetColor                            (UIColor(hsb:[0.55,0.2,1])      ,forKey:.SettingsEntrySubtitleTextFontColor)
+            settingsSetBool                             (false                          ,forKey:.SettingsEntrySubtitleTextUppercase)
+            settingsSetBool                             (false                          ,forKey:.SettingsEntrySubtitleTextEmphasize)
+            
+            settingsSetString                           ("AvenirNextCondensed-DemiBold" ,forKey:.SettingsEntryIndexTextFontName)
+            settingsSetColor                            (UIColor(gray:1)                ,forKey:.SettingsEntryIndexTextFontColor)
+            settingsSetColor                            (UIColor(hsb:[0.03,1,1])        ,forKey:.SettingsEntryIndexBackgroundColor)
+            
+            settingsSave                                ("Sky")
+            
+            settingsSetColor                            (UIColor(gray:0.15)              ,forKey:.SettingsEntryTitleTextFontColor)
+            settingsSetColor                            (UIColor(gray:0.15)              ,forKey:.SettingsEntrySubtitleTextFontColor)
+//            settingsSetColor                            (UIColor(gray:0.15)              ,forKey:.SettingsEntryIndexTextFontColor)
+            settingsSave                                ("Sky+Black")
+            
+
+            // CHERRY
+            // GRAPE
+            // NIGHT
+            // SPRING
+            // AUTUMN
+            // WINTER
+            
             settingsSetBool(true,forKey:.SettingsEntryTitleTextEmphasize)
             //        settingsSetBool(true,forKey:.SettingsPageCategoriesUppercase)
         }

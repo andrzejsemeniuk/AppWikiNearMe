@@ -40,6 +40,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         
 
         
+//        Data.Manager.reset()
+//        Data.Manager.settingsUse("Default")
         Data.Manager.resetIfEmpty()
         
         

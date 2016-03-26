@@ -176,12 +176,32 @@ extension CGFloat
 
 extension UIColor
 {
+    public convenience init(gray:CGFloat,alpha:CGFloat = 1) {
+        self.init(red:gray,green:gray,blue:gray,alpha:alpha)
+    }
+    
     public convenience init(red:CGFloat,green:CGFloat,blue:CGFloat) {
         self.init(red:red,green:green,blue:blue,alpha:1)
     }
     
     public convenience init(hue:CGFloat,saturation:CGFloat = 1,brightness:CGFloat = 1) {
         self.init(hue:hue,saturation:saturation,brightness:brightness,alpha:1)
+    }
+
+    public convenience init(hsb:[CGFloat],alpha:CGFloat = 1) {
+        self.init(hue:hsb[0],saturation:hsb[1],brightness:hsb[2],alpha:alpha)
+    }
+
+    public convenience init(hsba:[CGFloat]) {
+        self.init(hue:hsba[0],saturation:hsba[1],brightness:hsba[2],alpha:hsba[3])
+    }
+    
+    public convenience init(rgb:[CGFloat],alpha:CGFloat = 1) {
+        self.init(red:rgb[0],green:rgb[1],blue:rgb[2],alpha:alpha)
+    }
+    
+    public convenience init(rgba:[CGFloat]) {
+        self.init(red:rgba[0],green:rgba[1],blue:rgba[2],alpha:rgba[3])
     }
     
     public func components_RGBA_UInt8() -> (red:UInt8,green:UInt8,blue:UInt8,alpha:UInt8) {

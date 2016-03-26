@@ -116,8 +116,7 @@ class ControllerOfList : UITableViewController
         var entrySubtitleTextFont:              UIFont                      = Data.Manager.settingsGetEntrySubtitleTextFont()
         var entrySubtitleTextFontColor:         UIColor                     = Data.Manager.settingsGetEntrySubtitleTextFontColor()
         var entrySubtitleTextUppercase:         Bool                        = Data.Manager.settingsGetEntrySubtitleTextUppercase()
-        var entryRowEvenOpacity:                CGFloat                     = CGFloat(Data.Manager.settingsGetEntryRowEvenOpacity()).clamp01()
-        var entryRowOddOpacity:                 CGFloat                     = CGFloat(Data.Manager.settingsGetEntryRowOddOpacity()).clamp01()
+        var entryRowOpacity:                    CGFloat                     = CGFloat(Data.Manager.settingsGetEntryRowOpacity()).clamp01()
         var entryBackgroundThemeName:           String                      = Data.Manager.settingsGetEntryBackgroundThemeName()
         var entryBackgroundThemeColorFrom:      UIColor                     = Data.Manager.settingsGetEntryBackgroundThemeRangeColorFrom()
         var entryBackgroundThemeColorTo:        UIColor                     = Data.Manager.settingsGetEntryBackgroundThemeRangeColorTo()
@@ -158,25 +157,34 @@ class ControllerOfList : UITableViewController
             return UIColor(hue:mark.lerp01(0.15,0.35), saturation:saturation, brightness:1.0, alpha:1.0)
         case "Charcoal":
             return row.isEven ? UIColor(white:0.09,alpha:1.0) : UIColor(white:0.13,alpha:1.0)
+        case "Cherry":
+            return UIColor(hue:mark.lerp01(0.90,0.97), saturation:saturation, brightness:0.9, alpha:1.0)
         case "Grape":
             return UIColor(hue:mark.lerp01(0.75,0.90), saturation:saturation, brightness:mark.lerp01(0.65,0.80), alpha:1.0)
         case "Gray":
             return UIColor(white:0.4,alpha:1.0)
         case "Orange":
             return UIColor(hue:mark.lerp01(0.05,0.11), saturation:saturation, brightness:1.0, alpha:1.0)
+        case "Pink":
+            return UIColor(hue:mark.lerp01(0.87,0.95), saturation:saturation, brightness:1.0, alpha:1.0)
         case "Plain":
             return UIColor.whiteColor()
         case "Rainbow":
-            return UIColor(hue:mark.lerp01(0.0,0.9), saturation:saturation, brightness:1.0, alpha:1.0)
+            return UIColor(hue:mark.lerp01(0.0,0.9), saturation:saturation, brightness:1, alpha:1.0)
         case "Range":
             let hue0 = Data.Manager.settingsGetColorForKey(.SettingsEntryBackgroundThemeRangeColorFrom).HSBA().hue
             let hue1 = Data.Manager.settingsGetColorForKey(.SettingsEntryBackgroundThemeRangeColorTo).HSBA().hue
             return UIColor(hue:mark.lerp01(hue0,hue1), saturation:saturation, brightness:1.0, alpha:1.0)
-        case "Strawberry":
-            return UIColor(hue:mark.lerp01(0.89,0.99), saturation:saturation, brightness:1.0, alpha:1.0)
+        case "Sky":
+            return UIColor(hue:mark.lerp01(0.56,0.61), saturation:saturation, brightness:1.0, alpha:1.0)
         case "Solid":
             let HSBA = Data.Manager.settingsGetColorForKey(.SettingsEntryBackgroundThemeSolidColor).HSBA()
+            if HSBA.saturation==0 {
+                return UIColor(hue:CGFloat(HSBA.hue), saturation:0, brightness:CGFloat(HSBA.brightness), alpha:1.0)
+            }
             return UIColor(hue:CGFloat(HSBA.hue), saturation:saturation, brightness:CGFloat(HSBA.brightness), alpha:1.0)
+        case "Strawberry":
+            return UIColor(hue:mark.lerp01(1.00,0.96), saturation:saturation, brightness:mark.lerp01(1.00,0.87), alpha:1.0)
         default:
             break
         }
@@ -214,7 +222,7 @@ class ControllerOfList : UITableViewController
             fill.sizeToFit()
             
             fill.frame.origin.x         = view.frame.size.width/2 - fill.frame.size.width/2
-            fill.frame.origin.y         = fill.frame.size.height/2 - fabs(font.descender) - fabs(font.leading) - fabs(font.capHeight)/2 + 2
+            fill.frame.origin.y         = fill.frame.size.height/2 - fabs(font.descender) - fabs(font.leading) - fabs(font.capHeight)/2 //+ 2
             //            fill.frame.origin.y         = floor(fill.frame.size.height/2.0) - fabs(font.descender) - fabs(font.leading) - floor(fabs(font.capHeight)/2.0) // + 2
             
             //            print("height=\(fill.frame.size.height), a=\(font.ascender), c=\(font.capHeight), d=\(font.descender), l=\(font.leading)")
@@ -229,34 +237,26 @@ class ControllerOfList : UITableViewController
     {
         cell.selectionStyle = .None
         
-//        cell.selectedBackgroundView = nil
-        
-//        if let selected = selectedIndex {
-//            if selected==indexPath.row {
-//                cell.selectedBackgroundView = UIView()
-//                cell.selectedBackgroundView?.backgroundColor = Data.Manager.settingsGetEntrySelectionColor()
-//            }
-//        }
-        
-        if true //cell.selectedBackgroundView == nil
+        if true
         {
             let color                   = colorForRow(indexPath.row)
 
-            cell.backgroundColor        = color
-            
-            let factor:CGFloat          = 0.4
+            let factor:CGFloat          = 0.3
             
             if indexPath.row.isEven {
-//                cell.backgroundColor    = color.colorWithAlphaComponent(CGFloat(1.0-style.entryRowEvenOpacity*factor))
                 let HSBA = color.HSBA()
                 
-                let f                   = 1.0-factor+style.entryRowEvenOpacity*factor
+                let f                   = 1.0-style.entryRowOpacity.clamp01()*factor
                 
-                cell.backgroundColor    = UIColor(hue:HSBA.hue,saturation:HSBA.saturation,brightness:HSBA.brightness*f)
+                cell.backgroundColor    = UIColor(hue:HSBA.hue,saturation:HSBA.saturation,brightness:HSBA.brightness*f,alpha:HSBA.alpha)
+            }
+            else {
+                cell.backgroundColor    = color
             }
         }
         
         if let label = cell.textLabel {
+//            label.frame.origin.y += 4
             label.font      = style.entryTitleTextFont
             label.textColor = style.entryTitleTextFontColor
             if style.entryTitleTextUppercase {
@@ -264,6 +264,7 @@ class ControllerOfList : UITableViewController
             }
         }
         if let label = cell.detailTextLabel {
+//            label.frame.origin.y -= 4
             label.font      = style.entrySubtitleTextFont
             label.textColor = style.entrySubtitleTextFontColor
             if style.entrySubtitleTextUppercase {
@@ -307,7 +308,7 @@ class ControllerOfList : UITableViewController
             fill.sizeToFit()
             
             fill.frame.origin.x         = view.frame.size.width/2 - fill.frame.size.width/2
-            fill.frame.origin.y         = fill.frame.size.height/2 - fabs(font.descender) - fabs(font.leading) - fabs(font.capHeight)/2 + 2
+            fill.frame.origin.y         = fill.frame.size.height/2 - fabs(font.descender) - fabs(font.leading) - fabs(font.capHeight)/2 //+ 2
 //            fill.frame.origin.y         = floor(fill.frame.size.height/2.0) - fabs(font.descender) - fabs(font.leading) - floor(fabs(font.capHeight)/2.0) // + 2
             
 //            print("height=\(fill.frame.size.height), a=\(font.ascender), c=\(font.capHeight), d=\(font.descender), l=\(font.leading)")

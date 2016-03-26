@@ -92,11 +92,14 @@ class ControllerOfBackgroundTheme : GenericControllerOfSettings
                 
                 definePredefinedBackgroundThemeWithName("Apple"),
                 definePredefinedBackgroundThemeWithName("Charcoal"),
+                definePredefinedBackgroundThemeWithName("Cherry"),
                 definePredefinedBackgroundThemeWithName("Grape"),
                 definePredefinedBackgroundThemeWithName("Gray"),
                 definePredefinedBackgroundThemeWithName("Orange"),
                 definePredefinedBackgroundThemeWithName("Plain"),
+                definePredefinedBackgroundThemeWithName("Pink"),
                 definePredefinedBackgroundThemeWithName("Rainbow"),
+                definePredefinedBackgroundThemeWithName("Sky"),
                 definePredefinedBackgroundThemeWithName("Strawberry"),
                 
                 ""

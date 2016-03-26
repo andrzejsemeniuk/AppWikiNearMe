@@ -140,8 +140,8 @@ class ControllerOfMap : UINavigationController, MKMapViewDelegate
                 let location            = CLLocation(latitude:lat.doubleValue,longitude:lon.doubleValue)
                 var title               = String(index+1)
                 if let t = cell.item["title"].string {
-//                    title += ". " + t
-                    title = t
+                    title += ". " + t
+//                    title = t
                 }
                 var subtitle            = ""
                 if let s = cell.item["dist"].number {

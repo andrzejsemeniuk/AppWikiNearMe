@@ -119,6 +119,8 @@ class ControllerOfSettings : GenericControllerOfSettings
                                 controller.handlerForDidSelectRowAtIndexPath = { (controller:GenericControllerOfList,indexPath:NSIndexPath) -> Void in
                                     let selected = controller.items[indexPath.row]
                                     Data.Manager.settingsUse(selected)
+                                    AppDelegate.rootViewController.view.backgroundColor = Data.Manager.settingsGetBackgroundColor()
+                                    AppDelegate.controllerOfPages.view.backgroundColor  = Data.Manager.settingsGetBackgroundColor()
                                     controller.navigationController!.popViewControllerAnimated(true)
                                 }
                                 controller.handlerForCommitEditingStyle = { (controller:GenericControllerOfList,commitEditingStyle:UITableViewCellEditingStyle,indexPath:NSIndexPath) -> Bool in
@@ -176,13 +178,13 @@ class ControllerOfSettings : GenericControllerOfSettings
 //                    }
 //                },
 //                
-//                "Pick a predefined theme and then tweak settings below",
+//                "Pick a predefined theme and/or tweak settings below",
 //            ],
             
             [
                 "FILL",
                 
-                createCellForColor(Data.Manager.settingsGetBackgroundColor(),title:"Background",key:.SettingsBackgroundColor) {
+                createCellForColor(Data.Manager.settingsGetBackgroundColor(),title:"Color",key:.SettingsBackgroundColor) {
                     AppDelegate.rootViewController.view.backgroundColor = Data.Manager.settingsGetBackgroundColor()
                     AppDelegate.controllerOfPages.view.backgroundColor  = Data.Manager.settingsGetBackgroundColor()
 //                    self.tableView.backgroundColor = AppDelegate.rootViewController.view.backgroundColor
@@ -214,8 +216,8 @@ class ControllerOfSettings : GenericControllerOfSettings
                 { (cell:UITableViewCell, indexPath:NSIndexPath) in
                     if let label = cell.textLabel {
                         label.text          = "Opacity"
-                        cell.accessoryView  = self.registerSlider(Data.Manager.settingsGetFloatForKey(.SettingsEntryRowEvenOpacity, defaultValue:0.8), update: { (myslider:UISlider) in
-                            Data.Manager.settingsSetFloat(myslider.value, forKey:.SettingsEntryRowEvenOpacity)
+                        cell.accessoryView  = self.registerSlider(Data.Manager.settingsGetFloatForKey(.SettingsEntryRowOpacity, defaultValue:0.8), update: { (myslider:UISlider) in
+                            Data.Manager.settingsSetFloat(myslider.value, forKey:.SettingsEntryRowOpacity)
                         })
                         cell.accessoryType  = .DisclosureIndicator
                         cell.selectionStyle = .Default
@@ -296,7 +298,7 @@ class ControllerOfSettings : GenericControllerOfSettings
                 
                 createCellForColor(Data.Manager.settingsGetEntryIndexTextFontColor(),title:"Index",key:.SettingsEntryIndexTextFontColor),
                 
-                createCellForColor(Data.Manager.settingsGetEntryIndexBackgroundColor(),title:"Background",key:.SettingsEntryIndexBackgroundColor),
+                createCellForColor(Data.Manager.settingsGetEntryIndexBackgroundColor(),name:"Background",title:"Background",key:.SettingsEntryIndexBackgroundColor),
                 
                 ""
             ],

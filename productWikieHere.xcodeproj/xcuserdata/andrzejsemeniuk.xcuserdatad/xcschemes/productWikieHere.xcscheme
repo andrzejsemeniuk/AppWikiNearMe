@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "570109E21CA06682007C6CFF"
-               BuildableName = "productWikieHere.app"
+               BuildableName = "Wiki Near Me.app"
                BlueprintName = "productWikieHere"
                ReferencedContainer = "container:productWikieHere.xcodeproj">
             </BuildableReference>
@@ -53,7 +53,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "570109E21CA06682007C6CFF"
-            BuildableName = "productWikieHere.app"
+            BuildableName = "Wiki Near Me.app"
             BlueprintName = "productWikieHere"
             ReferencedContainer = "container:productWikieHere.xcodeproj">
          </BuildableReference>
@@ -76,7 +76,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "570109E21CA06682007C6CFF"
-            BuildableName = "productWikieHere.app"
+            BuildableName = "Wiki Near Me.app"
             BlueprintName = "productWikieHere"
             ReferencedContainer = "container:productWikieHere.xcodeproj">
          </BuildableReference>
@@ -99,7 +99,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "570109E21CA06682007C6CFF"
-            BuildableName = "productWikieHere.app"
+            BuildableName = "Wiki Near Me.app"
             BlueprintName = "productWikieHere"
             ReferencedContainer = "container:productWikieHere.xcodeproj">
          </BuildableReference>
