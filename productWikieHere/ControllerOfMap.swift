@@ -11,7 +11,7 @@ import MapKit
 import UIKit
 import SwiftyJSON
 
-class ControllerOfMap : UINavigationController, MKMapViewDelegate
+class ControllerOfMap : UIViewController, MKMapViewDelegate
 {
     var map     :MKMapView!
     var here    :MKUserTrackingBarButtonItem!
@@ -128,60 +128,78 @@ class ControllerOfMap : UINavigationController, MKMapViewDelegate
             map.removeAnnotation(annotation.1.annotation)
         }
         
-        annotations = [:]
-        indexOfAnnotation = [:]
+        annotations                         = [:]
+        indexOfAnnotation                   = [:]
             
-        var index = 0
+        var index = 1
         
         var annotationsToShow:[MKAnnotation] = []
         
         for cell in AppDelegate.controllerOfList.cells {
             if let lat = cell.item["lat"].number, let lon = cell.item["lon"].number {
-                let location            = CLLocation(latitude:lat.doubleValue,longitude:lon.doubleValue)
-                var title               = String(index+1)
+                let location                = CLLocation(latitude:lat.doubleValue,longitude:lon.doubleValue)
+                var title                   = "" //String(index)
                 if let t = cell.item["title"].string {
-                    title += ". " + t
-//                    title = t
+//                    title += ". " + t
+                    title = t
                 }
-                var subtitle            = ""
+                var subtitle                = ""
                 if let s = cell.item["dist"].number {
                     subtitle = String(s) + " m"
                 }
-                let annotation          = Annotation(coordinate:location.coordinate, title:title, subtitle:subtitle)
-                annotations[index]      = AnnotationEntry(index:index,location:location,item:cell.item,annotation:annotation)
-                indexOfAnnotation[title] = UInt(index)
+                let annotation              = Annotation(coordinate:location.coordinate, title:title, subtitle:subtitle)
+                annotations[index]          = AnnotationEntry(index:index,location:location,item:cell.item,annotation:annotation)
+                indexOfAnnotation[title]    = UInt(index)
                 annotationsToShow.append(annotation)
             }
             index += 1
         }
         
-//        dispatch_async(dispatch_get_main_queue(), {
-            self.map.addAnnotations(annotationsToShow)
-            self.map.showAnnotations(annotationsToShow,animated:true)
+        self.map.addAnnotations(annotationsToShow)
+        self.map.showAnnotations(annotationsToShow,animated:true)
         
-            if let selectedIndex = AppDelegate.controllerOfList.selectedIndex, let annotation = self.annotations[selectedIndex] {
-                self.map.selectAnnotation(annotation.annotation, animated:true)
-            }
-//        })
+        if let selectedIndex = AppDelegate.controllerOfList.selectedIndex, let annotation = self.annotations[1+selectedIndex] {
+            self.map.selectAnnotation(annotation.annotation, animated:true)
+        }
         
         super.viewWillAppear(animated)
     }
     
     
-//    func viewForAnnotation(annotation: MKAnnotation) -> MKAnnotationView?
-    func mapViewLater(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView?
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView?
     {
-        let view = MKAnnotationView(annotation:annotation,reuseIdentifier:nil)
+//        print("annotation: title \(annotation.title), subtitle \(annotation.subtitle)")
         
-        view.image=nil
+        if annotation is MKUserLocation {
+            return nil
+        }
+        
+        let view = MKPinAnnotationView(annotation:annotation,reuseIdentifier:nil)
+        
+        view.canShowCallout = true
+        
+        if let detail=view.leftCalloutAccessoryView {
+//            detail.backgroundColor = UIColor.redColor()
+        }
+        
+//        view.image=nil
 //        view.bounds.size = CGSizeMake(120,120)
 //        view.frame.size = CGSizeMake(120,120)
         
         if let title = annotation.title, let utitle = title, let index = indexOfAnnotation[utitle] {
-            AppDelegate.controllerOfList.styleIndex(view,number:index)
+            let (label,fill) = AppDelegate.controllerOfList.styleIndex(view,number:index)
+            let divisor:CGFloat = 4
+            if let width=fill?.frame.size.width {
+                label.frame.origin.x -= width/divisor
+                fill?.frame.origin.x -= width/divisor
+            }
+            if let height=fill?.frame.size.height {
+                label.frame.origin.y -= height/divisor
+                fill?.frame.origin.y -= height/divisor
+            }
         }
         else {
-            AppDelegate.controllerOfList.styleIndex(view,number:0)
+//            AppDelegate.controllerOfList.styleIndex(view,number:0)
         }
         
         return view

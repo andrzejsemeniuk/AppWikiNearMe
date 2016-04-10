@@ -120,7 +120,7 @@ class ControllerOfSettings : GenericControllerOfSettings
                                     let selected = controller.items[indexPath.row]
                                     Data.Manager.settingsUse(selected)
                                     AppDelegate.rootViewController.view.backgroundColor = Data.Manager.settingsGetBackgroundColor()
-                                    AppDelegate.controllerOfPages.view.backgroundColor  = Data.Manager.settingsGetBackgroundColor()
+//                                    AppDelegate.controllerOfPages.view.backgroundColor  = Data.Manager.settingsGetBackgroundColor()
                                     controller.navigationController!.popViewControllerAnimated(true)
                                 }
                                 controller.handlerForCommitEditingStyle = { (controller:GenericControllerOfList,commitEditingStyle:UITableViewCellEditingStyle,indexPath:NSIndexPath) -> Bool in
@@ -186,7 +186,7 @@ class ControllerOfSettings : GenericControllerOfSettings
                 
                 createCellForColor(Data.Manager.settingsGetBackgroundColor(),title:"Color",key:.SettingsBackgroundColor) {
                     AppDelegate.rootViewController.view.backgroundColor = Data.Manager.settingsGetBackgroundColor()
-                    AppDelegate.controllerOfPages.view.backgroundColor  = Data.Manager.settingsGetBackgroundColor()
+//                    AppDelegate.controllerOfPages.view.backgroundColor  = Data.Manager.settingsGetBackgroundColor()
 //                    self.tableView.backgroundColor = AppDelegate.rootViewController.view.backgroundColor
                 },
                 

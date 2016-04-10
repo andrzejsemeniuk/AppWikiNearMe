@@ -36,7 +36,7 @@ class ControllerOfList : UITableViewController
     {
         print("viewDidLoad: ControllerOfList")
         
-        super.title = "Wiki Near Me"
+        super.title = "List"
         
         
         tableView.separatorStyle = .None // UITableViewCellSeparatorStyle
@@ -51,7 +51,7 @@ class ControllerOfList : UITableViewController
         
         if true
         {
-            var items = navigationItem.rightBarButtonItems
+            var items = navigationItem.leftBarButtonItems
             
             if items == nil {
                 items = [UIBarButtonItem]()
@@ -61,9 +61,24 @@ class ControllerOfList : UITableViewController
                 UIBarButtonItem(title:"Settings", style:.Plain, target:self, action: #selector(ControllerOfList.openSettings)),
             ]
             
-            navigationItem.rightBarButtonItems = items
+            navigationItem.leftBarButtonItems = items
         }
 
+        if true
+        {
+            var items = navigationItem.rightBarButtonItems
+            
+            if items == nil {
+                items = [UIBarButtonItem]()
+            }
+            
+            items! += [
+                UIBarButtonItem(title:"Map", style:.Plain, target:self, action: #selector(ControllerOfList.openMap)),
+            ]
+            
+            navigationItem.rightBarButtonItems = items
+        }
+        
         
         super.viewDidLoad()
         
@@ -105,6 +120,15 @@ class ControllerOfList : UITableViewController
     }
     
     
+    
+    func openMap()
+    {
+        let map = ControllerOfMap()
+        
+        map.title = "Map"
+        
+        self.navigationController?.pushViewController(map, animated:true)
+    }
     
     
     
@@ -191,7 +215,7 @@ class ControllerOfList : UITableViewController
         return UIColor.whiteColor()
     }
     
-    func styleIndex(view:UIView,number:UInt)
+    func styleIndex(view:UIView,number:UInt) -> (label:UIView,fill:UIView?)
     {
         let label = UILabel()
         
@@ -207,6 +231,8 @@ class ControllerOfList : UITableViewController
         label.frame.origin.y        = view.frame.size.height/2 - label.frame.size.height/2
         
         //        label.backgroundColor       = UIColor.redColor()
+        
+        var FILL:UIView?
         
         if let font = style.entryIndexBackgroundFont
         {
@@ -227,9 +253,13 @@ class ControllerOfList : UITableViewController
             
             //            print("height=\(fill.frame.size.height), a=\(font.ascender), c=\(font.capHeight), d=\(font.descender), l=\(font.leading)")
             view.addSubview(fill)
+            
+            FILL=fill
         }
         
         view.addSubview(label)
+        
+        return (label,FILL)
     }
     
     
@@ -244,9 +274,9 @@ class ControllerOfList : UITableViewController
             let factor:CGFloat          = 0.3
             
             if indexPath.row.isEven {
-                let HSBA = color.HSBA()
+                let HSBA                = color.HSBA()
                 
-                let f                   = 1.0-style.entryRowOpacity.clamp01()*factor
+                let f                   = 1.0 - style.entryRowOpacity.clamp01()*factor
                 
                 cell.backgroundColor    = UIColor(hue:HSBA.hue,saturation:HSBA.saturation,brightness:HSBA.brightness*f,alpha:HSBA.alpha)
             }

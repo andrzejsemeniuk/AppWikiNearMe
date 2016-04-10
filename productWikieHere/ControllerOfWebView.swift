@@ -8,10 +8,13 @@
 
 import Foundation
 import UIKit
+import QuartzCore
 
 class ControllerOfWebView : UIViewController, UIWebViewDelegate
 {
     var webview:UIWebView!
+    
+    let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle:.White)
     
     override func viewDidLoad()
     {
@@ -25,12 +28,37 @@ class ControllerOfWebView : UIViewController, UIWebViewDelegate
         
         webview.scalesPageToFit = true
         
+        
+        
+        activityIndicator.hidesWhenStopped = true
+        
+        webview.addSubview(activityIndicator)
+        
+
 
         self.view               = webview
         
-        view.backgroundColor    = UIColor.redColor()
-        
         view.contentMode        = .ScaleAspectFit
+        
+        
+        
+        
+        if true
+        {
+            var items = navigationItem.rightBarButtonItems
+            
+            if items == nil {
+                items = [UIBarButtonItem]()
+            }
+            
+            items! += [
+                UIBarButtonItem(title:"Map", style:.Plain, target:self, action: #selector(ControllerOfWebView.openMap)),
+            ]
+            
+            navigationItem.rightBarButtonItems = items
+        }
+
+        
         
         
 //        view.frame              = self.view.frame
@@ -40,12 +68,25 @@ class ControllerOfWebView : UIViewController, UIWebViewDelegate
         super.viewDidLoad()
     }
     
+    
+    
     override func didReceiveMemoryWarning()
     {
         super.didReceiveMemoryWarning()
     }
     
     
+    
+    
+    func openMap()
+    {
+        let map = ControllerOfMap()
+        
+        map.title = "Map"
+        
+        self.navigationController?.pushViewController(map, animated:true)
+    }
+
     
     
     
@@ -58,25 +99,36 @@ class ControllerOfWebView : UIViewController, UIWebViewDelegate
             print("frame=\(view.frame)")
             
             let nsurlrequest = NSURLRequest(URL:nsurl)
-            
+
             webview.loadRequest(nsurlrequest)
         }
     }
     
     
     
+    
     func webViewDidStartLoad(webView: UIWebView)
     {
-        print("webview: did start load")
+        // specify alpha to make activity indicator view transparent
+        activityIndicator.backgroundColor   = UIColor(gray:0.1,alpha:0.35)
+        // use the frame of web view to reposition the indicator precisely
+        activityIndicator.frame             = webView.frame //activityIndicator.superview?.frame
+        // no need to set center if frame is set
+//        activityIndicator.center            = webview.center
+//        activityIndicator.alpha             = 0.33
+        activityIndicator.transform         = CGAffineTransformMakeScale(1.5,1.5)
+        activityIndicator.startAnimating()
     }
     
-    func webViewDidFinishtLoad(webView: UIWebView)
+    func webViewDidFinishLoad(webView: UIWebView)
     {
-        print("webview: did finish load")
+        activityIndicator.stopAnimating()
     }
     
     func webView(webView: UIWebView, didFailLoadWithError:NSError?)
     {
+        activityIndicator.stopAnimating()
+        
         print("webview: did fail load with error: \(didFailLoadWithError)")
     }
     
@@ -85,10 +137,11 @@ class ControllerOfWebView : UIViewController, UIWebViewDelegate
     
     override func viewWillAppear(animated: Bool)
     {
-        webview.backgroundColor = Data.Manager.settingsGetBackgroundColor()
+        super.view?.backgroundColor = Data.Manager.settingsGetBackgroundColor()
 
         super.viewWillAppear(animated)
     }
 
+    
     
 }
