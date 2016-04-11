@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "E56B531D4E86F1F2CD4C1C5A9B2C667E10C5E73D",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "B61467CADB1DD4CAD9EAF83768F805F9000E2788" : 0,
+    "E56B531D4E86F1F2CD4C1C5A9B2C667E10C5E73D" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "4391C355-1A6E-4238-8E43-F9C75134A2F0",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "B61467CADB1DD4CAD9EAF83768F805F9000E2788" : "TGFSwift\/",
+    "E56B531D4E86F1F2CD4C1C5A9B2C667E10C5E73D" : "productWikieHere\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "productWikieHere",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "productWikieHere.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/tinygamefactory\/TGFSwift.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "B61467CADB1DD4CAD9EAF83768F805F9000E2788"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/tinygamefactory\/TGFWikiNearMe.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "E56B531D4E86F1F2CD4C1C5A9B2C667E10C5E73D"
+    }
+  ]
+}

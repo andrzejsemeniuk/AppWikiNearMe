@@ -52,7 +52,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         
         AppDelegate.controllerOfList        = ControllerOfList()
         
-        WINDOW.rootViewController           = UINavigationController(rootViewController:AppDelegate.controllerOfList)
+        let NAVIGATOR                       = UINavigationController(rootViewController:AppDelegate.controllerOfList)
+        
+        NAVIGATOR.navigationBar.translucent         = true
+        NAVIGATOR.navigationBar.backgroundColor     = UIColor.clearColor()
+        
+        
+        WINDOW.rootViewController           = NAVIGATOR
         
         WINDOW.makeKeyAndVisible()
         
