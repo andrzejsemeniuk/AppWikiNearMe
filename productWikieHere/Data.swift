@@ -86,8 +86,6 @@ class Data : NSObject
         
         
         
-        static let defaultFont:UIFont = UIFont(name:"Helvetica",size:UIFont.labelFontSize())!
-        
         
         
         
@@ -258,7 +256,7 @@ class Data : NSObject
         
         
         
-        class func settingsGetFontName(key:Key, defaultValue:String = Data.Manager.defaultFont.fontName) -> String
+        class func settingsGetFontName(key:Key, defaultValue:String = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline).familyName) -> String
         {
             return settingsGetStringForKey(key,defaultValue:defaultValue)
         }

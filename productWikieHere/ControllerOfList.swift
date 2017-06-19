@@ -196,17 +196,17 @@ class ControllerOfList : UITableViewController
         case "Rainbow":
             return UIColor(hue:mark.lerp01(0.0,0.9), saturation:saturation, brightness:1, alpha:1.0)
         case "Range":
-            let hue0 = Data.Manager.settingsGetColorForKey(.SettingsEntryBackgroundThemeRangeColorFrom).HSBA().hue
-            let hue1 = Data.Manager.settingsGetColorForKey(.SettingsEntryBackgroundThemeRangeColorTo).HSBA().hue
-            return UIColor(hue:mark.lerp01(hue0,hue1), saturation:saturation, brightness:1.0, alpha:1.0)
+            let color0 = Data.Manager.settingsGetColorForKey(.SettingsEntryBackgroundThemeRangeColorFrom).HSBA()
+            let color1 = Data.Manager.settingsGetColorForKey(.SettingsEntryBackgroundThemeRangeColorTo).HSBA()
+            return UIColor(hue:mark.lerp01(color0.hue,color1.hue),
+                           saturation:mark.lerp01(color0.saturation,color1.saturation)*saturation,
+                           brightness:mark.lerp01(color0.brightness,color1.brightness),
+                           alpha:1.0)
         case "Sky":
             return UIColor(hue:mark.lerp01(0.56,0.61), saturation:saturation, brightness:1.0, alpha:1.0)
         case "Solid":
             let HSBA = Data.Manager.settingsGetColorForKey(.SettingsEntryBackgroundThemeSolidColor).HSBA()
-            if HSBA.saturation==0 {
-                return UIColor(hue:CGFloat(HSBA.hue), saturation:0, brightness:CGFloat(HSBA.brightness), alpha:1.0)
-            }
-            return UIColor(hue:CGFloat(HSBA.hue), saturation:saturation, brightness:CGFloat(HSBA.brightness), alpha:1.0)
+            return UIColor(hue:CGFloat(HSBA.hue), saturation:HSBA.saturation*saturation, brightness:CGFloat(HSBA.brightness), alpha:1.0)
         case "Strawberry":
             return UIColor(hue:mark.lerp01(1.00,0.96), saturation:saturation, brightness:mark.lerp01(1.00,0.87), alpha:1.0)
         default:
