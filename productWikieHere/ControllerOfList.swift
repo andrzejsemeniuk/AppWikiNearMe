@@ -10,6 +10,7 @@ import Foundation
 import CoreLocation
 import UIKit
 import SwiftyJSON
+import TGF
 
 class ControllerOfList : UITableViewController
 {
@@ -39,13 +40,13 @@ class ControllerOfList : UITableViewController
         super.title = "List"
         
         
-        tableView.separatorStyle = .None // UITableViewCellSeparatorStyle
+        tableView.separatorStyle = .none // UITableViewCellSeparatorStyle
         
         do
         {
             super.refreshControl = UIRefreshControl()
             
-            super.refreshControl?.addTarget(self,action:#selector(ControllerOfList.refresh),forControlEvents:.ValueChanged)
+            super.refreshControl?.addTarget(self,action:#selector(ControllerOfList.refresh),for:.valueChanged)
         }
         
         
@@ -58,7 +59,7 @@ class ControllerOfList : UITableViewController
             }
             
             items! += [
-                UIBarButtonItem(title:"Settings", style:.Plain, target:self, action: #selector(ControllerOfList.openSettings)),
+                UIBarButtonItem(title:"Settings", style:.plain, target:self, action: #selector(ControllerOfList.openSettings)),
             ]
             
             navigationItem.leftBarButtonItems = items
@@ -73,7 +74,7 @@ class ControllerOfList : UITableViewController
             }
             
             items! += [
-                UIBarButtonItem(title:"Map", style:.Plain, target:self, action: #selector(ControllerOfList.openMap)),
+                UIBarButtonItem(title:"Map", style:.plain, target:self, action: #selector(ControllerOfList.openMap)),
             ]
             
             navigationItem.rightBarButtonItems = items
@@ -89,11 +90,11 @@ class ControllerOfList : UITableViewController
             var status:String = ""
             
             switch CLLocationManager.authorizationStatus() {
-                case .Denied:               status = "Denied"
-                case .NotDetermined:        status = "Not Determined"
-                case .Restricted:           status = "Restricted"
-                case .AuthorizedAlways:     status = "Authorized Always"
-                case .AuthorizedWhenInUse:  status = "Authorized When In Use"
+                case .denied:               status = "Denied"
+                case .notDetermined:        status = "Not Determined"
+                case .restricted:           status = "Restricted"
+                case .authorizedAlways:     status = "Authorized Always"
+                case .authorizedWhenInUse:  status = "Authorized When In Use"
             }
             
             print("authorizationStatusUpdated to \(status)")
@@ -147,15 +148,15 @@ class ControllerOfList : UITableViewController
         var entryIndexTextFont:                 UIFont                      = Data.Manager.settingsGetEntryIndexTextFont()
         var entryIndexTextFontColor:            UIColor                     = Data.Manager.settingsGetEntryIndexTextFontColor()
         var entryIndexBackgroundColor:          UIColor                     = Data.Manager.settingsGetEntryIndexBackgroundColor()
-        var entryIndexBackgroundFont:           UIFont?                     = UIFont(name:"AppleSDGothicNeo-Medium",size:UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline).pointSize+26)
+        var entryIndexBackgroundFont:           UIFont?                     = UIFont(name:"AppleSDGothicNeo-Medium",size:UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline).pointSize+26)
     }
     
-    private var style = Style()
+    fileprivate var style = Style()
     
 
     
     
-    override func viewWillAppear(animated: Bool)
+    override func viewWillAppear(_ animated: Bool)
     {
         selectedIndex = nil
         
@@ -169,7 +170,7 @@ class ControllerOfList : UITableViewController
     }
     
     
-    private func colorForRow(row:Int) -> UIColor
+    fileprivate func colorForRow(_ row:Int) -> UIColor
     {
         let saturation = CGFloat(Data.Manager.settingsGetEntryBackgroundThemeSaturation())
         
@@ -192,7 +193,7 @@ class ControllerOfList : UITableViewController
         case "Pink":
             return UIColor(hue:mark.lerp01(0.87,0.95), saturation:saturation, brightness:1.0, alpha:1.0)
         case "Plain":
-            return UIColor.whiteColor()
+            return UIColor.white
         case "Rainbow":
             return UIColor(hue:mark.lerp01(0.0,0.9), saturation:saturation, brightness:1, alpha:1.0)
         case "Range":
@@ -212,17 +213,17 @@ class ControllerOfList : UITableViewController
         default:
             break
         }
-        return UIColor.whiteColor()
+        return UIColor.white
     }
     
-    func styleIndex(view:UIView,number:UInt) -> (label:UIView,fill:UIView?)
+    func styleIndex(_ view:UIView,number:UInt) -> (label:UIView,fill:UIView?)
     {
         let label = UILabel()
         
         label.font                  = style.entryIndexTextFont
         label.textColor             = style.entryIndexTextFontColor
         label.text                  = String(number)
-        label.textAlignment         = .Center
+        label.textAlignment         = .center
         
         label.sizeToFit()
         
@@ -243,7 +244,7 @@ class ControllerOfList : UITableViewController
             fill.font                   = font
             fill.textColor              = style.entryIndexBackgroundColor
             fill.text                   = "●" // "●"
-            fill.textAlignment          = .Center
+            fill.textAlignment          = .center
             
             fill.sizeToFit()
             
@@ -263,9 +264,9 @@ class ControllerOfList : UITableViewController
     }
     
     
-    private func styleCell(cell:UITableViewCell, indexPath:NSIndexPath)
+    fileprivate func styleCell(_ cell:UITableViewCell, indexPath:IndexPath)
     {
-        cell.selectionStyle = .None
+        cell.selectionStyle = .none
         
         if true
         {
@@ -290,7 +291,7 @@ class ControllerOfList : UITableViewController
             label.font      = style.entryTitleTextFont
             label.textColor = style.entryTitleTextFontColor
             if style.entryTitleTextUppercase {
-                label.text  = label.text?.uppercaseString
+                label.text  = label.text?.uppercased()
             }
         }
         if let label = cell.detailTextLabel {
@@ -298,14 +299,14 @@ class ControllerOfList : UITableViewController
             label.font      = style.entrySubtitleTextFont
             label.textColor = style.entrySubtitleTextFontColor
             if style.entrySubtitleTextUppercase {
-                label.text  = label.text?.uppercaseString
+                label.text  = label.text?.uppercased()
             }
         }
         
         let view = UIView()
         
-        view.frame                  = CGRectMake(0,0,cell.bounds.height,cell.bounds.height)
-        view.backgroundColor        = UIColor.whiteColor().colorWithAlphaComponent(0)
+        view.frame                  = CGRect(x: 0,y: 0,width: cell.bounds.height,height: cell.bounds.height)
+        view.backgroundColor        = UIColor.white.withAlphaComponent(0)
 
         
         
@@ -314,7 +315,7 @@ class ControllerOfList : UITableViewController
         label.font                  = style.entryIndexTextFont
         label.textColor             = style.entryIndexTextFontColor
         label.text                  = String(indexPath.row+1)
-        label.textAlignment         = .Center
+        label.textAlignment         = .center
         
         label.sizeToFit()
         
@@ -333,7 +334,7 @@ class ControllerOfList : UITableViewController
             fill.font                   = font
             fill.textColor              = style.entryIndexBackgroundColor
             fill.text                   = "●" // "●"
-            fill.textAlignment          = .Center
+            fill.textAlignment          = .center
 
             fill.sizeToFit()
             
@@ -353,21 +354,21 @@ class ControllerOfList : UITableViewController
     }
     
     
-    override func numberOfSectionsInTableView   (tableView: UITableView) -> Int
+    override func numberOfSections   (in tableView: UITableView) -> Int
     {
         return 1
     }
     
-    override func tableView                     (tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    override func tableView                     (_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         return cells.count
     }
     
-    override func tableView                     (tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    override func tableView                     (_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         var CELL = cells[indexPath.row]
         
-        let cell = UITableViewCell(style:.Subtitle,reuseIdentifier:nil)
+        let cell = UITableViewCell(style:.subtitle,reuseIdentifier:nil)
         
         if let label = cell.textLabel {
 //            label.text = String(CELL.index) + ". " + (CELL.item["title"].rawString() ?? "")
@@ -416,10 +417,10 @@ class ControllerOfList : UITableViewController
             if let type = CELL.item["type"].rawString() {
                 if type != "null" {
                     if let text = label.text {
-                        label.text = text + " [" + type.capitalizedString + "]"
+                        label.text = text + " [" + type.capitalized() + "]"
                     }
                     else {
-                        label.text = "[" + type.capitalizedString + "]"
+                        label.text = "[" + type.capitalized() + "]"
                     }
                 }
             }
@@ -441,7 +442,7 @@ class ControllerOfList : UITableViewController
     
     
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
         selectedIndex = indexPath.row
 
@@ -449,7 +450,7 @@ class ControllerOfList : UITableViewController
         
         let pageid  = cell.item["pageid"].rawString()
         
-        if 0 < pageid?.length
+        if 0 < (pageid?.length)!
         {
             let url = "https://en.wikipedia.org/?curid=" + String(pageid!)
             //            let url = "https://www.amazon.com"
@@ -472,7 +473,7 @@ class ControllerOfList : UITableViewController
     
     
     
-    private func fetch(gscoord:String, gsradius:UInt = 10000, gsmaxdim:UInt = 100000, gslimit:UInt = 15, update:([Cell])->())
+    fileprivate func fetch(_ gscoord:String, gsradius:UInt = 10000, gsmaxdim:UInt = 100000, gslimit:UInt = 15, update:@escaping ([Cell])->())
     {
         let parameters:[Source.Wikipedia.GeoSearchParameter:String] = [
             .gscoord    : gscoord,
@@ -483,7 +484,7 @@ class ControllerOfList : UITableViewController
             .gsprimary  : "all"
         ]
         
-        Source.Wikipedia.get_geosearch(language:.English,parameters:parameters) { (error,data) in
+        Source.Wikipedia.get_geosearch(.English,parameters:parameters) { (error,data) in
             if let data=data {
                 var cells:[Cell] = []
                 

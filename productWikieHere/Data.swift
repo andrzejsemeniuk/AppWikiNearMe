@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftyJSON
+import UIKit
 
 class Data : NSObject
 {
@@ -94,13 +95,13 @@ class Data : NSObject
         
         class func settingsGetCurrent() -> [String:AnyObject]
         {
-            if let defaults = NSUserDefaults.standardUserDefaults().dictionaryForKey(Key.SettingsCurrent.rawValue) {
-                return defaults
+            if let defaults = UserDefaults.standard.dictionary(forKey: Key.SettingsCurrent.rawValue) {
+                return defaults as [String : AnyObject]
             }
             
             let defaults = [String:AnyObject]()
             
-            NSUserDefaults.standardUserDefaults().setObject(defaults,forKey:Key.SettingsCurrent.rawValue)
+            UserDefaults.standard.set(defaults,forKey:Key.SettingsCurrent.rawValue)
             
             return defaults
         }
@@ -108,7 +109,7 @@ class Data : NSObject
         
         
         
-        class func settingsGetBoolForKey(key:Key, defaultValue:Bool = false) -> Bool
+        class func settingsGetBoolForKey(_ key:Key, defaultValue:Bool = false) -> Bool
         {
             if let result = settingsGetCurrent()["b:"+key.rawValue] as? Bool {
                 return result
@@ -116,16 +117,16 @@ class Data : NSObject
             return defaultValue
         }
         
-        class func settingsSetBool(value:Bool, forKey:Key)
+        class func settingsSetBool(_ value:Bool, forKey:Key)
         {
             var defaults = settingsGetCurrent();
             
-            defaults["b:"+forKey.rawValue] = value
+            defaults["b:"+forKey.rawValue] = value as AnyObject
             
-            NSUserDefaults.standardUserDefaults().setObject(defaults,forKey:Key.SettingsCurrent.rawValue)
+            UserDefaults.standard.set(defaults,forKey:Key.SettingsCurrent.rawValue)
         }
         
-        class func settingsGetFloatForKey(key:Key, defaultValue:Float = 0) -> Float
+        class func settingsGetFloatForKey(_ key:Key, defaultValue:Float = 0) -> Float
         {
             if let result = settingsGetCurrent()["f:"+key.rawValue] as? Float {
                 return result
@@ -133,16 +134,16 @@ class Data : NSObject
             return defaultValue
         }
         
-        class func settingsSetFloat(value:Float, forKey:Key)
+        class func settingsSetFloat(_ value:Float, forKey:Key)
         {
             var defaults = settingsGetCurrent();
             
-            defaults["f:"+forKey.rawValue] = value
+            defaults["f:"+forKey.rawValue] = value as AnyObject
             
-            NSUserDefaults.standardUserDefaults().setObject(defaults,forKey:Key.SettingsCurrent.rawValue)
+            UserDefaults.standard.set(defaults,forKey:Key.SettingsCurrent.rawValue)
         }
         
-        class func settingsGetStringForKey(key:Key, defaultValue:String = "") -> String
+        class func settingsGetStringForKey(_ key:Key, defaultValue:String = "") -> String
         {
             if let result = settingsGetCurrent()["s:"+key.rawValue] as? String {
                 return result
@@ -150,16 +151,16 @@ class Data : NSObject
             return defaultValue
         }
         
-        class func settingsSetString(value:String, forKey:Key)
+        class func settingsSetString(_ value:String, forKey:Key)
         {
             var defaults = settingsGetCurrent();
             
-            defaults["s:"+forKey.rawValue] = value
+            defaults["s:"+forKey.rawValue] = value as AnyObject
             
-            NSUserDefaults.standardUserDefaults().setObject(defaults,forKey:Key.SettingsCurrent.rawValue)
+            UserDefaults.standard.set(defaults,forKey:Key.SettingsCurrent.rawValue)
         }
         
-        class func settingsPackColor(value:UIColor) -> [Float]
+        class func settingsPackColor(_ value:UIColor) -> [Float]
         {
             let rgba = value.RGBA()
             
@@ -173,7 +174,7 @@ class Data : NSObject
             return RGBA
         }
         
-        class func settingsUnpackColor(value:[Float], defaultValue:UIColor) -> UIColor
+        class func settingsUnpackColor(_ value:[Float], defaultValue:UIColor) -> UIColor
         {
             if 3 < value.count
             {
@@ -185,7 +186,7 @@ class Data : NSObject
             }
         }
         
-        class func settingsGetColorForKey(key:Key, defaultValue:UIColor = UIColor.blackColor()) -> UIColor
+        class func settingsGetColorForKey(_ key:Key, defaultValue:UIColor = UIColor.black) -> UIColor
         {
             if let result = settingsGetCurrent()["c:"+key.rawValue] as? [Float] {
                 return settingsUnpackColor(result,defaultValue:defaultValue)
@@ -193,16 +194,16 @@ class Data : NSObject
             return defaultValue
         }
         
-        class func settingsSetColor(value:UIColor, forKey:Key)
+        class func settingsSetColor(_ value:UIColor, forKey:Key)
         {
             var defaults = settingsGetCurrent();
             
-            defaults["c:"+forKey.rawValue] = settingsPackColor(value)
+            defaults["c:"+forKey.rawValue] = settingsPackColor(value) as AnyObject
             
-            NSUserDefaults.standardUserDefaults().setObject(defaults,forKey:Key.SettingsCurrent.rawValue)
+            UserDefaults.standard.set(defaults,forKey:Key.SettingsCurrent.rawValue)
         }
         
-        class func settingsGetArrayForKey(key:Key, defaultValue:[AnyObject] = []) -> [AnyObject]
+        class func settingsGetArrayForKey(_ key:Key, defaultValue:[AnyObject] = []) -> [AnyObject]
         {
             if let result = settingsGetCurrent()["A:"+key.rawValue] as? [AnyObject] {
                 return result
@@ -210,17 +211,17 @@ class Data : NSObject
             return defaultValue
         }
         
-        class func settingsSetArray(value:[AnyObject], forKey:Key)
+        class func settingsSetArray(_ value:[AnyObject], forKey:Key)
         {
             var defaults = settingsGetCurrent();
             
-            defaults["A:"+forKey.rawValue] = value
+            defaults["A:"+forKey.rawValue] = value as AnyObject
             
-            NSUserDefaults.standardUserDefaults().setObject(defaults,forKey:Key.SettingsCurrent.rawValue)
+            UserDefaults.standard.set(defaults,forKey:Key.SettingsCurrent.rawValue)
         }
         
         
-        class func settingsGetDictionaryForKey(key:Key, defaultValue:[String:AnyObject] = [:]) -> [String:AnyObject]
+        class func settingsGetDictionaryForKey(_ key:Key, defaultValue:[String:AnyObject] = [:]) -> [String:AnyObject]
         {
             if let result = settingsGetCurrent()["D:"+key.rawValue] as? [String:AnyObject] {
                 return result
@@ -228,13 +229,13 @@ class Data : NSObject
             return defaultValue
         }
         
-        class func settingsSetDictionary(value:[String:AnyObject], forKey:Key)
+        class func settingsSetDictionary(_ value:[String:AnyObject], forKey:Key)
         {
             var defaults = settingsGetCurrent();
             
-            defaults["D:"+forKey.rawValue] = value
+            defaults["D:"+forKey.rawValue] = value as AnyObject
             
-            NSUserDefaults.standardUserDefaults().setObject(defaults,forKey:Key.SettingsCurrent.rawValue)
+            UserDefaults.standard.set(defaults,forKey:Key.SettingsCurrent.rawValue)
         }
         
         
@@ -256,7 +257,7 @@ class Data : NSObject
         
         
         
-        class func settingsGetFontName(key:Key, defaultValue:String = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline).familyName) -> String
+        class func settingsGetFontName(_ key:Key, defaultValue:String = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline).familyName) -> String
         {
             return settingsGetStringForKey(key,defaultValue:defaultValue)
         }
@@ -266,7 +267,7 @@ class Data : NSObject
         
         
         
-        class func settingsGetEntrySelectionColor(defaultValue:UIColor = UIColor.grayColor()) -> UIColor
+        class func settingsGetEntrySelectionColor(_ defaultValue:UIColor = UIColor.gray) -> UIColor
         {
             return settingsGetColorForKey(.SettingsEntrySelectionColor,defaultValue:defaultValue)
         }
@@ -275,7 +276,7 @@ class Data : NSObject
         
         
         
-        class func settingsGetEntryTitleTextFont(defaultValue:UIFont = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)) -> UIFont
+        class func settingsGetEntryTitleTextFont(_ defaultValue:UIFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)) -> UIFont
         {
             let emphasize:Float = Data.Manager.settingsGetBoolForKey(.SettingsEntryTitleTextEmphasize) ? 2.0 : 0
             
@@ -292,12 +293,12 @@ class Data : NSObject
             return defaultValue
         }
         
-        class func settingsGetEntryTitleTextFontColor(defaultValue:UIColor = UIColor.grayColor()) -> UIColor
+        class func settingsGetEntryTitleTextFontColor(_ defaultValue:UIColor = UIColor.gray) -> UIColor
         {
             return settingsGetColorForKey(.SettingsEntryTitleTextFontColor,defaultValue:defaultValue)
         }
         
-        class func settingsGetEntryTitleTextUppercase(defaultValue:Bool = false) -> Bool
+        class func settingsGetEntryTitleTextUppercase(_ defaultValue:Bool = false) -> Bool
         {
             return settingsGetBoolForKey(.SettingsEntryTitleTextUppercase,defaultValue:defaultValue)
         }
@@ -307,7 +308,7 @@ class Data : NSObject
         
         
         
-        class func settingsGetEntrySubtitleTextFont(defaultValue:UIFont = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)) -> UIFont
+        class func settingsGetEntrySubtitleTextFont(_ defaultValue:UIFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)) -> UIFont
         {
             let emphasize:Float = Data.Manager.settingsGetBoolForKey(.SettingsEntrySubtitleTextEmphasize) ? 1.0 : 0
             
@@ -324,12 +325,12 @@ class Data : NSObject
             return defaultValue
         }
         
-        class func settingsGetEntrySubtitleTextFontColor(defaultValue:UIColor = UIColor.blackColor()) -> UIColor
+        class func settingsGetEntrySubtitleTextFontColor(_ defaultValue:UIColor = UIColor.black) -> UIColor
         {
             return settingsGetColorForKey(.SettingsEntrySubtitleTextFontColor,defaultValue:defaultValue)
         }
         
-        class func settingsGetEntrySubtitleTextUppercase(defaultValue:Bool = false) -> Bool
+        class func settingsGetEntrySubtitleTextUppercase(_ defaultValue:Bool = false) -> Bool
         {
             return settingsGetBoolForKey(.SettingsEntrySubtitleTextUppercase,defaultValue:defaultValue)
         }
@@ -337,7 +338,7 @@ class Data : NSObject
 
         
         
-        class func settingsGetEntryIndexTextFont(defaultValue:UIFont = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)) -> UIFont
+        class func settingsGetEntryIndexTextFont(_ defaultValue:UIFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)) -> UIFont
         {
 //            let emphasize:Float = Data.Manager.settingsGetBoolForKey(.SettingsEntryIndexTextEmphasize) ? 1.0 : 0
 //            
@@ -354,12 +355,12 @@ class Data : NSObject
             return defaultValue
         }
         
-        class func settingsGetEntryIndexTextFontColor(defaultValue:UIColor = UIColor.blackColor()) -> UIColor
+        class func settingsGetEntryIndexTextFontColor(_ defaultValue:UIColor = UIColor.black) -> UIColor
         {
             return settingsGetColorForKey(.SettingsEntryIndexTextFontColor,defaultValue:defaultValue)
         }
         
-        class func settingsGetEntryIndexBackgroundColor(defaultValue:UIColor = UIColor.yellowColor()) -> UIColor
+        class func settingsGetEntryIndexBackgroundColor(_ defaultValue:UIColor = UIColor.yellow) -> UIColor
         {
             return settingsGetColorForKey(.SettingsEntryIndexBackgroundColor,defaultValue:defaultValue)
         }
@@ -369,7 +370,7 @@ class Data : NSObject
         
         
         
-        class func settingsGetEntryRowOpacity(defaultValue:Float = 0.9) -> Float
+        class func settingsGetEntryRowOpacity(_ defaultValue:Float = 0.9) -> Float
         {
             return settingsGetFloatForKey(.SettingsEntryRowOpacity,defaultValue:defaultValue)
         }
@@ -378,7 +379,7 @@ class Data : NSObject
         
 
         
-        class func settingsGetEntryBackgroundThemeSaturation(defaultValue:Float = 0.7) -> Float
+        class func settingsGetEntryBackgroundThemeSaturation(_ defaultValue:Float = 0.7) -> Float
         {
             return settingsGetFloatForKey(.SettingsEntryBackgroundThemeSaturation,defaultValue:defaultValue)
         }
@@ -397,7 +398,7 @@ class Data : NSObject
         
         
         
-        class func settingsGetGeoSearchMaximumResults(defaultValue defaultValue:UInt = 10) -> UInt
+        class func settingsGetGeoSearchMaximumResults(defaultValue:UInt = 10) -> UInt
         {
             let value = settingsGetFloatForKey(.SettingsGeoSearchMaximumResults,defaultValue:Float(defaultValue))
             
@@ -418,7 +419,7 @@ class Data : NSObject
         
         
         
-        class func settingsGetBackgroundColor(defaultValue:UIColor = UIColor.whiteColor()) -> UIColor
+        class func settingsGetBackgroundColor(_ defaultValue:UIColor = UIColor.white) -> UIColor
         {
             return settingsGetColorForKey(.SettingsBackgroundColor,defaultValue:defaultValue)
         }
@@ -439,7 +440,7 @@ class Data : NSObject
         
         
         
-        class func settingsSetThemeWithName(name:String)
+        class func settingsSetThemeWithName(_ name:String)
         {
             settingsSetString(name,forKey:Key.SettingsThemeName)
         }
@@ -450,7 +451,7 @@ class Data : NSObject
         
         
         
-        class func settingsGetThemeName(defaultValue:String = "Default") -> String
+        class func settingsGetThemeName(_ defaultValue:String = "Default") -> String
         {
             return settingsGetStringForKey(Key.SettingsThemeName,defaultValue:defaultValue)
         }
@@ -464,13 +465,13 @@ class Data : NSObject
         
         
         
-        class func settingsSetEntryBackgroundThemeWithName(name:String)
+        class func settingsSetEntryBackgroundThemeWithName(_ name:String)
         {
             settingsSetString(name,forKey:Key.SettingsEntryBackgroundThemeName)
         }
         
         
-        class func settingsGetEntryBackgroundThemeName(defaultValue:String = "Plain") -> String
+        class func settingsGetEntryBackgroundThemeName(_ defaultValue:String = "Plain") -> String
         {
             return settingsGetStringForKey(Key.SettingsEntryBackgroundThemeName,defaultValue:defaultValue)
         }
@@ -478,12 +479,12 @@ class Data : NSObject
         
 
         
-        class func settingsGetEntryBackgroundThemeSolidColor(defaultValue:UIColor = UIColor.redColor()) -> UIColor
+        class func settingsGetEntryBackgroundThemeSolidColor(_ defaultValue:UIColor = UIColor.red) -> UIColor
         {
             return settingsGetColorForKey(.SettingsEntryBackgroundThemeSolidColor,defaultValue:defaultValue)
         }
         
-        class func settingsGetEntryBackgroundThemeRangeColorFrom(defaultValue:UIColor = UIColor.yellowColor()) -> UIColor
+        class func settingsGetEntryBackgroundThemeRangeColorFrom(_ defaultValue:UIColor = UIColor.yellow) -> UIColor
         {
             return settingsGetColorForKey(.SettingsEntryBackgroundThemeRangeColorFrom,defaultValue:defaultValue)
             //        let dictionary = settingsGetDictionaryForKey(.SettingsThemeRangeColors)
@@ -495,7 +496,7 @@ class Data : NSObject
             //        return defaultValue
         }
         
-        class func settingsGetEntryBackgroundThemeRangeColorTo(defaultValue:UIColor = UIColor.orangeColor()) -> UIColor
+        class func settingsGetEntryBackgroundThemeRangeColorTo(_ defaultValue:UIColor = UIColor.orange) -> UIColor
         {
             return settingsGetColorForKey(.SettingsEntryBackgroundThemeRangeColorTo,defaultValue:defaultValue)
             //        let dictionary = settingsGetDictionaryForKey(.SettingsThemeRangeColors)
@@ -509,12 +510,12 @@ class Data : NSObject
         
         
         
-        class func settingsSetEntryBackgroundThemeSolidColor(color:UIColor)
+        class func settingsSetEntryBackgroundThemeSolidColor(_ color:UIColor)
         {
             settingsSetColor(color,forKey:.SettingsEntryBackgroundThemeSolidColor)
         }
         
-        class func settingsSetEntryBackgroundThemeRangeColorFrom(color:UIColor)
+        class func settingsSetEntryBackgroundThemeRangeColorFrom(_ color:UIColor)
         {
             settingsSetColor(color,forKey:.SettingsEntryBackgroundThemeRangeColorFrom)
             //        var dictionary = settingsGetDictionaryForKey(.SettingsThemeRangeColors)
@@ -522,7 +523,7 @@ class Data : NSObject
             //        settingsSetDictionary(dictionary,forKey:.SettingsThemeRangeColors)
         }
         
-        class func settingsSetEntryBackgroundThemeRangeColorTo(color:UIColor)
+        class func settingsSetEntryBackgroundThemeRangeColorTo(_ color:UIColor)
         {
             settingsSetColor(color,forKey:.SettingsEntryBackgroundThemeRangeColorTo)
             //        var dictionary = settingsGetDictionaryForKey(.SettingsThemeRangeColors)
@@ -538,24 +539,24 @@ class Data : NSObject
         
         
         
-        class func displayHelpPageForList(controller:UIViewController)
+        class func displayHelpPageForList(_ controller:UIViewController)
         {
             let key = "display-help-items"
             
-            let defaults = NSUserDefaults.standardUserDefaults()
+            let defaults = UserDefaults.standard
             
-            if !defaults.boolForKey(key) {
-                defaults.setBool(true,forKey:key)
+            if !defaults.bool(forKey: key) {
+                defaults.set(true,forKey:key)
                 
-                let alert = UIAlertController(title:"Items", message:"Tap on the right side of an item to increase its quantity.  Tap on the left side to decrease its quantity.", preferredStyle:.Alert)
+                let alert = UIAlertController(title:"Items", message:"Tap on the right side of an item to increase its quantity.  Tap on the left side to decrease its quantity.", preferredStyle:.alert)
                 
-                let actionOK = UIAlertAction(title:"OK", style:.Cancel, handler: {
+                let actionOK = UIAlertAction(title:"OK", style:.cancel, handler: {
                     action in
                 })
                 
                 alert.addAction(actionOK)
                 
-                controller.presentViewController(alert, animated:true, completion: {
+                controller.present(alert, animated:true, completion: {
                     print("completed showing add alert")
                 })
                 
@@ -565,11 +566,11 @@ class Data : NSObject
         
         class func clearHelpFlags()
         {
-            let defaults = NSUserDefaults.standardUserDefaults()
+            let defaults = UserDefaults.standard
             
-            defaults.removeObjectForKey("display-help-categories")
-            defaults.removeObjectForKey("display-help-items")
-            defaults.removeObjectForKey("display-help-summary")
+            defaults.removeObject(forKey: "display-help-categories")
+            defaults.removeObject(forKey: "display-help-items")
+            defaults.removeObject(forKey: "display-help-summary")
         }
         
         
@@ -582,17 +583,17 @@ class Data : NSObject
         {
             if settingsList().empty {
                 reset()
-                settingsUse("Sky")
+                _ = settingsUse("Sky")
             }
         }
         
         class func reset()
         {
-            NSUserDefaults.clear()
+            UserDefaults.clear()
             
             // DEFAULT
             
-            settingsUse                                 ("Default")
+            _ = settingsUse                                 ("Default")
             
             settingsSetFloat                            (10                             ,forKey:.SettingsGeoSearchMaximumResults)
             
@@ -602,24 +603,24 @@ class Data : NSObject
             settingsSetFloat                            (0.30                           ,forKey:.SettingsEntryRowOpacity)
             
             settingsSetString                           ("Helvetica-Bold"               ,forKey:.SettingsEntryTitleTextFontName)
-            settingsSetColor                            (UIColor.whiteColor()           ,forKey:.SettingsEntryTitleTextFontColor)
+            settingsSetColor                            (UIColor.white           ,forKey:.SettingsEntryTitleTextFontColor)
             settingsSetBool                             (false                          ,forKey:.SettingsEntryTitleTextUppercase)
             settingsSetBool                             (false                          ,forKey:.SettingsEntryTitleTextEmphasize)
             
             settingsSetString                           ("Helvetica"                    ,forKey:.SettingsEntrySubtitleTextFontName)
-            settingsSetColor                            (UIColor.whiteColor()           ,forKey:.SettingsEntrySubtitleTextFontColor)
+            settingsSetColor                            (UIColor.white           ,forKey:.SettingsEntrySubtitleTextFontColor)
             settingsSetBool                             (false                          ,forKey:.SettingsEntrySubtitleTextUppercase)
             settingsSetBool                             (true                           ,forKey:.SettingsEntrySubtitleTextEmphasize)
 
             settingsSetString                           ("Helvetica-Bold"               ,forKey:.SettingsEntryIndexTextFontName)
-            settingsSetColor                            (UIColor.whiteColor()           ,forKey:.SettingsEntryIndexTextFontColor)
-            settingsSetColor                            (UIColor.redColor()             ,forKey:.SettingsEntryIndexBackgroundColor)
+            settingsSetColor                            (UIColor.white           ,forKey:.SettingsEntryIndexTextFontColor)
+            settingsSetColor                            (UIColor.red             ,forKey:.SettingsEntryIndexBackgroundColor)
 
-            settingsSave                                ("Default")
+            _ = settingsSave                                ("Default")
             
             // PLAIN
 
-            settingsUse                                 ("Plain")
+            _ = settingsUse                                 ("Plain")
             
             settingsSetFloat                            (20                             ,forKey:.SettingsGeoSearchMaximumResults)
             
@@ -629,7 +630,7 @@ class Data : NSObject
             settingsSetFloat                            (0.40                           ,forKey:.SettingsEntryRowOpacity)
             
             settingsSetString                           ("Helvetica-Bold"               ,forKey:.SettingsEntryTitleTextFontName)
-            settingsSetColor                            (UIColor.blackColor()           ,forKey:.SettingsEntryTitleTextFontColor)
+            settingsSetColor                            (UIColor.black           ,forKey:.SettingsEntryTitleTextFontColor)
             settingsSetBool                             (false                          ,forKey:.SettingsEntryTitleTextUppercase)
             settingsSetBool                             (false                          ,forKey:.SettingsEntryTitleTextEmphasize)
             
@@ -639,24 +640,24 @@ class Data : NSObject
             settingsSetBool                             (true                           ,forKey:.SettingsEntrySubtitleTextEmphasize)
             
             settingsSetString                           ("Helvetica-Bold"               ,forKey:.SettingsEntryIndexTextFontName)
-            settingsSetColor                            (UIColor.whiteColor()           ,forKey:.SettingsEntryIndexTextFontColor)
-            settingsSetColor                            (UIColor.grayColor()            ,forKey:.SettingsEntryIndexBackgroundColor)
+            settingsSetColor                            (UIColor.white           ,forKey:.SettingsEntryIndexTextFontColor)
+            settingsSetColor                            (UIColor.gray            ,forKey:.SettingsEntryIndexBackgroundColor)
             
-            settingsSave                                ("Plain")
+            _ = settingsSave                                ("Plain")
 
             
             
-            settingsSetColor                            (UIColor.blackColor()           ,forKey:.SettingsEntryIndexTextFontColor)
+            settingsSetColor                            (UIColor.black           ,forKey:.SettingsEntryIndexTextFontColor)
             settingsSetColor                            (UIColor(hsb:[0.127,1,1])       ,forKey:.SettingsEntryIndexBackgroundColor)
-            settingsSave                                ("Plain+Yellow")
+            _ = settingsSave                                ("Plain+Yellow")
 
-            settingsSetColor                            (UIColor.whiteColor()           ,forKey:.SettingsEntryIndexTextFontColor)
+            settingsSetColor                            (UIColor.white           ,forKey:.SettingsEntryIndexTextFontColor)
             settingsSetColor                            (UIColor(hsb:[0.090,1,1])       ,forKey:.SettingsEntryIndexBackgroundColor)
-            settingsSave                                ("Plain+Orange")
+            _ = settingsSave                                ("Plain+Orange")
 
-            settingsSetColor                            (UIColor.whiteColor()           ,forKey:.SettingsEntryIndexTextFontColor)
+            settingsSetColor                            (UIColor.white           ,forKey:.SettingsEntryIndexTextFontColor)
             settingsSetColor                            (UIColor(hsb:[0,1,1])           ,forKey:.SettingsEntryIndexBackgroundColor)
-            settingsSave                                ("Plain+Red")
+            _ = settingsSave                                ("Plain+Red")
 
             // CHARCOAL+Y|O|R|G
             
@@ -681,21 +682,21 @@ class Data : NSObject
             settingsSetColor                            (UIColor(white:0.7,alpha:1)     ,forKey:.SettingsEntryIndexTextFontColor)
             settingsSetColor                            (UIColor(white:0.2,alpha:1)     ,forKey:.SettingsEntryIndexBackgroundColor)
             
-            settingsSave                                ("Charcoal")
+            _ = settingsSave                                ("Charcoal")
             
             settingsSetColor                            (UIColor(white:0.2,alpha:1)     ,forKey:.SettingsEntryIndexTextFontColor)
             settingsSetColor                            (UIColor(hsb:[0.120,1,1])       ,forKey:.SettingsEntryIndexBackgroundColor)
-            settingsSave                                ("Charcoal+Yellow")
+            _ = settingsSave                                ("Charcoal+Yellow")
             
             settingsSetColor                            (UIColor(white:0.1,alpha:1)     ,forKey:.SettingsEntryIndexTextFontColor)
             settingsSetColor                            (UIColor(hsb:[0.090,1,0.85])    ,forKey:.SettingsEntryIndexBackgroundColor)
-            settingsSave                                ("Charcoal+Orange")
+            _ = settingsSave                                ("Charcoal+Orange")
             
             settingsSetColor                            (UIColor(hsb:[0,1,0.80])        ,forKey:.SettingsEntryIndexBackgroundColor)
-            settingsSave                                ("Charcoal+Red")
+            _ = settingsSave                                ("Charcoal+Red")
             
             settingsSetColor                            (UIColor(hsb:[0.30,0.95,0.70])  ,forKey:.SettingsEntryIndexBackgroundColor)
-            settingsSave                                ("Charcoal+Green")
+            _ = settingsSave                                ("Charcoal+Green")
             
 
             // STRAWBERRY
@@ -721,14 +722,14 @@ class Data : NSObject
             settingsSetColor                            (UIColor(hsb:[0.1,0.2,1])         ,forKey:.SettingsEntryIndexTextFontColor)
             settingsSetColor                            (UIColor(hsb:[0,1,1])           ,forKey:.SettingsEntryIndexBackgroundColor)
             
-            settingsSave                                ("Strawberry")
+            _ = settingsSave                                ("Strawberry")
             
             settingsSetColor                            (UIColor(hsb:[0,0,0])           ,forKey:.SettingsEntryIndexTextFontColor)
             settingsSetColor                            (UIColor(hsb:[0.15,0.6,0.9])        ,forKey:.SettingsEntryIndexBackgroundColor)
-            settingsSave                                ("Strawberry+Yellow")
+            _ = settingsSave                                ("Strawberry+Yellow")
             
             settingsSetColor                            (UIColor(hsb:[0.40,0.61,0.82])      ,forKey:.SettingsEntryIndexBackgroundColor)
-            settingsSave                                ("Strawberry+Green")
+            _ = settingsSave                                ("Strawberry+Green")
             
             
             // RAINBOW
@@ -755,12 +756,12 @@ class Data : NSObject
             settingsSetColor                            (UIColor(hsb:[0.1,0.2,1])       ,forKey:.SettingsEntryIndexTextFontColor)
             settingsSetColor                            (UIColor(hsb:[0,1,1])           ,forKey:.SettingsEntryIndexBackgroundColor)
             
-            settingsSave                                ("Rainbow+White")
+            _ = settingsSave                                ("Rainbow+White")
             
             settingsSetColor                            (UIColor(hsb:[0.53,0.6,1])     ,forKey:.SettingsBackgroundColor)
             settingsSetColor                            (UIColor(gray:0.1)              ,forKey:.SettingsEntryTitleTextFontColor)
             settingsSetColor                            (UIColor(gray:0.1)              ,forKey:.SettingsEntrySubtitleTextFontColor)
-            settingsSave                                ("Rainbow+Black")
+            _ = settingsSave                                ("Rainbow+Black")
 
             // ORANGE
 
@@ -785,12 +786,12 @@ class Data : NSObject
             settingsSetColor                            (UIColor(hsb:[0.11,1,1])       ,forKey:.SettingsEntryIndexTextFontColor)
             settingsSetColor                            (UIColor(hsb:[0.55,0.4,1])      ,forKey:.SettingsEntryIndexBackgroundColor)
             
-            settingsSave                                ("Orange+Blue")
+            _ = settingsSave                                ("Orange+Blue")
             
             settingsSetColor                            (UIColor(gray:0.15)              ,forKey:.SettingsEntryTitleTextFontColor)
             settingsSetColor                            (UIColor(gray:0.15)              ,forKey:.SettingsEntrySubtitleTextFontColor)
             settingsSetColor                            (UIColor(gray:0.15)              ,forKey:.SettingsEntryIndexTextFontColor)
-            settingsSave                                ("Orange+Blue+Black")
+            _ = settingsSave                                ("Orange+Blue+Black")
             
             // SKY
             
@@ -815,12 +816,12 @@ class Data : NSObject
             settingsSetColor                            (UIColor(gray:1)                ,forKey:.SettingsEntryIndexTextFontColor)
             settingsSetColor                            (UIColor(hsb:[0.03,1,1])        ,forKey:.SettingsEntryIndexBackgroundColor)
             
-            settingsSave                                ("Sky")
+            _ = settingsSave                                ("Sky")
             
             settingsSetColor                            (UIColor(gray:0.15)              ,forKey:.SettingsEntryTitleTextFontColor)
             settingsSetColor                            (UIColor(gray:0.15)              ,forKey:.SettingsEntrySubtitleTextFontColor)
 //            settingsSetColor                            (UIColor(gray:0.15)              ,forKey:.SettingsEntryIndexTextFontColor)
-            settingsSave                                ("Sky+Black")
+            _ = settingsSave                                ("Sky+Black")
             
 
             // CHERRY
@@ -836,7 +837,7 @@ class Data : NSObject
         
         class func synchronize()
         {
-            let defaults = NSUserDefaults.standardUserDefaults()
+            let defaults = UserDefaults.standard
             
             defaults.synchronize()
         }
@@ -845,23 +846,23 @@ class Data : NSObject
         
         
         
-        class func settingsGetLastName(defaultValue:String = "") -> String
+        class func settingsGetLastName(_ defaultValue:String = "") -> String
         {
-            let defaults = NSUserDefaults.standardUserDefaults()
+            let defaults = UserDefaults.standard
             
-            if let result = defaults.stringForKey(Key.SettingsLastName.rawValue) {
+            if let result = defaults.string(forKey: Key.SettingsLastName.rawValue) {
                 return result
             }
             
             return defaultValue
         }
         
-        private class func settingsKeyForName(name:String) -> String {
+        fileprivate class func settingsKeyForName(_ name:String) -> String {
             return "settings="+name
         }
         
         
-        class func settingsUse      (name:String) -> Bool
+        class func settingsUse      (_ name:String) -> Bool
         {
             var result = false
             
@@ -871,13 +872,13 @@ class Data : NSObject
             
             if 0 < name.length
             {
-                let defaults = NSUserDefaults.standardUserDefaults()
+                let defaults = UserDefaults.standard
                 
-                if let settings = defaults.dictionaryForKey(settingsKeyForName(name))
+                if let settings = defaults.dictionary(forKey: settingsKeyForName(name))
                 {
-                    defaults.setObject(settings,forKey:Key.SettingsCurrent.rawValue)
+                    defaults.set(settings,forKey:Key.SettingsCurrent.rawValue)
                     
-                    defaults.setObject(name,forKey:Key.SettingsLastName.rawValue)
+                    defaults.set(name,forKey:Key.SettingsLastName.rawValue)
                     
                     result = true
                 }
@@ -886,7 +887,7 @@ class Data : NSObject
             return result
         }
         
-        class func settingsRemove    (name:String) -> Bool
+        class func settingsRemove    (_ name:String) -> Bool
         {
             var result = false
             
@@ -896,9 +897,9 @@ class Data : NSObject
             
             if 0 < name.length
             {
-                let defaults = NSUserDefaults.standardUserDefaults()
+                let defaults = UserDefaults.standard
                 
-                defaults.removeObjectForKey(settingsKeyForName(name))
+                defaults.removeObject(forKey: settingsKeyForName(name))
                 
                 do
                 {
@@ -908,7 +909,7 @@ class Data : NSObject
                     
                     let array = Array(list)
                     
-                    defaults.setObject(array,forKey:Key.SettingsList.rawValue)
+                    defaults.set(array,forKey:Key.SettingsList.rawValue)
                 }
                 
                 result = true
@@ -917,7 +918,7 @@ class Data : NSObject
             return result
         }
         
-        class func settingsSave     (name:String) -> Bool
+        class func settingsSave     (_ name:String) -> Bool
         {
             var result = false
             
@@ -927,13 +928,13 @@ class Data : NSObject
             
             if 0 < name.length
             {
-                let defaults = NSUserDefaults.standardUserDefaults()
+                let defaults = UserDefaults.standard
                 
-                if let settings = defaults.dictionaryForKey(Key.SettingsCurrent.rawValue)
+                if let settings = defaults.dictionary(forKey: Key.SettingsCurrent.rawValue)
                 {
-                    defaults.setObject(settings,forKey:settingsKeyForName(name))
+                    defaults.set(settings,forKey:settingsKeyForName(name))
                     
-                    defaults.setObject(name,forKey:Key.SettingsLastName.rawValue)
+                    defaults.set(name,forKey:Key.SettingsLastName.rawValue)
                     
                     do
                     {
@@ -943,7 +944,7 @@ class Data : NSObject
                         
                         let array = Array(list)
                         
-                        defaults.setObject(array,forKey:Key.SettingsList.rawValue)
+                        defaults.set(array,forKey:Key.SettingsList.rawValue)
                     }
                     
                     result = true
@@ -955,9 +956,9 @@ class Data : NSObject
         
         class func settingsListIsEmpty() -> Bool
         {
-            let defaults = NSUserDefaults.standardUserDefaults()
+            let defaults = UserDefaults.standard
             
-            let array = defaults.arrayForKey(Key.SettingsList.rawValue)
+            let array = defaults.array(forKey: Key.SettingsList.rawValue)
             
             return array == nil || 0 == array!.count
         }
@@ -966,9 +967,9 @@ class Data : NSObject
         {
             var result:[String] = []
             
-            let defaults = NSUserDefaults.standardUserDefaults()
+            let defaults = UserDefaults.standard
             
-            if let array = defaults.arrayForKey(Key.SettingsList.rawValue) {
+            if let array = defaults.array(forKey: Key.SettingsList.rawValue) {
                 
                 for element in array {
                     

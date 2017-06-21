@@ -93,7 +93,7 @@ class Source
             case gsprimary
             
             // "a handy function to convert a coordinate into a suitable string
-            func get_gscoord(latitude latitude:[Int], longitude:[Int]) -> String {
+            func get_gscoord(_ latitude:[Int], longitude:[Int]) -> String {
                 return ""
             }
         }
@@ -101,23 +101,23 @@ class Source
         
         
         
-        typealias Result = (error:String?,data:JSON?) -> ()
+        typealias Result = (_ error:String?,_ data:JSON?) -> ()
         
         
         
         
-        class func get_geosearch(language language:Language = .English, parameters:Dictionary<GeoSearchParameter,String>, format:Format = .JSON, result:Result)
+        class func get_geosearch(_ language:Language = .English, parameters:Dictionary<GeoSearchParameter,String>, format:Format = .JSON, result:@escaping Result)
         {
             let url = "https://" + language.rawValue + ".wikipedia.org/w/api.php"
             
             var pars:[String:AnyObject] = [
-                "action"    : "query",
-                "list"      : "geosearch",
-                "format"    : format.rawValue
+                "action"    : "query" as AnyObject,
+                "list"      : "geosearch" as AnyObject,
+                "format"    : format.rawValue as AnyObject
             ]
             
             for (key,value) in parameters {
-                pars[key.rawValue] = value
+                pars[key.rawValue] = value as AnyObject
             }
             
             
@@ -126,29 +126,17 @@ class Source
             
             // https://en.wikipedia.org/w/api.php?action=query&list=geosearch&gsradius=10000&gscoord=37.786971%7C-122.399677
             
-            Alamofire.request(.GET, url, parameters: pars)
-                .validate()
-                .response { request, response, data, error in
-                    print(request)
-                    print(response)
-                    print(data)
-                    print(error)
+            Alamofire.request(url, method: .get, parameters: pars).responseJSON { response in
+                
+                if let value = response.result.value {
+                    let json = JSON(value)
+                    print("get_geosearch: success, JSON: \(json)")
+                    result(nil,json)
                 }
-                .responseJSON { response in
-                    switch response.result {
-                    case .Success:
-                        if let value = response.result.value {
-                            let json = JSON(value)
-                            print("get_geosearch: success, JSON: \(json)")
-                            result(error:nil,data:json)
-                        }
-                        else {
-                            print("get_geosearch: success, value is nil")
-                        }
-                    case .Failure(let error):
-                        print("get_geosearch: error=\(error)")
-                        result(error:error.description,data:nil)
-                    }
+                else {
+                    print("get_geosearch: error=\(response.error)")
+                }
+                
             }
             
             
@@ -173,7 +161,7 @@ class Source
                     .gsprimary  : "all"
                 ]
                 
-                Source.Wikipedia.get_geosearch(language:.English,parameters:parameters) { (error,data) in
+                Source.Wikipedia.get_geosearch(.English, parameters:parameters) { error,data in
                     if let d=data {
                         print("ok")
                         print(d)
@@ -183,7 +171,7 @@ class Source
                         for entry in d["query"]["geosearch"] {
                             print("entry=\(entry)") // entry= {"0",{...}}
                             
-                            var item:Data.Item = entry.1
+                            let item:Data.Item = entry.1
                             
                             print ("item=\(item)")
                         }

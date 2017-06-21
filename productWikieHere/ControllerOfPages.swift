@@ -41,18 +41,18 @@ class ControllerOfPages : UIPageViewController, UIPageViewControllerDataSource, 
     
     
     
-    func showViewControllerAtIndex(index:Int, animated:Bool) {
+    func showViewControllerAtIndex(_ index:Int, animated:Bool) {
         presentationPageIndex = index
         
-        setViewControllers([controllers[index]], direction:.Forward, animated:animated, completion:nil)
+        setViewControllers([controllers[index]], direction:.forward, animated:animated, completion:nil)
     }
     
     
     
     
-    func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController?
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController?
     {
-        if var index = controllers.indexOf(viewController) {
+        if var index = controllers.index(of: viewController) {
             index -= 1
             if 0 <= index {
                 return controllers[index]
@@ -61,9 +61,9 @@ class ControllerOfPages : UIPageViewController, UIPageViewControllerDataSource, 
         return nil
     }
     
-    func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController?
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController?
     {
-        if var index = controllers.indexOf(viewController) {
+        if var index = controllers.index(of: viewController) {
             index += 1
             if index < controllers.count {
                 return controllers[index]
@@ -75,18 +75,18 @@ class ControllerOfPages : UIPageViewController, UIPageViewControllerDataSource, 
     
     
     
-    func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int
+    func presentationCount(for pageViewController: UIPageViewController) -> Int
     {
         return controllers.count
     }
     
-    func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int
+    func presentationIndex(for pageViewController: UIPageViewController) -> Int
     {
         return presentationPageIndex
     }
     
     
-    override func viewWillAppear(animated: Bool)
+    override func viewWillAppear(_ animated: Bool)
     {
         view.backgroundColor = Data.Manager.settingsGetBackgroundColor()
         

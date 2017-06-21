@@ -14,14 +14,14 @@ class ControllerOfSettings : GenericControllerOfSettings
     
     override func viewDidLoad()
     {
-        tableView                   = UITableView(frame:tableView.frame,style:.Grouped)
+        tableView                   = UITableView(frame:tableView.frame,style:.grouped)
         
         tableView.dataSource        = self
         
         tableView.delegate          = self
         
         
-        tableView.separatorStyle    = .None
+        tableView.separatorStyle    = .none
         
         self.title                  = "Settings"
         
@@ -48,66 +48,66 @@ class ControllerOfSettings : GenericControllerOfSettings
             [
                 "SETTINGS",
                 
-                { (cell:UITableViewCell, indexPath:NSIndexPath) in
+                { (cell:UITableViewCell, indexPath:IndexPath) in
                     if let label = cell.detailTextLabel {
                         label.text = Data.Manager.settingsGetLastName()
                     }
                     if let label = cell.textLabel {
                         label.text          = "Save"
-                        cell.selectionStyle = .Default
-                        self.registerCellSelection(indexPath) {
-                            let alert = UIAlertController(title:"Save Settings", message:"Specify name for current settings.", preferredStyle:.Alert)
+                        cell.selectionStyle = .default
+                        self.registerCellSelection(indexPath: indexPath) {
+                            let alert = UIAlertController(title:"Save Settings", message:"Specify name for current settings.", preferredStyle:.alert)
                             
-                            alert.addTextFieldWithConfigurationHandler() {
+                            alert.addTextField() {
                                 field in
                                 // called to configure text field before displayed
                                 field.text = Data.Manager.settingsGetLastName()
                             }
                             
-                            let actionSave = UIAlertAction(title:"Save", style:.Default, handler: {
+                            let actionSave = UIAlertAction(title:"Save", style:.default, handler: {
                                 action in
                                 
-                                if let fields = alert.textFields, text = fields[0].text {
+                                if let fields = alert.textFields, let text = fields[0].text {
                                     if 0 < text.length {
                                         Data.Manager.settingsSave(text)
                                         
-                                        print(NSUserDefaults.standardUserDefaults().dictionaryRepresentation())
+                                        print(UserDefaults.standard.dictionaryRepresentation())
 
-                                        self.tableView.reloadRowsAtIndexPaths([
+                                        self.tableView.reloadRows(at: [
                                             indexPath,
-                                            NSIndexPath(forRow:indexPath.row+1,inSection:indexPath.section)
+                                            IndexPath(row:indexPath.row+1, section:indexPath.section)
                                             ],
-                                            withRowAnimation: .Left)
+                                                                  with: .left)
                                     }
                                 }
                             })
                             
-                            let actionCancel = UIAlertAction(title:"Cancel", style:.Cancel, handler: {
+                            let actionCancel = UIAlertAction(title:"Cancel", style:.cancel, handler: {
                                 action in
                             })
                             
                             alert.addAction(actionSave)
                             alert.addAction(actionCancel)
                             
-                            AppDelegate.rootViewController.presentViewController(alert, animated:true, completion: {
+                            AppDelegate.rootViewController.present(alert, animated:true, completion: {
                                 print("completed showing add alert")
                             })
                         }
                     }
                 },
                 
-                { (cell:UITableViewCell, indexPath:NSIndexPath) in
+                { (cell:UITableViewCell, indexPath:IndexPath) in
                     if let label = cell.textLabel {
                         label.text          = "Load"
                         if Data.Manager.settingsListIsEmpty() {
-                            cell.selectionStyle = .None
-                            cell.accessoryType  = .None
+                            cell.selectionStyle = .none
+                            cell.accessoryType  = .none
                         }
                         else {
-                            cell.selectionStyle = .Default
-                            cell.accessoryType  = .DisclosureIndicator
+                            cell.selectionStyle = .default
+                            cell.accessoryType  = .disclosureIndicator
                         }
-                        self.registerCellSelection(indexPath) {
+                        self.registerCellSelection(indexPath: indexPath) {
                             let list = Data.Manager.settingsList()
                             
                             print("settings list =\(list)")
@@ -115,18 +115,18 @@ class ControllerOfSettings : GenericControllerOfSettings
                             if 0 < list.count {
                                 let controller = GenericControllerOfList()
                                 
-                                controller.items = Data.Manager.settingsList().sort()
-                                controller.handlerForDidSelectRowAtIndexPath = { (controller:GenericControllerOfList,indexPath:NSIndexPath) -> Void in
+                                controller.items = Data.Manager.settingsList().sorted()
+                                controller.handlerForDidSelectRowAtIndexPath = { controller,indexPath in
                                     let selected = controller.items[indexPath.row]
-                                    Data.Manager.settingsUse(selected)
+                                    _ = Data.Manager.settingsUse(selected)
                                     AppDelegate.rootViewController.view.backgroundColor = Data.Manager.settingsGetBackgroundColor()
 //                                    AppDelegate.controllerOfPages.view.backgroundColor  = Data.Manager.settingsGetBackgroundColor()
-                                    controller.navigationController!.popViewControllerAnimated(true)
+                                    controller.navigationController!.popViewController(animated: true)
                                 }
-                                controller.handlerForCommitEditingStyle = { (controller:GenericControllerOfList,commitEditingStyle:UITableViewCellEditingStyle,indexPath:NSIndexPath) -> Bool in
-                                    if commitEditingStyle == .Delete {
+                                controller.handlerForCommitEditingStyle = { controller,commitEditingStyle,indexPath in
+                                    if commitEditingStyle == .delete {
                                         let selected = controller.items[indexPath.row]
-                                        Data.Manager.settingsRemove(selected)
+                                        _ = Data.Manager.settingsRemove(selected)
                                         return true
                                     }
                                     return false
@@ -144,16 +144,16 @@ class ControllerOfSettings : GenericControllerOfSettings
             [
                 "WIKIPEDIA SEARCH",
                 
-                { (cell:UITableViewCell, indexPath:NSIndexPath) in
+                { (cell:UITableViewCell, indexPath:IndexPath) in
                     if let label = cell.textLabel {
                         label.text          = "Maximum Results"
-                        cell.accessoryView  = self.registerSlider(Data.Manager.settingsGetFloatForKey(.SettingsGeoSearchMaximumResults,defaultValue:15),
+                        cell.accessoryView  = self.registerSlider(value: Data.Manager.settingsGetFloatForKey(.SettingsGeoSearchMaximumResults,defaultValue:15),
                             minimum:10,
                             maximum:99,
                             update: { (myslider:UISlider) in
                             Data.Manager.settingsSetFloat(myslider.value, forKey:.SettingsGeoSearchMaximumResults)
                         })
-                        cell.selectionStyle = .None
+                        cell.selectionStyle = .none
                     }
                 },
 
@@ -169,8 +169,8 @@ class ControllerOfSettings : GenericControllerOfSettings
 //                    }
 //                    if let label = cell.textLabel {
 //                        label.text          = "Theme"
-//                        cell.accessoryType  = .DisclosureIndicator
-//                        cell.selectionStyle = .Default
+//                        cell.accessoryType  = .disclosureIndicator
+//                        cell.selectionStyle = .default
 //                        self.registerCellSelection(indexPath) {
 //                            let controller = GenericControllerOfList()
 //                            self.navigationController?.pushViewController(controller, animated:true)
@@ -196,15 +196,15 @@ class ControllerOfSettings : GenericControllerOfSettings
             [
                 "ROW",
             
-                { (cell:UITableViewCell, indexPath:NSIndexPath) in
+                { (cell:UITableViewCell, indexPath:IndexPath) in
                     if let label = cell.detailTextLabel {
                         label.text = Data.Manager.settingsGetEntryBackgroundThemeName()
                     }
                     if let label = cell.textLabel {
                         label.text          = "Background Theme"
-                        cell.accessoryType  = .DisclosureIndicator
-                        cell.selectionStyle = .Default
-                        self.registerCellSelection(indexPath) {
+                        cell.accessoryType  = .disclosureIndicator
+                        cell.selectionStyle = .default
+                        self.registerCellSelection(indexPath: indexPath) {
                             let controller = ControllerOfBackgroundTheme()
                             self.navigationController?.pushViewController(controller, animated:true)
                         }
@@ -213,14 +213,14 @@ class ControllerOfSettings : GenericControllerOfSettings
                 
 //                createCellForColor(Data.Manager.settingsGetEntrySelectionColor(),title:"Selection",key:.SettingsEntrySelectionColor),
                 
-                { (cell:UITableViewCell, indexPath:NSIndexPath) in
+                { (cell:UITableViewCell, indexPath:IndexPath) in
                     if let label = cell.textLabel {
                         label.text          = "Opacity"
-                        cell.accessoryView  = self.registerSlider(Data.Manager.settingsGetFloatForKey(.SettingsEntryRowOpacity, defaultValue:0.8), update: { (myslider:UISlider) in
+                        cell.accessoryView  = self.registerSlider(value: Data.Manager.settingsGetFloatForKey(.SettingsEntryRowOpacity, defaultValue:0.8), update: { (myslider:UISlider) in
                             Data.Manager.settingsSetFloat(myslider.value, forKey:.SettingsEntryRowOpacity)
                         })
-                        cell.accessoryType  = .DisclosureIndicator
-                        cell.selectionStyle = .Default
+                        cell.accessoryType  = .disclosureIndicator
+                        cell.selectionStyle = .default
                     }
                 },
                 
@@ -236,22 +236,22 @@ class ControllerOfSettings : GenericControllerOfSettings
                 
                 createCellForColor(Data.Manager.settingsGetEntryTitleTextFontColor(),title:"Title",key:.SettingsEntryTitleTextFontColor),
                 
-                { (cell:UITableViewCell, indexPath:NSIndexPath) in
+                { (cell:UITableViewCell, indexPath:IndexPath) in
                     if let label = cell.textLabel {
-                        cell.selectionStyle = .Default
+                        cell.selectionStyle = .default
                         label.text          = "Uppercase"
-                        cell.accessoryView  = self.registerSwitch(Data.Manager.settingsGetBoolForKey(.SettingsEntryTitleTextUppercase), update: { (myswitch:UISwitch) in
-                            Data.Manager.settingsSetBool(myswitch.on, forKey:.SettingsEntryTitleTextUppercase)
+                        cell.accessoryView  = self.registerSwitch(on: Data.Manager.settingsGetBoolForKey(.SettingsEntryTitleTextUppercase), update: { (myswitch:UISwitch) in
+                            Data.Manager.settingsSetBool(myswitch.isOn, forKey:.SettingsEntryTitleTextUppercase)
                         })
                     }
                 },
                 
-                { (cell:UITableViewCell, indexPath:NSIndexPath) in
+                { (cell:UITableViewCell, indexPath:IndexPath) in
                     if let label = cell.textLabel {
-                        cell.selectionStyle = .Default
+                        cell.selectionStyle = .default
                         label.text          = "Emphasize"
-                        cell.accessoryView  = self.registerSwitch(Data.Manager.settingsGetBoolForKey(.SettingsEntryTitleTextEmphasize), update: { (myswitch:UISwitch) in
-                            Data.Manager.settingsSetBool(myswitch.on, forKey:.SettingsEntryTitleTextEmphasize)
+                        cell.accessoryView  = self.registerSwitch(on: Data.Manager.settingsGetBoolForKey(.SettingsEntryTitleTextEmphasize), update: { (myswitch:UISwitch) in
+                            Data.Manager.settingsSetBool(myswitch.isOn, forKey:.SettingsEntryTitleTextEmphasize)
                         })
                     }
                 },
@@ -267,22 +267,22 @@ class ControllerOfSettings : GenericControllerOfSettings
                 
                 createCellForColor(Data.Manager.settingsGetEntrySubtitleTextFontColor(),title:"Title",key:.SettingsEntrySubtitleTextFontColor),
                 
-                { (cell:UITableViewCell, indexPath:NSIndexPath) in
+                { (cell:UITableViewCell, indexPath:IndexPath) in
                     if let label = cell.textLabel {
-                        cell.selectionStyle = .Default
+                        cell.selectionStyle = .default
                         label.text          = "Uppercase"
-                        cell.accessoryView  = self.registerSwitch(Data.Manager.settingsGetBoolForKey(.SettingsEntrySubtitleTextUppercase), update: { (myswitch:UISwitch) in
-                            Data.Manager.settingsSetBool(myswitch.on, forKey:.SettingsEntrySubtitleTextUppercase)
+                        cell.accessoryView  = self.registerSwitch(on: Data.Manager.settingsGetBoolForKey(.SettingsEntrySubtitleTextUppercase), update: { (myswitch:UISwitch) in
+                            Data.Manager.settingsSetBool(myswitch.isOn, forKey:.SettingsEntrySubtitleTextUppercase)
                         })
                     }
                 },
                 
-                { (cell:UITableViewCell, indexPath:NSIndexPath) in
+                { (cell:UITableViewCell, indexPath:IndexPath) in
                     if let label = cell.textLabel {
-                        cell.selectionStyle = .Default
+                        cell.selectionStyle = .default
                         label.text          = "Emphasize"
-                        cell.accessoryView  = self.registerSwitch(Data.Manager.settingsGetBoolForKey(.SettingsEntrySubtitleTextEmphasize), update: { (myswitch:UISwitch) in
-                            Data.Manager.settingsSetBool(myswitch.on, forKey:.SettingsEntrySubtitleTextEmphasize)
+                        cell.accessoryView  = self.registerSwitch(on: Data.Manager.settingsGetBoolForKey(.SettingsEntrySubtitleTextEmphasize), update: { (myswitch:UISwitch) in
+                            Data.Manager.settingsSetBool(myswitch.isOn, forKey:.SettingsEntrySubtitleTextEmphasize)
                         })
                     }
                 },
@@ -310,8 +310,8 @@ class ControllerOfSettings : GenericControllerOfSettings
             //                { (cell:UITableViewCell, indexPath:NSIndexPath) in
             //                    if let label = cell.textLabel {
             //                        label.text          = "Add"
-            //                        cell.selectionStyle = .Default
-            //                        cell.accessoryType  = .DisclosureIndicator
+            //                        cell.selectionStyle = .default
+            //                        cell.accessoryType  = .disclosureIndicator
             //                        self.registerCellSelection(indexPath) {
             //                            // None,Default,Zap,Pop,Crackle
             //                        }
@@ -321,8 +321,8 @@ class ControllerOfSettings : GenericControllerOfSettings
             //                { (cell:UITableViewCell, indexPath:NSIndexPath) in
             //                    if let label = cell.textLabel {
             //                        label.text          = "Subtract"
-            //                        cell.selectionStyle = .Default
-            //                        cell.accessoryType  = .DisclosureIndicator
+            //                        cell.selectionStyle = .default
+            //                        cell.accessoryType  = .disclosureIndicator
             //                        self.registerCellSelection(indexPath) {
             //                        }
             //                    }
@@ -331,8 +331,8 @@ class ControllerOfSettings : GenericControllerOfSettings
             //                { (cell:UITableViewCell, indexPath:NSIndexPath) in
             //                    if let label = cell.textLabel {
             //                        label.text          = "Error"
-            //                        cell.selectionStyle = .Default
-            //                        cell.accessoryType  = .DisclosureIndicator
+            //                        cell.selectionStyle = .default
+            //                        cell.accessoryType  = .disclosureIndicator
             //                        self.registerCellSelection(indexPath) {
             //                        }
             //                    }
@@ -348,14 +348,14 @@ class ControllerOfSettings : GenericControllerOfSettings
     
     
     
-    override func viewWillDisappear(animated: Bool)
+    override func viewWillDisappear(_ animated: Bool)
     {
         Data.Manager.synchronize()
         
         super.viewWillDisappear(animated)
     }
     
-    override func viewWillAppear(animated: Bool)
+    override func viewWillAppear(_ animated: Bool)
     {
 //        tableView.backgroundColor = AppDelegate.rootViewController.view.backgroundColor
         tableView.backgroundColor = Data.Manager.settingsGetBackgroundColor()

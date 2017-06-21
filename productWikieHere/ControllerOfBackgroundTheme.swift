@@ -14,13 +14,13 @@ class ControllerOfBackgroundTheme : GenericControllerOfSettings
     
     override func viewDidLoad()
     {
-        tableView                   = UITableView(frame:tableView.frame,style:.Grouped)
+        tableView                   = UITableView(frame:tableView.frame,style:.grouped)
         
         tableView.dataSource        = self
         
         tableView.delegate          = self
         
-        tableView.separatorStyle    = .None
+        tableView.separatorStyle    = .none
         
         self.title                  = "Backgrounds"
         
@@ -49,20 +49,20 @@ class ControllerOfBackgroundTheme : GenericControllerOfSettings
         var rows = [[Any]]()
         
         let definePredefinedBackgroundThemeWithName = { (name:String) -> Any in
-            return { (cell:UITableViewCell, indexPath:NSIndexPath) in
+            return { (cell:UITableViewCell, indexPath:IndexPath) in
                 if let label = cell.textLabel {
-                    cell.selectionStyle = .Default
+                    cell.selectionStyle = .default
                     label.text          = name
-                    self.addAction(indexPath) {
+                    self.addAction(indexPath: indexPath) {
                         Data.Manager.settingsSetEntryBackgroundThemeWithName(name)
                         self.reload()
                     }
                 }
                 if Data.Manager.settingsGetEntryBackgroundThemeName() == name {
-                    cell.accessoryType = .Checkmark
+                    cell.accessoryType = .checkmark
                 }
                 else {
-                    cell.accessoryType = .None
+                    cell.accessoryType = .none
                 }
             }
         }
@@ -72,14 +72,14 @@ class ControllerOfBackgroundTheme : GenericControllerOfSettings
             [
                 "", //"PREDEFINED THEME SATURATION",
                 
-                { (cell:UITableViewCell, indexPath:NSIndexPath) in
+                { (cell:UITableViewCell, indexPath:IndexPath) in
                     if let label = cell.textLabel {
                         label.text          = "Saturation"
-                        cell.accessoryView  = self.registerSlider(Data.Manager.settingsGetFloatForKey(.SettingsEntryBackgroundThemeSaturation, defaultValue:0.4), update: { (myslider:UISlider) in
+                        cell.accessoryView  = self.registerSlider(value: Data.Manager.settingsGetFloatForKey(.SettingsEntryBackgroundThemeSaturation, defaultValue:0.4), update: { (myslider:UISlider) in
                             Data.Manager.settingsSetFloat(myslider.value, forKey:.SettingsEntryBackgroundThemeSaturation)
                         })
-                        cell.accessoryType  = .None
-                        cell.selectionStyle = .Default
+                        cell.accessoryType  = .none
+                        cell.selectionStyle = .default
                     }
                 },
                 

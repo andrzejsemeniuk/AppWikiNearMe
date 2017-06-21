@@ -25,11 +25,11 @@ class ControllerOfMap : UIViewController, MKMapViewDelegate
         
         map.delegate                = self
         
-        map.mapType                 = .Standard
-        map.zoomEnabled             = true
-        map.scrollEnabled           = true
-        map.pitchEnabled            = false
-        map.rotateEnabled           = true
+        map.mapType                 = .standard
+        map.isZoomEnabled             = true
+        map.isScrollEnabled           = true
+        map.isPitchEnabled            = false
+        map.isRotateEnabled           = true
         
         map.showsPointsOfInterest   = true
         map.showsBuildings          = true
@@ -120,7 +120,7 @@ class ControllerOfMap : UIViewController, MKMapViewDelegate
     var indexOfAnnotation:[String:UInt] = [:]
     
     
-    override func viewWillAppear(animated: Bool)
+    override func viewWillAppear(_ animated: Bool)
     {
         print("map view: view will appear")
         
@@ -145,7 +145,7 @@ class ControllerOfMap : UIViewController, MKMapViewDelegate
                 }
                 var subtitle                = ""
                 if let s = cell.item["dist"].number {
-                    subtitle = String(s) + " m"
+                    subtitle = String(describing: s) + " m"
                 }
                 let annotation              = Annotation(coordinate:location.coordinate, title:title, subtitle:subtitle)
                 annotations[index]          = AnnotationEntry(index:index,location:location,item:cell.item,annotation:annotation)
@@ -166,7 +166,7 @@ class ControllerOfMap : UIViewController, MKMapViewDelegate
     }
     
     
-    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView?
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?
     {
 //        print("annotation: title \(annotation.title), subtitle \(annotation.subtitle)")
         

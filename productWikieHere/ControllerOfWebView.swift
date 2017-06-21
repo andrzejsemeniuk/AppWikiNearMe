@@ -14,7 +14,7 @@ class ControllerOfWebView : UIViewController, UIWebViewDelegate
 {
     var webview:UIWebView!
     
-    let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle:.White)
+    let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle:.white)
     
     override func viewDidLoad()
     {
@@ -38,7 +38,7 @@ class ControllerOfWebView : UIViewController, UIWebViewDelegate
 
         self.view               = webview
         
-        view.contentMode        = .ScaleAspectFit
+        view.contentMode        = .scaleAspectFit
         
         
         
@@ -52,7 +52,7 @@ class ControllerOfWebView : UIViewController, UIWebViewDelegate
             }
             
             items! += [
-                UIBarButtonItem(title:"Map", style:.Plain, target:self, action: #selector(ControllerOfWebView.openMap)),
+                UIBarButtonItem(title:"Map", style:.plain, target:self, action: #selector(ControllerOfWebView.openMap)),
             ]
             
             navigationItem.rightBarButtonItems = items
@@ -90,15 +90,15 @@ class ControllerOfWebView : UIViewController, UIWebViewDelegate
     
     
     
-    func load(url:String)
+    func load(_ url:String)
     {
         print("ControllerOfWebView: url=\(url)")
         
-        if let nsurl = NSURL(string:url)
+        if let nsurl = URL(string:url)
         {
             print("frame=\(view.frame)")
             
-            let nsurlrequest = NSURLRequest(URL:nsurl)
+            let nsurlrequest = URLRequest(url:nsurl)
 
             webview.loadRequest(nsurlrequest)
         }
@@ -107,7 +107,7 @@ class ControllerOfWebView : UIViewController, UIWebViewDelegate
     
     
     
-    func webViewDidStartLoad(webView: UIWebView)
+    func webViewDidStartLoad(_ webView: UIWebView)
     {
         // specify alpha to make activity indicator view transparent
         activityIndicator.backgroundColor   = UIColor(gray:0.1,alpha:0.35)
@@ -116,16 +116,16 @@ class ControllerOfWebView : UIViewController, UIWebViewDelegate
         // no need to set center if frame is set
 //        activityIndicator.center            = webview.center
 //        activityIndicator.alpha             = 0.33
-        activityIndicator.transform         = CGAffineTransformMakeScale(1.5,1.5)
+        activityIndicator.transform         = CGAffineTransform(scaleX: 1.5,y: 1.5)
         activityIndicator.startAnimating()
     }
     
-    func webViewDidFinishLoad(webView: UIWebView)
+    func webViewDidFinishLoad(_ webView: UIWebView)
     {
         activityIndicator.stopAnimating()
     }
     
-    func webView(webView: UIWebView, didFailLoadWithError:NSError?)
+    func webView(_ webView: UIWebView, didFailLoadWithError:Error)
     {
         activityIndicator.stopAnimating()
         
@@ -135,7 +135,7 @@ class ControllerOfWebView : UIViewController, UIWebViewDelegate
 
     
     
-    override func viewWillAppear(animated: Bool)
+    override func viewWillAppear(_ animated: Bool)
     {
         super.view?.backgroundColor = Data.Manager.settingsGetBackgroundColor()
 
