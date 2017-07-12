@@ -3,7 +3,7 @@
 //  productGroceries
 //
 //  Created by Andrzej Semeniuk on 3/25/16.
-//  Copyright © 2016 Tiny Game Factory LLC. All rights reserved.
+//  Copyright © 2017 Andrzej Semeniuk. All rights reserved.
 //
 
 import Foundation

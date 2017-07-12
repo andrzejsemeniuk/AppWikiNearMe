@@ -3,7 +3,7 @@
 //  productWikieHere
 //
 //  Created by andrzej semeniuk on 3/21/16.
-//  Copyright © 2016 Tiny Game Factory LLC. All rights reserved.
+//  Copyright © 2017 Andrzej Semeniuk. All rights reserved.
 //
 
 import Foundation
@@ -354,7 +354,7 @@ class ControllerOfList : UITableViewController
     }
     
     
-    override func numberOfSections   (in tableView: UITableView) -> Int
+    override func numberOfSections              (in tableView: UITableView) -> Int
     {
         return 1
     }
@@ -446,13 +446,13 @@ class ControllerOfList : UITableViewController
     {
         selectedIndex = indexPath.row
 
-        let cell    = cells[indexPath.row]
+        let cell = cells[indexPath.row]
         
-        let pageid  = cell.item["pageid"].rawString()
+        let pageid = cell.item["pageid"].rawString()
         
-        if 0 < (pageid?.length)!
+        if let pageid = pageid, 0 < pageid.length
         {
-            let url = "https://en.wikipedia.org/?curid=" + String(pageid!)
+            let url = "https://en.wikipedia.org/?curid=" + pageid
             //            let url = "https://www.amazon.com"
             
             let controller = ControllerOfWebView()
@@ -461,7 +461,7 @@ class ControllerOfList : UITableViewController
             
             self.navigationController?.pushViewController(controller, animated:true)
             
-            controller.load(url)
+            controller.load(url: url)
         }
     }
     

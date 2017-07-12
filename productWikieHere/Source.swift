@@ -3,7 +3,7 @@
 //  productWikieHere
 //
 //  Created by andrzej semeniuk on 3/21/16.
-//  Copyright © 2016 Tiny Game Factory LLC. All rights reserved.
+//  Copyright © 2017 Andrzej Semeniuk. All rights reserved.
 //
 
 import Foundation

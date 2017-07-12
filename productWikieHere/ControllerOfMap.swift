@@ -3,7 +3,7 @@
 //  productWikieHere
 //
 //  Created by andrzej semeniuk on 3/21/16.
-//  Copyright © 2016 Tiny Game Factory LLC. All rights reserved.
+//  Copyright © 2017 Andrzej Semeniuk. All rights reserved.
 //
 
 import Foundation
@@ -26,10 +26,11 @@ class ControllerOfMap : UIViewController, MKMapViewDelegate
         map.delegate                = self
         
         map.mapType                 = .standard
-        map.isZoomEnabled             = true
-        map.isScrollEnabled           = true
-        map.isPitchEnabled            = false
-        map.isRotateEnabled           = true
+        
+        map.isZoomEnabled           = true
+        map.isScrollEnabled         = true
+        map.isPitchEnabled          = false
+        map.isRotateEnabled         = true
         
         map.showsPointsOfInterest   = true
         map.showsBuildings          = true
@@ -124,13 +125,17 @@ class ControllerOfMap : UIViewController, MKMapViewDelegate
     {
         print("map view: view will appear")
         
+        // 1 remove any previously created annotations
+        
         for annotation in annotations {
             map.removeAnnotation(annotation.1.annotation)
         }
         
         annotations                         = [:]
         indexOfAnnotation                   = [:]
-            
+        
+        // 2 add annotations from list
+        
         var index = 1
         
         var annotationsToShow:[MKAnnotation] = []
@@ -156,8 +161,10 @@ class ControllerOfMap : UIViewController, MKMapViewDelegate
         }
         
         self.map.addAnnotations(annotationsToShow)
-        self.map.showAnnotations(annotationsToShow,animated:true)
+        // adding is not showing
+        self.map.showAnnotations(annotationsToShow, animated:true)
         
+        // 3 select annotation is a selection has been made on the list page
         if let selectedIndex = AppDelegate.controllerOfList.selectedIndex, let annotation = self.annotations[1+selectedIndex] {
             self.map.selectAnnotation(annotation.annotation, animated:true)
         }
@@ -166,6 +173,7 @@ class ControllerOfMap : UIViewController, MKMapViewDelegate
     }
     
     
+    // this method creates a view for each annotation on the map
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?
     {
 //        print("annotation: title \(annotation.title), subtitle \(annotation.subtitle)")

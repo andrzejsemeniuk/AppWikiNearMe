@@ -3,18 +3,20 @@
 //  productWikieHere
 //
 //  Created by Andrzej Semeniuk on 3/23/16.
-//  Copyright © 2016 Tiny Game Factory LLC. All rights reserved.
+//  Copyright © 2017 Andrzej Semeniuk. All rights reserved.
 //
 
 import Foundation
 import UIKit
 import QuartzCore
 
-class ControllerOfWebView : UIViewController, UIWebViewDelegate
+class ControllerOfWebView : UIViewController
 {
     var webview:UIWebView!
     
     let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle:.white)
+    
+    
     
     override func viewDidLoad()
     {
@@ -90,22 +92,36 @@ class ControllerOfWebView : UIViewController, UIWebViewDelegate
     
     
     
-    func load(_ url:String)
+    func load(url:String)
     {
         print("ControllerOfWebView: url=\(url)")
         
-        if let nsurl = URL(string:url)
+        if let url = URL(string:url)
         {
             print("frame=\(view.frame)")
             
-            let nsurlrequest = URLRequest(url:nsurl)
+            let request = URLRequest(url:url)
 
-            webview.loadRequest(nsurlrequest)
+            webview.loadRequest(request)
         }
     }
     
+
+
     
     
+    override func viewWillAppear(_ animated: Bool)
+    {
+        super.view?.backgroundColor = Data.Manager.settingsGetBackgroundColor()
+
+        super.viewWillAppear(animated)
+    }
+
+    
+    
+}
+
+extension ControllerOfWebView : UIWebViewDelegate {
     
     func webViewDidStartLoad(_ webView: UIWebView)
     {
@@ -114,8 +130,8 @@ class ControllerOfWebView : UIViewController, UIWebViewDelegate
         // use the frame of web view to reposition the indicator precisely
         activityIndicator.frame             = webView.frame //activityIndicator.superview?.frame
         // no need to set center if frame is set
-//        activityIndicator.center            = webview.center
-//        activityIndicator.alpha             = 0.33
+        //        activityIndicator.center            = webview.center
+        //        activityIndicator.alpha             = 0.33
         activityIndicator.transform         = CGAffineTransform(scaleX: 1.5,y: 1.5)
         activityIndicator.startAnimating()
     }
@@ -131,17 +147,5 @@ class ControllerOfWebView : UIViewController, UIWebViewDelegate
         
         print("webview: did fail load with error: \(didFailLoadWithError)")
     }
-    
 
-    
-    
-    override func viewWillAppear(_ animated: Bool)
-    {
-        super.view?.backgroundColor = Data.Manager.settingsGetBackgroundColor()
-
-        super.viewWillAppear(animated)
-    }
-
-    
-    
 }
